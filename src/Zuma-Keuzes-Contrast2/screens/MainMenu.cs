@@ -37,7 +37,6 @@ namespace ZumaKeuzesContrast2
 		{
 			base.ViewDidAppear (animated);
 
-			this.InterfaceOrientation = UIInterfaceOrientation.LandscapeLeft;
 		}
 
 		public override void ViewDidLoad ()
