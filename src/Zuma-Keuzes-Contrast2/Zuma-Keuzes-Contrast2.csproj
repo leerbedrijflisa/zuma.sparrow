@@ -119,12 +119,18 @@
     <Compile Include="screens\MainMenu.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="classes\Rotations.cs" />
+    <Compile Include="screens\ProfileMenu.cs" />
+    <Compile Include="screens\ProfileMenu.designer.cs">
+      <DependentUpon>ProfileMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="classes\RotationNavigationController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <InterfaceDefinition Include="screens\MainViewController2.xib" />
     <InterfaceDefinition Include="screens\MainViewController4.xib" />
     <InterfaceDefinition Include="screens\MainMenu.xib" />
+    <InterfaceDefinition Include="screens\ProfileMenu.xib" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\layer_transparent.png" />

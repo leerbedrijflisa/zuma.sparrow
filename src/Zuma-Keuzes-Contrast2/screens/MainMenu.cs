@@ -24,7 +24,21 @@ namespace ZumaKeuzesContrast2
 			// Release any cached data, images, etc that aren't in use.
 		}
 
+		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
+		{
+			return UIInterfaceOrientationMask.LandscapeLeft | UIInterfaceOrientationMask.LandscapeRight;
+		}
+			
+
 		MainViewController4 viewController;
+		ProfileMenu profileMenu;
+
+		public override void ViewDidAppear (bool animated)
+		{
+			base.ViewDidAppear (animated);
+
+			this.InterfaceOrientation = UIInterfaceOrientation.LandscapeLeft;
+		}
 
 		public override void ViewDidLoad ()
 		{
@@ -37,6 +51,14 @@ namespace ZumaKeuzesContrast2
 			btnSubtract.SetImage (UIImage.FromFile ("SubtractBTN.png"), UIControlState.Normal);
 
 			int Timer = 5;
+
+			btnChoiceProfile.TouchUpInside += (sender, e) => {
+				if (profileMenu == null) {
+					profileMenu = new ProfileMenu ();
+				}
+
+				NavigationController.PushViewController(profileMenu, false);
+			};						
 
 			LblTimer.Text = Timer.ToString();
 

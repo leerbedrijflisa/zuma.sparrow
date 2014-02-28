@@ -16,6 +16,9 @@ namespace ZumaKeuzesContrast2
 		MonoTouch.UIKit.UIButton btnAdd { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton btnChoiceProfile { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton btnGo { get; set; }
 
 		[Outlet]
@@ -32,9 +35,29 @@ namespace ZumaKeuzesContrast2
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (btnAdd != null) {
+				btnAdd.Dispose ();
+				btnAdd = null;
+			}
+
+			if (btnChoiceProfile != null) {
+				btnChoiceProfile.Dispose ();
+				btnChoiceProfile = null;
+			}
+
 			if (btnGo != null) {
 				btnGo.Dispose ();
 				btnGo = null;
+			}
+
+			if (btnSubtract != null) {
+				btnSubtract.Dispose ();
+				btnSubtract = null;
+			}
+
+			if (LblTimer != null) {
+				LblTimer.Dispose ();
+				LblTimer = null;
 			}
 
 			if (scChoice != null) {
@@ -47,19 +70,9 @@ namespace ZumaKeuzesContrast2
 				scSingleChoiceOptions = null;
 			}
 
-			if (btnAdd != null) {
-				btnAdd.Dispose ();
-				btnAdd = null;
-			}
-
-			if (btnSubtract != null) {
-				btnSubtract.Dispose ();
-				btnSubtract = null;
-			}
-
-			if (LblTimer != null) {
-				LblTimer.Dispose ();
-				LblTimer = null;
+			if (btnChoiceProfile != null) {
+				btnChoiceProfile.Dispose ();
+				btnChoiceProfile = null;
 			}
 		}
 	}
