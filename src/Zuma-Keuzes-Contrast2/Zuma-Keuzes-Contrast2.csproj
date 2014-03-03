@@ -124,6 +124,7 @@
       <DependentUpon>ProfileMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="classes\RotationNavigationController.cs" />
+    <Compile Include="classes\DatabaseRequests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

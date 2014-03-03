@@ -29,7 +29,6 @@ namespace ZumaKeuzesContrast2
 			// Release any cached data, images, etc that aren't in use.
 		}
 
-
 		UIButton btnChoice, btnChoiceLeft, btnChoiceRight;
 		UIImageView imvChoiceLeft, imvChoiceRight, imvLayerLeft, imvLayerRight;
 		UIImage leftImage, rightImage, filterImage, empty;
@@ -37,9 +36,10 @@ namespace ZumaKeuzesContrast2
 		Sound IChooseLeft = new Sound(), IChooseRight = new Sound();
 		MainMenu mainMenu;
 
-		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation;
+		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringFirst, stringSecond;
 		private int count, TimerSetting;
 		private object scFirst, scSecond, Timer;
+		public object[] MenuSettings;
 		private bool pushed = true, playingLeft = true, playingRight = true;
 
 		public override void ViewDidLoad ()
@@ -54,8 +54,14 @@ namespace ZumaKeuzesContrast2
 			ScreenReturnToMenu ();
 
 			//reads out the value of the scOption and TimerSettings
-			Read_Zuma_DB ();
+			DatabaseRequests.ReadMenuSettings ();
 
+			scFirst = MenuSettings [0];
+			scSecond = MenuSettings [1];
+			Timer = MenuSettings [2];
+
+			stringFirst = scFirst.ToString ();
+			stringSecond = scSecond.ToString ();
 			TimerSetting = Convert.ToInt32 (Timer);
 
 			//Select and create UIImages.
@@ -362,36 +368,6 @@ namespace ZumaKeuzesContrast2
 			if (pushed == false) {
 				NavigationController.PushViewController (mainMenu, false);
 				pushed = true;
-			}
-		}
-
-		public void Read_Zuma_DB()
-		{
-
-			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-			var pathToDatebase = Path.Combine (documents, "db_Zuma_Keuzes.db");
-			//SqliteConnection.CreateFile (pathToDatebase);
-
-			var connectionString = String.Format ("Data source={0};Version=3", pathToDatebase);
-			using (var conn = new SqliteConnection (connectionString)) {
-
-				conn.Open ();
-				string stm = "SELECT * FROM MenuOptions";
-
-				using (SqliteCommand cmd = new SqliteCommand(stm, conn))
-				{
-					using (SqliteDataReader rdr = cmd.ExecuteReader())
-					{
-						while (rdr.Read()) {
-							scFirst = rdr ["scFirst"];
-							scSecond = rdr["scSecond"];
-							Timer = rdr ["Timer"];
-
-						}
-					}
-
-				}
-
 			}
 		}
 
