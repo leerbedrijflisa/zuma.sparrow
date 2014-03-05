@@ -38,9 +38,8 @@ namespace ZumaKeuzesContrast2
 
 		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringFirst, stringSecond;
 		private int count, TimerSetting;
-		private object scFirst, scSecond, Timer;
-		public object[] MenuSettings;
 		private bool pushed = true, playingLeft = true, playingRight = true;
+		private object returnFirst, returnSecond, returnTimer;
 
 		public override void ViewDidLoad ()
 		{
@@ -54,15 +53,11 @@ namespace ZumaKeuzesContrast2
 			ScreenReturnToMenu ();
 
 			//reads out the value of the scOption and TimerSettings
-			DatabaseRequests.ReadMenuSettings ();
+			ReadMenuSettings ();
 
-			scFirst = MenuSettings [0];
-			scSecond = MenuSettings [1];
-			Timer = MenuSettings [2];
-
-			stringFirst = scFirst.ToString ();
-			stringSecond = scSecond.ToString ();
-			TimerSetting = Convert.ToInt32 (Timer);
+			stringFirst = returnFirst.ToString ();
+			stringSecond = returnSecond.ToString ();
+			TimerSetting = Convert.ToInt32 (returnTimer);
 
 			//Select and create UIImages.
 			selectLeftImage ();
@@ -71,11 +66,11 @@ namespace ZumaKeuzesContrast2
 			empty = UIImage.FromFile ("");
 
 			//selects and creates the button or buttons depending on what was chosen in MainMenu
-			if (scFirst.ToString() == "0") {
+			if (stringFirst == "0") {
 				btnChoice = UIButton.FromType (UIButtonType.RoundedRect);
 
 				View.AddSubview (btnChoice);
-			} else if (scFirst.ToString() == "1") {
+			} else if (stringFirst == "1") {
 				btnChoiceLeft = UIButton.FromType (UIButtonType.RoundedRect);
 				btnChoiceRight = UIButton.FromType (UIButtonType.RoundedRect);
 			
@@ -87,7 +82,7 @@ namespace ZumaKeuzesContrast2
 			PositionControls (InterfaceOrientation);
 
 			//If scFirst is "0" there will be one btn.
-			if (scFirst.ToString () == "0") {
+			if (stringFirst == "0") {
 
 				lowDifficultySwitchingChoices ();
 
@@ -125,7 +120,7 @@ namespace ZumaKeuzesContrast2
 			} 
 
 			//If scFirst is "1" the screen is split up in two buttons.
-			else if (scFirst.ToString () == "1") {
+			else if (stringFirst == "1") {
 
 
 				btnChoiceLeft.TouchUpInside += delegate {
@@ -226,7 +221,7 @@ namespace ZumaKeuzesContrast2
 
 		private void SelectBtnDifficulty()
 		{
-			if (scFirst.ToString () == "0") {
+			if (stringFirst == "0") {
 
 				if (FilterRotation == "landscape") {
 					btnChoice.Frame = new RectangleF (0, 0, 1024, 768);
@@ -234,7 +229,7 @@ namespace ZumaKeuzesContrast2
 					btnChoice.Frame = new RectangleF (0, 0, 768, 1024);
 				}
 
-			} else if (scFirst.ToString () == "1") {
+			} else if (stringFirst == "1") {
 			
 				if (FilterRotation == "landscape") {
 					btnChoiceLeft.Frame = new RectangleF (0, 0, 512, 768);
@@ -286,11 +281,11 @@ namespace ZumaKeuzesContrast2
 
 		private void selectLeftSound()
 		{
-			if(scSecond.ToString() == "0")
+			if(stringSecond == "0")
 			{
 				IChooseLeft.Play ("Left.mp3");
 			}
-			else if(scSecond.ToString() == "1")
+			else if(stringSecond == "1")
 			{
 				IChooseLeft.Play("Yes.mp3");
 			}
@@ -298,11 +293,11 @@ namespace ZumaKeuzesContrast2
 
 		private void selectRightSound()
 		{
-			if(scSecond.ToString() == "0")
+			if(stringSecond == "0")
 			{
 				IChooseLeft.Play ("Right.mp3");
 			}
-			else if(scSecond.ToString() == "1")
+			else if(stringSecond == "1")
 			{
 				IChooseLeft.Play("No.mp3");
 			}
@@ -310,11 +305,11 @@ namespace ZumaKeuzesContrast2
 
 		private void selectLeftImage()
 		{
-			if(scSecond.ToString() == "0")
+			if(stringSecond == "0")
 			{
 				leftImage = UIImage.FromFile ("LeftArrow2.png");
 			}
-			else if(scSecond.ToString() == "1")
+			else if(stringSecond == "1")
 			{
 				leftImage = UIImage.FromFile ("Yes.jpg");
 			}
@@ -323,11 +318,11 @@ namespace ZumaKeuzesContrast2
 
 		private void selectRightImage()
 		{
-			if(scSecond.ToString() == "0")
+			if(stringSecond == "0")
 			{
 				rightImage = UIImage.FromFile ("RightArrow2.png");
 			}
-			else if(scSecond.ToString() == "1")
+			else if(stringSecond == "1")
 			{
 				rightImage = UIImage.FromFile ("No.jpg");
 			}
@@ -355,8 +350,6 @@ namespace ZumaKeuzesContrast2
 				rightFilterDark ("On", FilterRotation);
 			}
 		}
-
-
 
 		private void PushView()
 		{
@@ -488,6 +481,32 @@ namespace ZumaKeuzesContrast2
 		{
 			if (imvImageCleared != null) {
 				imvImageCleared.Image = empty;
+			}
+		}
+
+		public void ReadMenuSettings()
+		{
+
+			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			var pathToDatebase = Path.Combine (documents, "db_Zuma_Keuzes.db");
+			//SqliteConnection.CreateFile (pathToDatebase);
+
+			var connectionString = String.Format ("Data source={0};Version=3", pathToDatebase);
+			using (var conn = new SqliteConnection (connectionString)) {
+
+				conn.Open ();
+				string stm = "SELECT * FROM MenuOptions";
+
+				using (SqliteCommand cmd = new SqliteCommand (stm, conn)) {
+					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
+						while (rdr.Read ()) {
+							returnFirst = rdr ["scFirst"];
+							returnSecond = rdr ["scSecond"];
+							returnTimer = rdr ["Timer"];
+
+						}
+					}
+				}
 			}
 		}
 
