@@ -9,7 +9,6 @@ using MonoTouch.Foundation;
 using MonoTouch.CoreImage;
 using MonoTouch.CoreGraphics;
 using MonoTouch.CoreMotion;
-//using Lisa.Zuma.Keuzes;
 using Lisa.Zuma;
 
 namespace ZumaKeuzesContrast2
@@ -62,7 +61,7 @@ namespace ZumaKeuzesContrast2
 			//Select and create UIImages.
 			selectLeftImage ();
 			selectRightImage ();
-			filterImage = UIImage.FromFile ("layer_transparent.png");
+			filterImage = UIImage.FromFile ("images/layer_transparent.png");
 			empty = UIImage.FromFile ("");
 
 			//selects and creates the button or buttons depending on what was chosen in MainMenu
@@ -283,11 +282,11 @@ namespace ZumaKeuzesContrast2
 		{
 			if(stringSecond == "0")
 			{
-				IChooseLeft.Play ("Left.mp3");
+				IChooseLeft.Play ("sound/Left.mp3");
 			}
 			else if(stringSecond == "1")
 			{
-				IChooseLeft.Play("Yes.mp3");
+				IChooseLeft.Play("sound/Yes.mp3");
 			}
 		}
 
@@ -295,11 +294,11 @@ namespace ZumaKeuzesContrast2
 		{
 			if(stringSecond == "0")
 			{
-				IChooseLeft.Play ("Right.mp3");
+				IChooseLeft.Play ("sounds/Right.mp3");
 			}
 			else if(stringSecond == "1")
 			{
-				IChooseLeft.Play("No.mp3");
+				IChooseLeft.Play("sounds/No.mp3");
 			}
 		}
 
@@ -307,11 +306,11 @@ namespace ZumaKeuzesContrast2
 		{
 			if(stringSecond == "0")
 			{
-				leftImage = UIImage.FromFile ("LeftArrow2.png");
+				leftImage = UIImage.FromFile ("images/LeftArrow2.png");
 			}
 			else if(stringSecond == "1")
 			{
-				leftImage = UIImage.FromFile ("Yes.jpg");
+				leftImage = UIImage.FromFile ("images/Yes.jpg");
 			}
 
 		}
@@ -320,11 +319,11 @@ namespace ZumaKeuzesContrast2
 		{
 			if(stringSecond == "0")
 			{
-				rightImage = UIImage.FromFile ("RightArrow2.png");
+				rightImage = UIImage.FromFile ("images/RightArrow2.png");
 			}
 			else if(stringSecond == "1")
 			{
-				rightImage = UIImage.FromFile ("No.jpg");
+				rightImage = UIImage.FromFile ("images/No.jpg");
 			}
 
 		}

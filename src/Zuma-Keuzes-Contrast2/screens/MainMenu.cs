@@ -45,9 +45,10 @@ namespace ZumaKeuzesContrast2
 
 			//Create's a db if there isn't one already with a table to handle the Menu segement button options
 			DatabaseRequests.CreateZumaSparrowDB ();
+			DatabaseRequests.StaticProfiles ();
 
-			btnAdd.SetImage (UIImage.FromFile ("AddBTN.png"), UIControlState.Normal);
-			btnSubtract.SetImage (UIImage.FromFile ("SubtractBTN.png"), UIControlState.Normal);
+			btnAdd.SetImage (UIImage.FromFile ("images/AddBTN.png"), UIControlState.Normal);
+			btnSubtract.SetImage (UIImage.FromFile ("images/SubtractBTN.png"), UIControlState.Normal);
 
 			int Timer = 5;
 
@@ -69,11 +70,11 @@ namespace ZumaKeuzesContrast2
 			btnSubtract.TouchUpInside += (sender, e) => {
 				if(Timer <= 1) 
 				{ 
-					btnSubtract.SetImage (UIImage.FromFile ("AddSubtractBTN.png"), UIControlState.Disabled);
+					btnSubtract.SetImage (UIImage.FromFile ("images/AddSubtractBTN.png"), UIControlState.Disabled);
 				} 
 				else 
 				{ 
-					btnSubtract.SetImage (UIImage.FromFile ("AddSubtractBTN.png"), UIControlState.Disabled);
+					btnSubtract.SetImage (UIImage.FromFile ("images/AddSubtractBTN.png"), UIControlState.Disabled);
 					Timer --;
 					LblTimer.Text = Timer.ToString();
 				}
