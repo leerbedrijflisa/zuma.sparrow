@@ -35,17 +35,17 @@ namespace ZumaKeuzesContrast2
 			return cell;
 		}
 
-		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
-		{
-
-			Console.WriteLine (indexPath.Item);
-			int selectedRow = indexPath.Item;
-
-			DatabaseRequests.SetSelectedRow (selectedRow);
-			// NOTE: Don't call the base implementation on a Model class
-			// see http://docs.xamarin.com/guides/ios/application_fundamentals/delegates,_protocols,_and_events
-			throw new NotImplementedException ();
-		}
+//		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+//		{
+//
+////			Console.WriteLine (indexPath.Item);
+////			int selectedRow = indexPath.Item;
+////
+////			DatabaseRequests.SetSelectedRow (selectedRow);
+//			// NOTE: Don't call the base implementation on a Model class
+//			// see http://docs.xamarin.com/guides/ios/application_fundamentals/delegates,_protocols,_and_events
+//			throw new NotImplementedException ();
+//		}
 
 	}
 }

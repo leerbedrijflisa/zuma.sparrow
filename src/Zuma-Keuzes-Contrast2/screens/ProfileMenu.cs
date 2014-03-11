@@ -48,6 +48,8 @@ namespace ZumaKeuzesContrast2
 
 			lisProfiles.Source = itemstable;
 
+			btnSaveProfile.Hidden = true;
+
 			btnSaveProfile.TouchUpInside += (sender, e) => {
 				if(mainMenu == null)
 				{

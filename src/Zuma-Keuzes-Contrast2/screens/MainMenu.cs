@@ -46,6 +46,7 @@ namespace ZumaKeuzesContrast2
 			//Create's a db if there isn't one already with a table to handle the Menu segement button options
 			DatabaseRequests.CreateZumaSparrowDB ();
 			DatabaseRequests.StaticProfiles ();
+			returnSelectedRow ();
 
 			btnAdd.SetImage (UIImage.FromFile ("images/AddBTN.png"), UIControlState.Normal);
 			btnSubtract.SetImage (UIImage.FromFile ("images/SubtractBTN.png"), UIControlState.Normal);
@@ -95,6 +96,29 @@ namespace ZumaKeuzesContrast2
 				NavigationController.PushViewController(viewController, false);
 
 			};
+		}
+
+		public void returnSelectedRow()
+		{
+			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
+
+			var connectionString = string.Format ("Data source={0};Version=3", pathToDatabase);
+			using (var conn = new SqliteConnection (connectionString)) 
+			{
+				conn.Open ();
+				string stm = "SELECT * FROM Profile";
+
+				using (SqliteCommand cmd = new SqliteCommand (stm, conn)) {
+					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
+						while (rdr.Read ()) {
+							object getSelectedRow = rdr ["selectedRow"];
+						}
+					}
+				}
+			}
+				
+
 		}
 
 		public override void ViewWillAppear (bool animated) {

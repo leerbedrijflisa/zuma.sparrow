@@ -282,11 +282,11 @@ namespace ZumaKeuzesContrast2
 		{
 			if(stringSecond == "0")
 			{
-				IChooseLeft.Play ("sound/Left.mp3");
+				IChooseLeft.Play ("sounds/Left.mp3");
 			}
 			else if(stringSecond == "1")
 			{
-				IChooseLeft.Play("sound/Yes.mp3");
+				IChooseLeft.Play("sounds/Yes.mp3");
 			}
 		}
 
