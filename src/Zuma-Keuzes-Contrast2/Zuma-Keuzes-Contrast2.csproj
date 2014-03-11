@@ -97,6 +97,8 @@
     <Folder Include="Resources\" />
     <Folder Include="screens\" />
     <Folder Include="classes\" />
+    <Folder Include="Resources\images\" />
+    <Folder Include="Resources\sounds\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -125,6 +127,7 @@
     </Compile>
     <Compile Include="classes\RotationNavigationController.cs" />
     <Compile Include="classes\DatabaseRequests.cs" />
+    <Compile Include="classes\TableSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -134,27 +137,27 @@
     <InterfaceDefinition Include="screens\ProfileMenu.xib" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\layer_transparent.png" />
-    <BundleResource Include="Resources\thirsty.mp3" />
-    <BundleResource Include="Resources\drink.mp3" />
-    <BundleResource Include="Resources\Test.mp3" />
-    <BundleResource Include="Resources\testvoice.mp3" />
-    <BundleResource Include="Resources\Eating.mp3" />
-    <BundleResource Include="Resources\hungry.mp3" />
-    <BundleResource Include="Resources\clouds.jpg" />
-    <BundleResource Include="Resources\No.jpg" />
-    <BundleResource Include="Resources\Yes.jpg" />
-    <BundleResource Include="Resources\LeftArrow.png" />
-    <BundleResource Include="Resources\RightArrow.png" />
-    <BundleResource Include="Resources\Left.mp3" />
-    <BundleResource Include="Resources\No.mp3" />
-    <BundleResource Include="Resources\Yes.mp3" />
-    <BundleResource Include="Resources\LeftArrow2.png" />
-    <BundleResource Include="Resources\RightArrow2.png" />
-    <BundleResource Include="Resources\Right.mp3" />
-    <BundleResource Include="Resources\AddBTN.png" />
-    <BundleResource Include="Resources\SubtractBTN.png" />
-    <BundleResource Include="Resources\AddBTN2.png" />
-    <BundleResource Include="Resources\SubtractBTN2.png" />
+    <BundleResource Include="Resources\images\AddBTN2.png" />
+    <BundleResource Include="Resources\images\AddBTN.png" />
+    <BundleResource Include="Resources\images\clouds.jpg" />
+    <BundleResource Include="Resources\images\layer_transparent.png" />
+    <BundleResource Include="Resources\images\LeftArrow.png" />
+    <BundleResource Include="Resources\images\LeftArrow2.png" />
+    <BundleResource Include="Resources\images\No.jpg" />
+    <BundleResource Include="Resources\images\RightArrow.png" />
+    <BundleResource Include="Resources\images\RightArrow2.png" />
+    <BundleResource Include="Resources\images\SubtractBTN.png" />
+    <BundleResource Include="Resources\images\SubtractBTN2.png" />
+    <BundleResource Include="Resources\images\Yes.jpg" />
+    <BundleResource Include="Resources\sounds\drink.mp3" />
+    <BundleResource Include="Resources\sounds\Eating.mp3" />
+    <BundleResource Include="Resources\sounds\hungry.mp3" />
+    <BundleResource Include="Resources\sounds\Left.mp3" />
+    <BundleResource Include="Resources\sounds\No.mp3" />
+    <BundleResource Include="Resources\sounds\Right.mp3" />
+    <BundleResource Include="Resources\sounds\Test.mp3" />
+    <BundleResource Include="Resources\sounds\testvoice.mp3" />
+    <BundleResource Include="Resources\sounds\thirsty.mp3" />
+    <BundleResource Include="Resources\sounds\Yes.mp3" />
   </ItemGroup>
 </Project>

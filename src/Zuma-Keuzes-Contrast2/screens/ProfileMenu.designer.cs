@@ -13,6 +13,9 @@ namespace ZumaKeuzesContrast2
 	partial class ProfileMenu
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIButton btnSaveProfile { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITableView lisProfiles { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -20,6 +23,11 @@ namespace ZumaKeuzesContrast2
 			if (lisProfiles != null) {
 				lisProfiles.Dispose ();
 				lisProfiles = null;
+			}
+
+			if (btnSaveProfile != null) {
+				btnSaveProfile.Dispose ();
+				btnSaveProfile = null;
 			}
 		}
 	}
