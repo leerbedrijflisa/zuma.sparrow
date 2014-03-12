@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ZumaKeuzesContrast2</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>ZumaKeuzesContrast2</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchDebug>true</MtouchDebug>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchLink>None</MtouchLink>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchLink>Full</MtouchLink>
+    <MtouchI18n>
+    </MtouchI18n>
+    <MtouchArch>ARMv7</MtouchArch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <BuildIpa>true</BuildIpa>
+    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\AppStore</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <ConsolePause>false</ConsolePause>
+    <CodesignProvision>Automatic:AppStore</CodesignProvision>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+    <Reference Include="System.Data" />
+    <Reference Include="Mono.Data.Sqlite" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="screens\" />
+    <Folder Include="classes\" />
+    <Folder Include="Resources\images\" />
+    <Folder Include="Resources\sounds\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="screens\MainViewController2.cs" />
+    <Compile Include="screens\MainViewController2.designer.cs">
+      <DependentUpon>MainViewController2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="classes\Sound.cs" />
+    <Compile Include="screens\MainViewController4.cs" />
+    <Compile Include="screens\MainViewController4.designer.cs">
+      <DependentUpon>MainViewController4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="screens\MainMenu.designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="screens\MainMenu.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="classes\Rotations.cs" />
+    <Compile Include="screens\ProfileMenu.cs" />
+    <Compile Include="screens\ProfileMenu.designer.cs">
+      <DependentUpon>ProfileMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="classes\RotationNavigationController.cs" />
+    <Compile Include="classes\DatabaseRequests.cs" />
+    <Compile Include="classes\TableSource.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <InterfaceDefinition Include="screens\MainViewController2.xib" />
+    <InterfaceDefinition Include="screens\MainViewController4.xib" />
+    <InterfaceDefinition Include="screens\MainMenu.xib" />
+    <InterfaceDefinition Include="screens\ProfileMenu.xib" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\images\AddBTN2.png" />
+    <BundleResource Include="Resources\images\AddBTN.png" />
+    <BundleResource Include="Resources\images\clouds.jpg" />
+    <BundleResource Include="Resources\images\layer_transparent.png" />
+    <BundleResource Include="Resources\images\LeftArrow.png" />
+    <BundleResource Include="Resources\images\LeftArrow2.png" />
+    <BundleResource Include="Resources\images\No.jpg" />
+    <BundleResource Include="Resources\images\RightArrow.png" />
+    <BundleResource Include="Resources\images\RightArrow2.png" />
+    <BundleResource Include="Resources\images\SubtractBTN.png" />
+    <BundleResource Include="Resources\images\SubtractBTN2.png" />
+    <BundleResource Include="Resources\images\Yes.jpg" />
+    <BundleResource Include="Resources\sounds\drink.mp3" />
+    <BundleResource Include="Resources\sounds\Eating.mp3" />
+    <BundleResource Include="Resources\sounds\hungry.mp3" />
+    <BundleResource Include="Resources\sounds\Left.mp3" />
+    <BundleResource Include="Resources\sounds\No.mp3" />
+    <BundleResource Include="Resources\sounds\Right.mp3" />
+    <BundleResource Include="Resources\sounds\Test.mp3" />
+    <BundleResource Include="Resources\sounds\testvoice.mp3" />
+    <BundleResource Include="Resources\sounds\thirsty.mp3" />
+    <BundleResource Include="Resources\sounds\Yes.mp3" />
+  </ItemGroup>
+</Project>

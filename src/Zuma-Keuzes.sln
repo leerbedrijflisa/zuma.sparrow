@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zuma-Keuzes", "Zuma-Keuzes\Zuma-Keuzes.csproj", "{BD2D64FE-A016-4058-A65A-085044E6DADE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zuma-Keuzes-Contrast2", "Zuma-Keuzes-Contrast2\Zuma-Keuzes-Contrast2.csproj", "{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zuma-Keuzes-Static-Image", "Zuma-Keuzes-Static-Image\Zuma-Keuzes-Static-Image.csproj", "{3BB9FE8C-500A-476E-95E4-F49A5028A9E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+		Release|iPhone = Release|iPhone
+		Ad-Hoc|iPhone = Ad-Hoc|iPhone
+		AppStore|iPhone = AppStore|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BB9FE8C-500A-476E-95E4-F49A5028A9E8}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{3BB9FE8C-500A-476E-95E4-F49A5028A9E8}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{3BB9FE8C-500A-476E-95E4-F49A5028A9E8}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{3BB9FE8C-500A-476E-95E4-F49A5028A9E8}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{3BB9FE8C-500A-476E-95E4-F49A5028A9E8}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{3BB9FE8C-500A-476E-95E4-F49A5028A9E8}.Debug|iPhone.Build.0 = Debug|iPhone
+		{3BB9FE8C-500A-476E-95E4-F49A5028A9E8}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{3BB9FE8C-500A-476E-95E4-F49A5028A9E8}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{3BB9FE8C-500A-476E-95E4-F49A5028A9E8}.Release|iPhone.ActiveCfg = Release|iPhone
+		{3BB9FE8C-500A-476E-95E4-F49A5028A9E8}.Release|iPhone.Build.0 = Release|iPhone
+		{3BB9FE8C-500A-476E-95E4-F49A5028A9E8}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{3BB9FE8C-500A-476E-95E4-F49A5028A9E8}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Debug|iPhone.Build.0 = Debug|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Release|iPhone.ActiveCfg = Release|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Release|iPhone.Build.0 = Release|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{BD2D64FE-A016-4058-A65A-085044E6DADE}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{BD2D64FE-A016-4058-A65A-085044E6DADE}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{BD2D64FE-A016-4058-A65A-085044E6DADE}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{BD2D64FE-A016-4058-A65A-085044E6DADE}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{BD2D64FE-A016-4058-A65A-085044E6DADE}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{BD2D64FE-A016-4058-A65A-085044E6DADE}.Debug|iPhone.Build.0 = Debug|iPhone
+		{BD2D64FE-A016-4058-A65A-085044E6DADE}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{BD2D64FE-A016-4058-A65A-085044E6DADE}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{BD2D64FE-A016-4058-A65A-085044E6DADE}.Release|iPhone.ActiveCfg = Release|iPhone
+		{BD2D64FE-A016-4058-A65A-085044E6DADE}.Release|iPhone.Build.0 = Release|iPhone
+		{BD2D64FE-A016-4058-A65A-085044E6DADE}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{BD2D64FE-A016-4058-A65A-085044E6DADE}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Zuma-Keuzes-Contrast2\Zuma-Keuzes-Contrast2.csproj
+	EndGlobalSection
+EndGlobal
