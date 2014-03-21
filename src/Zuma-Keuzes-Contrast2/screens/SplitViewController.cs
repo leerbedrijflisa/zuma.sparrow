@@ -5,25 +5,31 @@ using MonoTouch.UIKit;
 
 namespace ZumaKeuzesContrast2
 {
-	public partial class SplitViewController : UIViewController
+	public class SplitViewContoller : UISplitViewController
 	{
-		public SplitViewController () : base ("SplitViewController", null)
-		{
-		}
+		UIViewController masterView, detailView;
 
-		public override void DidReceiveMemoryWarning ()
+		public SplitViewContoller () : base()
 		{
-			// Releases the view if it doesn't have a superview.
-			base.DidReceiveMemoryWarning ();
-			
-			// Release any cached data, images, etc that aren't in use.
-		}
+			// create our master and detail views
+			masterView = new MasterViewController ();
+			detailView = new DetailViewController ();
 
-		public override void ViewDidLoad ()
+			// create an array of controllers from them and then assign it to the 
+			// controllers property
+			ViewControllers = new UIViewController[] 
+			{ masterView, detailView }; // order is important: master first, detail second
+
+			#region Additional Information
+			// for iOS5 only, we can force the master view to ALWAYS be visible, even in portrait
+			//			ShouldHideViewController = (svc, viewController, inOrientation) => {
+			//				return false; // default behaviour is true
+			//			};
+			#endregion
+		}
+		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
 		{
-			base.ViewDidLoad ();
-			
-			// Perform any additional setup after loading the view, typically from a nib.
+			return true;
 		}
 	}
 }

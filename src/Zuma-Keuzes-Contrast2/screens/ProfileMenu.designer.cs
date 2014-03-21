@@ -17,17 +17,25 @@ namespace ZumaKeuzesContrast2
 
 		[Outlet]
 		MonoTouch.UIKit.UITableView lisProfiles { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIView vwDetial { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (btnSaveProfile != null) {
+				btnSaveProfile.Dispose ();
+				btnSaveProfile = null;
+			}
+
 			if (lisProfiles != null) {
 				lisProfiles.Dispose ();
 				lisProfiles = null;
 			}
 
-			if (btnSaveProfile != null) {
-				btnSaveProfile.Dispose ();
-				btnSaveProfile = null;
+			if (vwDetial != null) {
+				vwDetial.Dispose ();
+				vwDetial = null;
 			}
 		}
 	}

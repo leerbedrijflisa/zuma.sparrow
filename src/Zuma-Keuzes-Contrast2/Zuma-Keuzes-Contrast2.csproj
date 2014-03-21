@@ -92,6 +92,7 @@
     <Reference Include="monotouch" />
     <Reference Include="System.Data" />
     <Reference Include="Mono.Data.Sqlite" />
+    <Reference Include="MonoTouch.Dialog-1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -128,6 +129,18 @@
     <Compile Include="classes\RotationNavigationController.cs" />
     <Compile Include="classes\DatabaseRequests.cs" />
     <Compile Include="classes\TableSource.cs" />
+    <Compile Include="screens\MasterViewController.cs" />
+    <Compile Include="screens\MasterViewController.designer.cs">
+      <DependentUpon>MasterViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="screens\DetailViewController.cs" />
+    <Compile Include="screens\DetailViewController.designer.cs">
+      <DependentUpon>DetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="screens\SplitViewController.cs" />
+    <Compile Include="screens\SplitViewController.designer.cs">
+      <DependentUpon>SplitViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -135,6 +148,10 @@
     <InterfaceDefinition Include="screens\MainViewController4.xib" />
     <InterfaceDefinition Include="screens\MainMenu.xib" />
     <InterfaceDefinition Include="screens\ProfileMenu.xib" />
+    <InterfaceDefinition Include="screens\MasterViewController.xib" />
+    <InterfaceDefinition Include="screens\DetailViewController.xib" />
+    <InterfaceDefinition Include="TestViewController.xib" />
+    <InterfaceDefinition Include="screens\SplitViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\images\AddBTN2.png" />

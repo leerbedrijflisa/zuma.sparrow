@@ -24,6 +24,8 @@ namespace ZumaKeuzesContrast2
 			base.ViewDidLoad ();
 			
 			// Perform any additional setup after loading the view, typically from a nib.
+
+			vwView.Add (new ProfileMenu ().View);
 		}
 	}
 }
