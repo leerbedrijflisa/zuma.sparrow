@@ -35,6 +35,7 @@ namespace Lisa.Zuma.Keuzes
 		/// When the device rotates, the OS calls this method to determine if it should try and rotate the
 		/// application and then call WillAnimateRotation
 		/// </summary>
+		[Obsolete]
 		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
 		{
 			// we're passed to orientation that it will rotate to. in our case, we could

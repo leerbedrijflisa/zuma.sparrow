@@ -10,10 +10,17 @@ using System.Collections.Generic;
 
 namespace ZumaKeuzesContrast2
 {
-	public partial class ProfileMenu : UIViewController
+	public partial class ProfileMenu : UISplitViewController
 	{
-		public ProfileMenu () : base ("ProfileMenu", null)
+		UIViewController masterProfileMenuView, detailProfileMenuView;
+
+		public ProfileMenu () : base ()
 		{
+			masterProfileMenuView = new MasterViewController ();
+			detailProfileMenuView = new DetailViewController ();
+
+			ViewControllers = new UIViewController[] 
+			{ masterProfileMenuView, detailProfileMenuView };
 		}
 			
 		string name;
@@ -31,11 +38,6 @@ namespace ZumaKeuzesContrast2
 			// Release any cached data, images, etc that aren't in use.
 		}
 
-		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
-		{
-			return UIInterfaceOrientationMask.LandscapeLeft | UIInterfaceOrientationMask.LandscapeRight;
-		}
-
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
@@ -46,7 +48,8 @@ namespace ZumaKeuzesContrast2
 
 			itemstable = new TableSource (items);
 
-			lisProfiles.Source = itemstable;
+			//lisProfiles.Source = itemstable;
+//			vwDetial.Add (detailProfileMenuView);
 
 			btnSaveProfile.Hidden = true;
 

@@ -9,7 +9,7 @@ namespace ZumaKeuzesContrast2
 	public class DatabaseRequests
 	{
 
-		public static void CreateZumaSparrowDB()
+		public static void CreateDatabase()
 		{
 
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
@@ -63,7 +63,7 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public static void StaticProfiles()
+		public static void CreateDefaultProfiles()
 		{
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
