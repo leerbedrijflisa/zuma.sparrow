@@ -13,13 +13,13 @@ namespace ZumaKeuzesContrast2
 	partial class MasterViewController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UITableView tblProfiles { get; set; }
+		MonoTouch.UIKit.UITableView tblProfileList { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (tblProfiles != null) {
-				tblProfiles.Dispose ();
-				tblProfiles = null;
+			if (tblProfileList != null) {
+				tblProfileList.Dispose ();
+				tblProfileList = null;
 			}
 		}
 	}

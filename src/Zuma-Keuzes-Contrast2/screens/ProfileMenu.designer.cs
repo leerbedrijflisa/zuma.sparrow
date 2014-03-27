@@ -19,7 +19,13 @@ namespace ZumaKeuzesContrast2
 		MonoTouch.UIKit.UITableView lisProfiles { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIView vwDetail { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIView vwDetial { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIView vwMaster { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -36,6 +42,16 @@ namespace ZumaKeuzesContrast2
 			if (vwDetial != null) {
 				vwDetial.Dispose ();
 				vwDetial = null;
+			}
+
+			if (vwMaster != null) {
+				vwMaster.Dispose ();
+				vwMaster = null;
+			}
+
+			if (vwDetail != null) {
+				vwDetail.Dispose ();
+				vwDetail = null;
 			}
 		}
 	}

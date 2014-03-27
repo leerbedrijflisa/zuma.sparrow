@@ -107,10 +107,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
-    <Compile Include="screens\MainViewController2.cs" />
-    <Compile Include="screens\MainViewController2.designer.cs">
-      <DependentUpon>MainViewController2.cs</DependentUpon>
-    </Compile>
     <Compile Include="classes\Sound.cs" />
     <Compile Include="screens\MainViewController4.cs" />
     <Compile Include="screens\MainViewController4.designer.cs">
@@ -137,14 +133,9 @@
     <Compile Include="screens\DetailViewController.designer.cs">
       <DependentUpon>DetailViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="screens\SplitViewController.cs" />
-    <Compile Include="screens\SplitViewController.designer.cs">
-      <DependentUpon>SplitViewController.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <InterfaceDefinition Include="screens\MainViewController2.xib" />
     <InterfaceDefinition Include="screens\MainViewController4.xib" />
     <InterfaceDefinition Include="screens\MainMenu.xib" />
     <InterfaceDefinition Include="screens\ProfileMenu.xib" />
