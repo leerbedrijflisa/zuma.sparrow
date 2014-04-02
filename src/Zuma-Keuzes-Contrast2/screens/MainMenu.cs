@@ -51,6 +51,11 @@ namespace ZumaKeuzesContrast2
 			this.NavigationController.SetNavigationBarHidden (false, animated);
 		}
 
+		public override bool PrefersStatusBarHidden ()
+		{
+			return true;
+		}
+
 		private void InitializeUI()
 		{
 			btnAdd.SetImage (UIImage.FromFile ("images/AddBTN.png"), UIControlState.Normal);
@@ -62,6 +67,8 @@ namespace ZumaKeuzesContrast2
 			if (profileMenu == null) {
 				profileMenu = new ProfileMenu ();
 			}
+
+			NavigationController.PushViewController (profileMenu, false);
 		}
 
 		private void PushMainMenu(object sender, EventArgs args)

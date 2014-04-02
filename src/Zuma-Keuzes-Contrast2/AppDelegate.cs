@@ -14,7 +14,6 @@ namespace ZumaKeuzesContrast2
 	{
 		// class-level declarations
 		UIWindow window;
-		SplitViewContoller splitView;
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
@@ -29,8 +28,6 @@ namespace ZumaKeuzesContrast2
 
 			this.window.RootViewController = rootNavigationController;
 
-//			splitView = new SplitViewContoller ();
-//			window.RootViewController = splitView;
 			// make the window visible
 			window.MakeKeyAndVisible ();
 			

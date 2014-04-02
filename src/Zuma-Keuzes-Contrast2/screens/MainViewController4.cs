@@ -422,6 +422,11 @@ namespace ZumaKeuzesContrast2
 			PositionControls (toInterfaceOrientation);
 		}
 
+		public override bool PrefersStatusBarHidden ()
+		{
+			return true;
+		}
+
 		/// <summary>
 		/// A helper method to position the controls appropriately, based on the 
 		/// orientation

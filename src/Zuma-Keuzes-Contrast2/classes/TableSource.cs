@@ -15,9 +15,10 @@ namespace ZumaKeuzesContrast2
 		string[] tableItems;
 		string cellIdentifier = "TableCell";
 
-		public TableSource (string[] items)
+		public TableSource (string[] items, DetailViewController detailProfileMenu)
 		{
 			tableItems = items;
+			this.detailProfileMenu = detailProfileMenu;
 		}
 
 		public override int RowsInSection (UITableView tableview, int section)
@@ -35,17 +36,16 @@ namespace ZumaKeuzesContrast2
 			return cell;
 		}
 
-//		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
-//		{
-//
-////			Console.WriteLine (indexPath.Item);
-////			int selectedRow = indexPath.Item;
-////
-////			DatabaseRequests.SetSelectedRow (selectedRow);
-//			// NOTE: Don't call the base implementation on a Model class
-//			// see http://docs.xamarin.com/guides/ios/application_fundamentals/delegates,_protocols,_and_events
+		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+		{
+			detailProfileMenu.DoSomethingInteresting (indexPath.Row);
+
+			// NOTE: Don't call the base implementation on a Model class
+			// see http://docs.xamarin.com/guides/ios/application_fundamentals/delegates,_protocols,_and_events
 //			throw new NotImplementedException ();
-//		}
+		}
+
+		private DetailViewController detailProfileMenu;
 
 	}
 }
