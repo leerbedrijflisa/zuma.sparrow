@@ -12,8 +12,9 @@ namespace ZumaKeuzesContrast2
 {
 	public partial class MasterViewController : UIViewController
 	{
-		public MasterViewController () : base ()
+		public MasterViewController (DetailViewController detailProfileMenu) : base ()
 		{
+			this.detailProfileMenu = detailProfileMenu;
 		}
 
 		string name;
@@ -30,10 +31,15 @@ namespace ZumaKeuzesContrast2
 
 			items = ProfileNames.ToArray ();
 
-			itemstable = new TableSource (items);
+			itemstable = new TableSource (items, detailProfileMenu);
 
 			tblProfileList.Source = itemstable;
+
+			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
+
 		}
+
+
 
 		public void ReadMenuSettings()
 		{
@@ -58,6 +64,8 @@ namespace ZumaKeuzesContrast2
 				}
 			}
 		}
+
+		private DetailViewController detailProfileMenu;
 	}
 }
 

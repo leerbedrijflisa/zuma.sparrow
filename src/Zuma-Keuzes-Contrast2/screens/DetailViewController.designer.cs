@@ -31,18 +31,27 @@ namespace ZumaKeuzesContrast2
 		MonoTouch.UIKit.UIButton btnSetRightSnd { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIImageView imvHidEverything { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIImageView imvLeft { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView imvRight { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIView vwHidden { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (imvLeft != null) {
-				imvLeft.Dispose ();
-				imvLeft = null;
-			}
-
 			if (btnRight != null) {
 				btnRight.Dispose ();
 				btnRight = null;
+			}
+
+			if (btnSaveProfile != null) {
+				btnSaveProfile.Dispose ();
+				btnSaveProfile = null;
 			}
 
 			if (btnSetLeftImage != null) {
@@ -50,14 +59,14 @@ namespace ZumaKeuzesContrast2
 				btnSetLeftImage = null;
 			}
 
-			if (btnSetRightImage != null) {
-				btnSetRightImage.Dispose ();
-				btnSetRightImage = null;
-			}
-
 			if (btnSetLeftSnd != null) {
 				btnSetLeftSnd.Dispose ();
 				btnSetLeftSnd = null;
+			}
+
+			if (btnSetRightImage != null) {
+				btnSetRightImage.Dispose ();
+				btnSetRightImage = null;
 			}
 
 			if (btnSetRightSnd != null) {
@@ -65,9 +74,24 @@ namespace ZumaKeuzesContrast2
 				btnSetRightSnd = null;
 			}
 
-			if (btnSaveProfile != null) {
-				btnSaveProfile.Dispose ();
-				btnSaveProfile = null;
+			if (imvHidEverything != null) {
+				imvHidEverything.Dispose ();
+				imvHidEverything = null;
+			}
+
+			if (imvLeft != null) {
+				imvLeft.Dispose ();
+				imvLeft = null;
+			}
+
+			if (imvRight != null) {
+				imvRight.Dispose ();
+				imvRight = null;
+			}
+
+			if (vwHidden != null) {
+				vwHidden.Dispose ();
+				vwHidden = null;
 			}
 		}
 	}

@@ -133,6 +133,8 @@
     <Compile Include="screens\DetailViewController.designer.cs">
       <DependentUpon>DetailViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="classes\sendData.cs" />
+    <Compile Include="classes\QueryProfile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -142,18 +144,13 @@
     <InterfaceDefinition Include="screens\MasterViewController.xib" />
     <InterfaceDefinition Include="screens\DetailViewController.xib" />
     <InterfaceDefinition Include="TestViewController.xib" />
-    <InterfaceDefinition Include="screens\SplitViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\images\AddBTN2.png" />
     <BundleResource Include="Resources\images\AddBTN.png" />
     <BundleResource Include="Resources\images\clouds.jpg" />
     <BundleResource Include="Resources\images\layer_transparent.png" />
-    <BundleResource Include="Resources\images\LeftArrow.png" />
-    <BundleResource Include="Resources\images\LeftArrow2.png" />
     <BundleResource Include="Resources\images\No.jpg" />
-    <BundleResource Include="Resources\images\RightArrow.png" />
-    <BundleResource Include="Resources\images\RightArrow2.png" />
     <BundleResource Include="Resources\images\SubtractBTN.png" />
     <BundleResource Include="Resources\images\SubtractBTN2.png" />
     <BundleResource Include="Resources\images\Yes.jpg" />
@@ -167,5 +164,7 @@
     <BundleResource Include="Resources\sounds\testvoice.mp3" />
     <BundleResource Include="Resources\sounds\thirsty.mp3" />
     <BundleResource Include="Resources\sounds\Yes.mp3" />
+    <BundleResource Include="Resources\images\RightArrow2.png" />
+    <BundleResource Include="Resources\images\LeftArrow2.png" />
   </ItemGroup>
 </Project>

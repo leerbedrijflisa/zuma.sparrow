@@ -9,6 +9,10 @@ namespace ZumaKeuzesContrast2
 	public class DatabaseRequests
 	{
 
+		public DatabaseRequests ()
+		{
+		}
+
 		public static void CreateDatabase()
 		{
 
@@ -22,7 +26,7 @@ namespace ZumaKeuzesContrast2
 				conn.Open ();
 				using (var cmd = conn.CreateCommand ()) {
 
-					cmd.CommandText = "CREATE TABLE MenuOptions (MenuOptionsID INTEGER PRIMARY KEY AUTOINCREMENT, scFirst INTEGER, scSecond INTEGER, Timer INTERGER);";
+					cmd.CommandText = "CREATE TABLE MenuOptions (MenuOptionsID INTEGER PRIMARY KEY AUTOINCREMENT, scFirst INTEGER, scSecond INTEGER, Timer INTERGER, StoredProfile INTERGER);";
 					cmd.CommandType = CommandType.Text;
 					cmd.ExecuteNonQuery ();
 				}
@@ -74,13 +78,13 @@ namespace ZumaKeuzesContrast2
 				conn.Open ();
 				using (var cmd = conn.CreateCommand ()) 
 				{
-					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Links/Rechts', 'images/LeftArrow.png', 'images/RightArrow.png', 'sounds/Left.mp3', 'sounds/Right.mp3')";
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Links/Rechts', 'images/LeftArrow2.png', 'images/RightArrow2.png', 'sounds/Left.mp3', 'sounds/Right.mp3')";
 					cmd.ExecuteNonQuery ();
 				}
 
 				using (var cmd = conn.CreateCommand ()) 
 				{
-					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Ja/Nee', 'images/Yes.jpeg', 'images/No.jpg', 'sounds/Yes.mp3', 'sounds/No.mp3')";
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Ja/Nee', 'images/Yes.jpg', 'images/No.jpg', 'sounds/Yes.mp3', 'sounds/No.mp3')";
 					cmd.ExecuteNonQuery ();
 				}
 			}
@@ -105,11 +109,5 @@ namespace ZumaKeuzesContrast2
 				}
 			}
 		}
-
-
-
 	}
-
 }
-
-

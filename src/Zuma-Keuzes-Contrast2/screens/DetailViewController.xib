@@ -13,54 +13,56 @@
                 <outlet property="btnSetRightImage" destination="noM-C5-lIW" id="Gy1-Dd-ug0"/>
                 <outlet property="btnSetRightSnd" destination="NgL-de-aNj" id="Rsv-WM-qa1"/>
                 <outlet property="imvLeft" destination="yMq-5T-HLi" id="jqd-5U-YhW"/>
+                <outlet property="imvRight" destination="6eS-u0-NYK" id="DHt-Hv-rmD"/>
                 <outlet property="view" destination="2" id="3"/>
+                <outlet property="vwHidden" destination="vlB-3P-ikE" id="kQc-rG-732"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="2">
-            <rect key="frame" x="0.0" y="0.0" width="845" height="571"/>
+            <rect key="frame" x="0.0" y="0.0" width="826" height="571"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="yMq-5T-HLi">
-                    <rect key="frame" x="6" y="55" width="406" height="331"/>
+                    <rect key="frame" x="20" y="65" width="380" height="312"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="6eS-u0-NYK">
-                    <rect key="frame" x="430" y="55" width="406" height="331"/>
+                    <rect key="frame" x="426" y="65" width="380" height="312"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mhg-01-wPb">
-                    <rect key="frame" x="355" y="521" width="134" height="30"/>
+                    <rect key="frame" x="346" y="480" width="134" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Profiel Opslaan">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rZn-JS-ZkR">
-                    <rect key="frame" x="91" y="413" width="172" height="30"/>
+                    <rect key="frame" x="106" y="413" width="172" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Button">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NgL-de-aNj">
-                    <rect key="frame" x="553" y="413" width="186" height="30"/>
+                    <rect key="frame" x="548" y="413" width="186" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Button">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4xu-3e-cQ3">
-                    <rect key="frame" x="6" y="55" width="396" height="331"/>
+                    <rect key="frame" x="20" y="65" width="380" height="312"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button">
+                    <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="noM-C5-lIW">
-                    <rect key="frame" x="439" y="55" width="406" height="329"/>
+                    <rect key="frame" x="426" y="65" width="380" height="312"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button">
+                    <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
@@ -68,6 +70,16 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+        <view contentMode="scaleToFill" id="Pad-La-y4U">
+            <rect key="frame" x="0.0" y="0.0" width="852" height="571"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+        </view>
+        <view contentMode="scaleToFill" id="vlB-3P-ikE">
+            <rect key="frame" x="0.0" y="0.0" width="826" height="571"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
         </view>
     </objects>
 </document>

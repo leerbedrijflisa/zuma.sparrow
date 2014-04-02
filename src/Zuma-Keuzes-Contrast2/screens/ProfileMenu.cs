@@ -12,35 +12,24 @@ namespace ZumaKeuzesContrast2
 {
 	public partial class ProfileMenu : UIViewController
 	{
-		UIViewController masterProfileMenu, detailProfileMenu;
+		UIViewController masterProfileMenu;
+		DetailViewController detailProfileMenu;
+//		QueryProfile queryProfile;
 
 		public ProfileMenu () : base ()
 		{
-		}
-			
-		string name;
-		object returnFirst;
-		List<string> ProfileNames = new List<string> ();
-		string[] items;
-		TableSource itemstable;
-		MainMenu mainMenu;
-
-		public override void DidReceiveMemoryWarning ()
-		{
-			base.DidReceiveMemoryWarning ();
 		}
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 
-			masterProfileMenu = new MasterViewController ();
+//			queryProfile = new QueryProfile ();
 			detailProfileMenu = new DetailViewController ();
+			masterProfileMenu = new MasterViewController (detailProfileMenu);
 
 			vwDetail.Add (detailProfileMenu.View);
 			vwMaster.Add (masterProfileMenu.View);
-
-			vwDetail.Hidden = true;
 
 		}
 
@@ -58,7 +47,6 @@ namespace ZumaKeuzesContrast2
 		{
 			return true;
 		}
-
 
 	}
 }
