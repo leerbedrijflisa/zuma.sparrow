@@ -26,7 +26,7 @@ namespace ZumaKeuzesContrast2
 				conn.Open ();
 				using (var cmd = conn.CreateCommand ()) {
 
-					cmd.CommandText = "CREATE TABLE MenuOptions (MenuOptionsID INTEGER PRIMARY KEY AUTOINCREMENT, scFirst INTEGER, scSecond INTEGER, Timer INTERGER, StoredProfile INTERGER);";
+					cmd.CommandText = "CREATE TABLE MenuOptions (MenuOptionsID INTEGER PRIMARY KEY AUTOINCREMENT, scFirst INTEGER, scSecond INTEGER, clickTimer INTERGER, darkTimer INTERGER, storedProfile VARCHAR(255));";
 					cmd.CommandType = CommandType.Text;
 					cmd.ExecuteNonQuery ();
 				}
@@ -41,11 +41,13 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public static void StoreMenuSettings(int scFirst, int scSecond, int Timer)
+		public static void StoreMenuSettings(int scFirst, int scSecond, int clickTimer, int darkTimer, string storedProfile)
 		{
 			var varScFirst = scFirst;
 			var varScSecond = scSecond;
-			var varTimer = Timer;
+			var varClickTimer = clickTimer;
+			var varDarkTimer = darkTimer;
+			var varStoredProfile = storedProfile;
 
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
@@ -57,10 +59,12 @@ namespace ZumaKeuzesContrast2
 
 				using (var cmd = conn.CreateCommand ()) {
 
-					cmd.CommandText = "INSERT INTO MenuOptions (scFirst, scSecond, Timer) VALUES (@First, @Second, @Timer)";
+					cmd.CommandText = "INSERT INTO MenuOptions (scFirst, scSecond, clickTimer, darkTimer, storedProfile) VALUES (@First, @Second, @clickTimer, @darkTimer, @storedProfile)";
 					cmd.Parameters.AddWithValue ("@First", varScFirst);
 					cmd.Parameters.AddWithValue ("@Second", varScSecond);
-					cmd.Parameters.AddWithValue ("@Timer", varTimer);
+					cmd.Parameters.AddWithValue ("@clickTimer", varClickTimer);
+					cmd.Parameters.AddWithValue ("@darkTimer", varDarkTimer);
+					cmd.Parameters.AddWithValue ("@storedProfile", varStoredProfile);
 					cmd.ExecuteNonQuery ();
 
 				}
@@ -87,6 +91,13 @@ namespace ZumaKeuzesContrast2
 					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Ja/Nee', 'images/Yes.jpg', 'images/No.jpg', 'sounds/Yes.mp3', 'sounds/No.mp3')";
 					cmd.ExecuteNonQuery ();
 				}
+
+				using (var cmd = conn.CreateCommand ()) 
+				{
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Nee/Ja', 'images/No.jpg', 'images/Yes.jpg', 'sounds/No.mp3', 'sounds/Yes.mp3')";
+					cmd.ExecuteNonQuery ();
+				}
+
 			}
 		}
 

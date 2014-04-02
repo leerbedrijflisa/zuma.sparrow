@@ -19,10 +19,22 @@ namespace ZumaKeuzesContrast2
 		MonoTouch.UIKit.UIButton btnChoiceProfile { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIStepper btnClickTimer { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIStepper btnDarkTimer { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton btnGo { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIButton btnSubtract { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel lblDarkTimer { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel lblProfile { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel LblTimer { get; set; }
@@ -45,6 +57,16 @@ namespace ZumaKeuzesContrast2
 				btnChoiceProfile = null;
 			}
 
+			if (btnClickTimer != null) {
+				btnClickTimer.Dispose ();
+				btnClickTimer = null;
+			}
+
+			if (btnDarkTimer != null) {
+				btnDarkTimer.Dispose ();
+				btnDarkTimer = null;
+			}
+
 			if (btnGo != null) {
 				btnGo.Dispose ();
 				btnGo = null;
@@ -55,9 +77,19 @@ namespace ZumaKeuzesContrast2
 				btnSubtract = null;
 			}
 
+			if (lblDarkTimer != null) {
+				lblDarkTimer.Dispose ();
+				lblDarkTimer = null;
+			}
+
 			if (LblTimer != null) {
 				LblTimer.Dispose ();
 				LblTimer = null;
+			}
+
+			if (lblProfile != null) {
+				lblProfile.Dispose ();
+				lblProfile = null;
 			}
 
 			if (scChoice != null) {
@@ -68,11 +100,6 @@ namespace ZumaKeuzesContrast2
 			if (scSingleChoiceOptions != null) {
 				scSingleChoiceOptions.Dispose ();
 				scSingleChoiceOptions = null;
-			}
-
-			if (btnChoiceProfile != null) {
-				btnChoiceProfile.Dispose ();
-				btnChoiceProfile = null;
 			}
 		}
 	}

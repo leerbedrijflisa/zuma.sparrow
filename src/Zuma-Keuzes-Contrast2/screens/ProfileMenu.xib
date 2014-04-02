@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileMenu">
             <connections>
+                <outlet property="btnPushMainMenu" destination="bSC-6u-i9Q" id="8ht-gg-aDV"/>
                 <outlet property="view" destination="2" id="3"/>
                 <outlet property="vwDetail" destination="6zb-hA-3Od" id="ZXO-7x-Gdd"/>
                 <outlet property="vwMaster" destination="7W0-8u-Ppm" id="nfQ-op-KtF"/>
@@ -35,13 +36,13 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kies een profiel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XYx-HI-exy">
-                    <rect key="frame" x="583" y="350" width="207" height="47"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bSC-6u-i9Q">
+                    <rect key="frame" x="576" y="670" width="159" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                    <state key="normal" title="Profiel Opslaan">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>

@@ -22,7 +22,7 @@ namespace ZumaKeuzesContrast2
 			
 			var rootNavigationController = new RotationNavigationController ();
 
-			MainMenu mainMenu = new MainMenu ();
+			MainMenu mainMenu = new MainMenu (queryProfile);
 
 			rootNavigationController.PushViewController (mainMenu, false);
 
@@ -33,6 +33,8 @@ namespace ZumaKeuzesContrast2
 			
 			return true;
 		}
+
+		private QueryProfile queryProfile;
 	}
 }
 

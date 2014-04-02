@@ -11,8 +11,9 @@ namespace ZumaKeuzesContrast2
 {
 	public partial class MainMenu : UIViewController
 	{
-		public MainMenu () : base ()
+		public MainMenu (QueryProfile queryProfile) : base ()
 		{
+			this.queryProfile = queryProfile;
 		}
 
 		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
@@ -28,17 +29,16 @@ namespace ZumaKeuzesContrast2
 			DatabaseRequests.CreateDatabase ();
 			DatabaseRequests.CreateDefaultProfiles ();
 
-			InitializeUI ();
-
-			LblTimer.Text = timer.ToString();
-
 			btnChoiceProfile.TouchUpInside += PushProfileMenu;
 
-			btnAdd.TouchUpInside += AddButton;
+			InitializeTimerbtn ();
 
-			btnSubtract.TouchUpInside += SubtractButton;
+			btnClickTimer.TouchUpInside += ClickTimer;
+
+			btnDarkTimer.TouchUpInside += DarkTimer;
 
 			btnGo.TouchUpInside += PushMainMenu;
+
 		}
 
 		public override void ViewWillAppear (bool animated) {
@@ -56,10 +56,12 @@ namespace ZumaKeuzesContrast2
 			return true;
 		}
 
-		private void InitializeUI()
+		private void InitializeTimerbtn()
 		{
-			btnAdd.SetImage (UIImage.FromFile ("images/AddBTN.png"), UIControlState.Normal);
-			btnSubtract.SetImage (UIImage.FromFile ("images/SubtractBTN.png"), UIControlState.Normal);
+			btnClickTimer.MinimumValue = 1;
+			btnDarkTimer.MinimumValue = 1;
+			btnClickTimer.Value = 5;
+			btnDarkTimer.Value = 5;
 		}
 
 		private void PushProfileMenu(object sender, EventArgs args) 
@@ -73,10 +75,15 @@ namespace ZumaKeuzesContrast2
 
 		private void PushMainMenu(object sender, EventArgs args)
 		{
+			Console.WriteLine (clickTimer.ToString () + " click");
+			Console.WriteLine (darkTimer.ToString () + " dark");
+
 			int segmetDifficultyLevel = scChoice.SelectedSegment;
 			int segmetType = scSingleChoiceOptions.SelectedSegment;
 
-			DatabaseRequests.StoreMenuSettings(segmetDifficultyLevel, segmetType, timer);
+			string temp = "temp";
+
+			DatabaseRequests.StoreMenuSettings(segmetDifficultyLevel, segmetType, clickTimer, darkTimer, temp);
 			if(viewController == null)
 			{
 				viewController = new MainViewController4();
@@ -85,20 +92,25 @@ namespace ZumaKeuzesContrast2
 			NavigationController.PushViewController(viewController, false);
 		}
 
-		private void AddButton (object sender, EventArgs args)
+		private void ClickTimer (object sender, EventArgs args)
 		{
-			timer ++;
-			LblTimer.Text = timer.ToString();
+			LblTimer.Text = btnClickTimer.Value.ToString();
+			int clickTimerValue = Convert.ToInt32 (btnClickTimer.Value);
+			clickTimer = clickTimerValue;
+
 		}
 
-		private void SubtractButton (object sender, EventArgs args)
+		private void DarkTimer (object sender, EventArgs args)
 		{
-			timer ++;
-			LblTimer.Text = timer.ToString();
+			lblDarkTimer.Text = btnDarkTimer.Value.ToString();
+			int darkTimerValue = Convert.ToInt32 (btnDarkTimer.Value);
+			darkTimer = darkTimerValue;
+
 		}
 
+		private QueryProfile queryProfile;
 		private MainViewController4 viewController;
 		private ProfileMenu profileMenu;
-		private int timer = 5;
+		private int clickTimer = 5, darkTimer = 5;
 	}
 }

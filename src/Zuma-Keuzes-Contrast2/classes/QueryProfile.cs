@@ -12,7 +12,7 @@ namespace ZumaKeuzesContrast2
 		{
 		}
 
-		public void Test (int Row)
+		public string[] returnDatabaseRow(int Row)
 		{
 			int adjust = Row + 1;
 			int _row = adjust;
@@ -46,31 +46,22 @@ namespace ZumaKeuzesContrast2
 
 			Console.WriteLine (ImageOne + ImageTwo + SoundOne + SoundTwo);
 			rowReturned = Convert.ToInt32 (returnRow);
+			row = rowReturned.ToString ();
 			Console.WriteLine (rowReturned);
 
+			databaseRow [0] = ImageOne;
+			databaseRow [1] = ImageTwo;
+			databaseRow [2] = SoundOne;
+			databaseRow [3] = SoundTwo;
+			databaseRow [4] = row;
+
+			return databaseRow;
 		}
 
 		private object returnRow, returnImageOne, returnImageTwo, returnSoundOne, returnSoundTwo;
-		public string ImageOne { 
-			get { return ImageOne; }
-			set { }
-		}
-		public string ImageTwo { 
-			get { return ImageTwo; } 
-			set { }
-		}
-		public string SoundOne { 
-			get { return SoundOne; } 
-			set { }
-		}
-		public string SoundTwo { 
-			get { return SoundTwo; } 
-			set { }
-		}
-		public int rowReturned { 
-			get { return rowReturned; }
-			set { }
-		}
+		private string ImageOne, ImageTwo, SoundOne, SoundTwo, row;
+		private string[] databaseRow = new string[5];
+		private int rowReturned;
 	}
 }
 

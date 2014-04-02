@@ -14,7 +14,9 @@ namespace ZumaKeuzesContrast2
 	{
 		UIViewController masterProfileMenu;
 		DetailViewController detailProfileMenu;
-//		QueryProfile queryProfile;
+		QueryProfile queryProfile;
+		MainMenu mainMenu;
+
 
 		public ProfileMenu () : base ()
 		{
@@ -24,12 +26,14 @@ namespace ZumaKeuzesContrast2
 		{
 			base.ViewDidLoad ();
 
-//			queryProfile = new QueryProfile ();
-			detailProfileMenu = new DetailViewController ();
+			queryProfile = new QueryProfile ();
+			detailProfileMenu = new DetailViewController (queryProfile);
 			masterProfileMenu = new MasterViewController (detailProfileMenu);
 
 			vwDetail.Add (detailProfileMenu.View);
 			vwMaster.Add (masterProfileMenu.View);
+
+			btnPushMainMenu.TouchUpInside += PushMainMenu;
 
 		}
 
@@ -46,6 +50,16 @@ namespace ZumaKeuzesContrast2
 		public override bool PrefersStatusBarHidden ()
 		{
 			return true;
+		}
+
+		private void PushMainMenu(object sender, EventArgs e)
+		{
+			if (mainMenu == null) 
+			{
+				mainMenu = new MainMenu (queryProfile);
+			}
+
+			NavigationController.PushViewController (mainMenu, false);
 		}
 
 	}
