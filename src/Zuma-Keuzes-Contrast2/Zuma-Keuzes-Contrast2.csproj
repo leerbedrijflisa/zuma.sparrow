@@ -116,7 +116,6 @@
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="screens\MainMenu.cs" />
-    <Compile Include="AppDelegate.cs" />
     <Compile Include="classes\Rotations.cs" />
     <Compile Include="screens\ProfileMenu.cs" />
     <Compile Include="screens\ProfileMenu.designer.cs">

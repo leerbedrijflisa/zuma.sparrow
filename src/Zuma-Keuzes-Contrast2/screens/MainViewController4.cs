@@ -15,8 +15,9 @@ namespace ZumaKeuzesContrast2
 {
 	public partial class MainViewController4 : UIViewController
 	{
-		public MainViewController4 () : base ("MainViewController4", null)
+		public MainViewController4 (QueryProfile queryProfile) : base ()
 		{
+			this.queryProfile = queryProfile;
 		}
 
 		public override void DidReceiveMemoryWarning ()
@@ -509,6 +510,22 @@ namespace ZumaKeuzesContrast2
 //			}
 //		}
 
+		private void SetProfile()
+		{
+			menuSettings = queryProfile.ReadMenuSettings ();
+
+			selectedProfile = menuSettings [3];
+			_selectedProfile = Convert.ToInt32 (selectedProfile);
+
+			profile = queryProfile.returnProfileRow (_selectedProfile);
+			Console.WriteLine ("selectedProfile " + selectedProfile);
+
+			imageOne = profile [1];
+			imageTwo = profile [2];
+			soundOne = profile [3];
+			soundTwo = profile [4];
+		}
+
 		UIButton btnChoice, btnChoiceLeft, btnChoiceRight;
 		UIImageView imvChoiceLeft, imvChoiceRight, imvLayerLeft, imvLayerRight;
 		UIImage leftImage, rightImage, filterImage, empty;
@@ -516,10 +533,13 @@ namespace ZumaKeuzesContrast2
 		Sound IChooseLeft = new Sound(), IChooseRight = new Sound();
 		MainMenu mainMenu;
 		QueryProfile queryProfile;
-
-		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringFirst, stringSecond;
-		private int count, clickTimer, darkTimer;
+	
+		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringFirst, stringSecond, selectedProfile;
+		private string imageOne, imageTwo, soundOne, soundTwo;
+		private int count, clickTimer, darkTimer, _selectedProfile;
 		private bool pushed = true, playingLeft = true, playingRight = true;
+		private string[] menuSettings = new string[4], profile = new string[6];
+
 //		private object returnFirst, returnSecond, returnClickTimer, returnDarkTimer;
 
 	}
