@@ -11,9 +11,9 @@ namespace ZumaKeuzesContrast2
 {
 	public partial class MainMenu : UIViewController
 	{
-		public MainMenu (QueryProfile queryProfile) : base ()
+		public MainMenu () : base ()
 		{
-			this.queryProfile = queryProfile;
+//			this.queryProfile = queryProfile;
 		}
 
 		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
@@ -118,7 +118,7 @@ namespace ZumaKeuzesContrast2
 
 		}
 
-		private QueryProfile queryProfile;
+		QueryProfile queryProfile = new QueryProfile();
 		private MainViewController4 viewController;
 		private ProfileMenu profileMenu;
 		private int clickTimer = 5, darkTimer = 5, _selectedProfileRow;

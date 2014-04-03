@@ -14,7 +14,7 @@ namespace ZumaKeuzesContrast2
 	{
 		UIViewController masterProfileMenu;
 		DetailViewController detailProfileMenu;
-		QueryProfile queryProfile;
+//		QueryProfile queryProfile;
 		MainMenu mainMenu;
 
 
@@ -26,8 +26,8 @@ namespace ZumaKeuzesContrast2
 		{
 			base.ViewDidLoad ();
 
-			queryProfile = new QueryProfile ();
-			detailProfileMenu = new DetailViewController (queryProfile);
+//			queryProfile = new QueryProfile ();
+			detailProfileMenu = new DetailViewController (/*queryProfile*/);
 			masterProfileMenu = new MasterViewController (detailProfileMenu);
 
 			vwDetail.Add (detailProfileMenu.View);
@@ -56,7 +56,7 @@ namespace ZumaKeuzesContrast2
 		{
 			if (mainMenu == null) 
 			{
-				mainMenu = new MainMenu (queryProfile);
+				mainMenu = new MainMenu ();
 			}
 
 			NavigationController.PushViewController (mainMenu, false);
