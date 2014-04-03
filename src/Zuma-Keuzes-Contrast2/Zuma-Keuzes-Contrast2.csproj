@@ -116,7 +116,6 @@
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="screens\MainMenu.cs" />
-    <Compile Include="AppDelegate.cs" />
     <Compile Include="classes\Rotations.cs" />
     <Compile Include="screens\ProfileMenu.cs" />
     <Compile Include="screens\ProfileMenu.designer.cs">
@@ -135,6 +134,7 @@
     </Compile>
     <Compile Include="classes\sendData.cs" />
     <Compile Include="classes\QueryProfile.cs" />
+    <Compile Include="AppDelegate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

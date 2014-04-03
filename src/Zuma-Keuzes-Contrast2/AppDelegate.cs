@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
@@ -21,7 +21,7 @@ namespace ZumaKeuzesContrast2
 			DatabaseRequests.CreateDefaultProfiles ();
 
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
-			
+
 			var rootNavigationController = new RotationNavigationController ();
 
 			queryProfile = new QueryProfile ();
@@ -32,11 +32,13 @@ namespace ZumaKeuzesContrast2
 			this.window.RootViewController = rootNavigationController;
 
 			window.MakeKeyAndVisible ();
-			
+
 			return true;
 		}
-			
+
 		private QueryProfile queryProfile;
 	}
 }
+
+
 

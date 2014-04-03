@@ -15,19 +15,10 @@ namespace ZumaKeuzesContrast2
 {
 	public partial class MainViewController4 : UIViewController
 	{
-		public MainViewController4 () : base ("MainViewController4", null)
+		public MainViewController4 (QueryProfile queryProfile) : base ()
 		{
+			this.queryProfile = queryProfile;
 		}
-
-		public override void DidReceiveMemoryWarning ()
-		{
-
-			// Releases the view if it doesn't have a superview.
-			base.DidReceiveMemoryWarning ();
-			
-			// Release any cached data, images, etc that aren't in use.
-		}
-
 
 
 		public override void ViewDidLoad ()
@@ -37,6 +28,8 @@ namespace ZumaKeuzesContrast2
 			NavigationController.SetNavigationBarHidden(true, true);
 			UIApplication.SharedApplication.SetStatusBarHidden (true, true);
 
+			SetProfile ();
+
 			pushed = false;
 
 			ScreenReturnToMenu ();
@@ -44,38 +37,27 @@ namespace ZumaKeuzesContrast2
 			//reads out the value of the scOption and TimerSettings
 //			ReadMenuSettings ();
 //
-//			stringFirst = returnFirst.ToString ();
+//			selectedButtonSetting = returnFirst.ToString ();
 //			stringSecond = returnSecond.ToString ();
-//			clickTimer = Convert.ToInt32 (returnClickTimer);
-//			darkTimer = Convert.ToInt32 (returnDarkTimer);
+
 //
 //			Console.WriteLine (returnClickTimer.ToString () + "test click");
 			Console.WriteLine (darkTimer.ToString () + "test dark");
 
 			//Select and create UIImages.
-			selectLeftImage ();
-			selectRightImage ();
-			filterImage = UIImage.FromFile ("images/layer_transparent.png");
-			empty = UIImage.FromFile ("");
+//			selectLeftImage ();
+//			selectRightImage ();
+			InitializeUI ();
 
 			//selects and creates the button or buttons depending on what was chosen in MainMenu
-			if (stringFirst == "0") {
-				btnChoice = UIButton.FromType (UIButtonType.RoundedRect);
 
-				View.AddSubview (btnChoice);
-			} else if (stringFirst == "1") {
-				btnChoiceLeft = UIButton.FromType (UIButtonType.RoundedRect);
-				btnChoiceRight = UIButton.FromType (UIButtonType.RoundedRect);
-			
-				View.AddSubview (btnChoiceLeft);
-				View.AddSubview (btnChoiceRight);
-			}
 
 			//Create imageViews
 			PositionControls (InterfaceOrientation);
 
+			Console.WriteLine (selectedButtonSetting + "selectedButtonSetting");
 			//If scFirst is "0" there will be one btn.
-			if (stringFirst == "0") {
+			if (selectedButtonSetting == "0") {
 
 				lowDifficultySwitchingChoices ();
 
@@ -84,28 +66,31 @@ namespace ZumaKeuzesContrast2
 
 					if(soundSelect == "left")
 					{
-						selectLeftSound();
+						profileSound.Play(soundOne);
+						Console.WriteLine(soundOne);
 					}
 					else if(soundSelect == "right")
 					{
-						selectRightSound();
+						profileSound.Play(soundTwo);
+						Console.WriteLine(soundTwo);
+//						selectRightSound();
 					}
 					Console.WriteLine(soundSelect);
 					SwitchingChoices.Dispose();
 					btnChoice.Enabled = false;
 					if(count == 0) {
 					
-						blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(clickTimer), delegate {
+						blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer), delegate {
 							blackOutLowDifficulty();
-							NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(darkTimer), resetbtnForLowDifficulty);
+							NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), resetbtnForLowDifficulty);
 						
 						});
 
 					} else if(count == 1) {
 
-						blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(clickTimer), delegate {
+						blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer), delegate {
 							blackOutPart();
-							NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(darkTimer), resetbtnForLowDifficulty);
+							NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), resetbtnForLowDifficulty);
 
 						});
 					}
@@ -113,50 +98,61 @@ namespace ZumaKeuzesContrast2
 			} 
 
 			//If scFirst is "1" the screen is split up in two buttons.
-			else if (stringFirst == "1") {
-
-
+			else if (selectedButtonSetting == "1") {
+			
 				btnChoiceLeft.TouchUpInside += delegate {
-						btnChoiceRight.Enabled = false;
-						btnChoiceLeft.Enabled = false;
-						blackout = "left";
-						selectLeftSound();
-						rightFilterDark ("On", FilterRotation);
+					btnChoiceRight.Enabled = false;
+					btnChoiceLeft.Enabled = false;
+					blackout = "left";
+					profileSound.Play(soundOne);
+//					selectLeftSound();
+					rightFilterDark ("On", FilterRotation);
 
-						Console.WriteLine("left btn");
+					Console.WriteLine("left btn");
 
-					blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (clickTimer), delegate {
-							blackOutLowDifficulty ();
-						NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (darkTimer), resetbtnForHighDifficulty);
-						});
+					blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_clickTimer), delegate {
+						blackOutLowDifficulty ();
+						NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_darkTimer), resetbtnForHighDifficulty);
+					});
 				};
 
 				//btn handler right
 				btnChoiceRight.TouchUpInside += delegate {
-						btnChoiceLeft.Enabled = false;
-						btnChoiceRight.Enabled = false;
-						blackout = "right";
-						selectRightSound();
-						leftFitlerDark ("On", FilterRotation);
+					btnChoiceLeft.Enabled = false;
+					btnChoiceRight.Enabled = false;
+					blackout = "right";
+					profileSound.Play(soundTwo);
+//					selectRightSound()
+					leftFitlerDark ("On", FilterRotation);
 
-						Console.WriteLine("right btn");
+					Console.WriteLine("right btn");
 
-					blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(clickTimer), delegate {
-							blackOutLowDifficulty();
-						NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(darkTimer), resetbtnForHighDifficulty);
-						});
+					blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer), delegate {
+						blackOutLowDifficulty();
+						NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), resetbtnForHighDifficulty);
+					});
 				};
 			}
 		}
 
+		public override void ViewWillAppear (bool animated) {
+			base.ViewWillAppear (animated);
+			this.NavigationController.SetNavigationBarHidden (true, animated);
+		}
+
+		public override void ViewWillDisappear (bool animated) {
+			base.ViewWillDisappear (animated);
+			this.NavigationController.SetNavigationBarHidden (false, animated);
+		}
+
 		// end view did load!
 
-		public override void ViewDidAppear (bool animated)
-		{
-			base.ViewDidAppear (animated);
-
-//			ScreenReturnToMenu ();
-		}
+//		public override void ViewDidAppear (bool animated)
+//		{
+//			base.ViewDidAppear (animated);
+//
+////			ScreenReturnToMenu ();
+//		}
 
 		private void resetbtnForHighDifficulty()
 		{
@@ -214,7 +210,7 @@ namespace ZumaKeuzesContrast2
 
 		private void SelectBtnDifficulty()
 		{
-			if (stringFirst == "0") {
+			if (selectedButtonSetting == "0") {
 
 				if (FilterRotation == "landscape") {
 					btnChoice.Frame = new RectangleF (0, 0, 1024, 768);
@@ -222,7 +218,7 @@ namespace ZumaKeuzesContrast2
 					btnChoice.Frame = new RectangleF (0, 0, 768, 1024);
 				}
 
-			} else if (stringFirst == "1") {
+			} else if (selectedButtonSetting == "1") {
 			
 				if (FilterRotation == "landscape") {
 					btnChoiceLeft.Frame = new RectangleF (0, 0, 512, 768);
@@ -272,55 +268,55 @@ namespace ZumaKeuzesContrast2
 			View.AddSubview (imvLayerRight);
 		}
 
-		private void selectLeftSound()
-		{
-			if(stringSecond == "0")
-			{
-				IChooseLeft.Play ("sounds/Left.mp3");
-			}
-			else if(stringSecond == "1")
-			{
-				IChooseLeft.Play("sounds/Yes.mp3");
-			}
-		}
+//		private void selectLeftSound()
+//		{
+//			if(stringSecond == "0")
+//			{
+//				IChooseLeft.Play ("sounds/Left.mp3");
+//			}
+//			else if(stringSecond == "1")
+//			{
+//				IChooseLeft.Play("sounds/Yes.mp3");
+//			}
+//		}
 
-		private void selectRightSound()
-		{
-			if(stringSecond == "0")
-			{
-				IChooseLeft.Play ("sounds/Right.mp3");
-			}
-			else if(stringSecond == "1")
-			{
-				IChooseLeft.Play("sounds/No.mp3");
-			}
-		}
+//		private void selectRightSound()
+//		{
+//			if(stringSecond == "0")
+//			{
+//				IChooseLeft.Play ("sounds/Right.mp3");
+//			}
+//			else if(stringSecond == "1")
+//			{
+//				IChooseLeft.Play("sounds/No.mp3");
+//			}
+//		}
 
-		private void selectLeftImage()
-		{
-			if(stringSecond == "0")
-			{
-				leftImage = UIImage.FromFile ("images/LeftArrow2.png");
-			}
-			else if(stringSecond == "1")
-			{
-				leftImage = UIImage.FromFile ("images/Yes.jpg");
-			}
+//		private void selectLeftImage()
+//		{
+//			if(stringSecond == "0")
+//			{
+//				leftImage = UIImage.FromFile ("images/LeftArrow2.png");
+//			}
+//			else if(stringSecond == "1")
+//			{
+//				leftImage = UIImage.FromFile ("images/Yes.jpg");
+//			}
+//
+//		}
 
-		}
-
-		private void selectRightImage()
-		{
-			if(stringSecond == "0")
-			{
-				rightImage = UIImage.FromFile ("images/RightArrow2.png");
-			}
-			else if(stringSecond == "1")
-			{
-				rightImage = UIImage.FromFile ("images/No.jpg");
-			}
-
-		}
+//		private void selectRightImage()
+//		{
+//			if(stringSecond == "0")
+//			{
+//				rightImage = UIImage.FromFile ("images/RightArrow2.png");
+//			}
+//			else if(stringSecond == "1")
+//			{
+//				rightImage = UIImage.FromFile ("images/No.jpg");
+//			}
+//
+//		}
 	
 		private void blackOutPart()
 		{
@@ -344,7 +340,7 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		private void PushView()
+		private void PushMainMenu()
 		{
 			if(mainMenu == null)
 			{
@@ -357,15 +353,7 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public override void ViewWillAppear (bool animated) {
-			base.ViewWillAppear (animated);
-			this.NavigationController.SetNavigationBarHidden (true, animated);
-		}
 
-		public override void ViewWillDisappear (bool animated) {
-			base.ViewWillDisappear (animated);
-			this.NavigationController.SetNavigationBarHidden (false, animated);
-		}
 
 		// Handle Rotation
 
@@ -376,7 +364,7 @@ namespace ZumaKeuzesContrast2
 			_motionManager = new CMMotionManager ();
 			_motionManager.StartAccelerometerUpdates (NSOperationQueue.CurrentQueue, (data, error) => {
 				if (data.Acceleration.Z > 0.890) {
-					PushView ();
+					PushMainMenu ();
 				}
 			});
 		}
@@ -442,10 +430,10 @@ namespace ZumaKeuzesContrast2
 				FilterRotation = "landscape";
 				Console.WriteLine ("Landscape");
 
-				imvChoiceLeft.Image = leftImage;
+				imvChoiceLeft.Image = UIimageOne;
 				View.AddSubview (imvChoiceLeft);
 
-				imvChoiceRight.Image = rightImage;
+				imvChoiceRight.Image = UIimageTwo;
 				View.AddSubview (imvChoiceRight);
 
 				break;
@@ -462,10 +450,10 @@ namespace ZumaKeuzesContrast2
 				FilterRotation = "portrait";
 				Console.WriteLine ("portrait");
 
-				imvChoiceLeft.Image = leftImage;
+				imvChoiceLeft.Image = UIimageOne;
 				View.AddSubview (imvChoiceLeft);
 
-				imvChoiceRight.Image = rightImage;
+				imvChoiceRight.Image = UIimageTwo;
 				View.AddSubview (imvChoiceRight);
 
 				break;
@@ -509,17 +497,64 @@ namespace ZumaKeuzesContrast2
 //			}
 //		}
 
+		private void InitializeUI()
+		{
+			filterImage = UIImage.FromFile ("images/layer_transparent.png");
+			empty = UIImage.FromFile ("");
+
+			if (selectedButtonSetting == "0") {
+				btnChoice = UIButton.FromType (UIButtonType.RoundedRect);
+
+				View.AddSubview (btnChoice);
+			} else if (selectedButtonSetting == "1") {
+				btnChoiceLeft = UIButton.FromType (UIButtonType.RoundedRect);
+				btnChoiceRight = UIButton.FromType (UIButtonType.RoundedRect);
+
+				View.AddSubview (btnChoiceLeft);
+				View.AddSubview (btnChoiceRight);
+			}
+
+			UIimageOne = UIImage.FromFile (imageOne);
+			UIimageTwo = UIImage.FromFile (imageTwo);
+		}
+
+		private void SetProfile()
+		{
+			menuSettings = queryProfile.ReadMenuSettings ();
+
+			selectedProfile = menuSettings [3];
+			_selectedProfile = Convert.ToInt32 (selectedProfile);
+
+			profile = queryProfile.returnProfileRow (_selectedProfile);
+			Console.WriteLine ("selectedProfile " + selectedProfile);
+
+			imageOne = profile [1];
+			imageTwo = profile [2];
+			soundOne = profile [3];
+			soundTwo = profile [4];
+
+			selectedButtonSetting = menuSettings[0];
+			clickTimer = menuSettings [1];
+			darkTimer = menuSettings [2];
+			_clickTimer = Convert.ToInt32 (clickTimer);
+			_darkTimer = Convert.ToInt32 (darkTimer);
+
+		}
+
 		UIButton btnChoice, btnChoiceLeft, btnChoiceRight;
 		UIImageView imvChoiceLeft, imvChoiceRight, imvLayerLeft, imvLayerRight;
-		UIImage leftImage, rightImage, filterImage, empty;
+		UIImage UIimageOne, UIimageTwo, filterImage, empty;
 		NSTimer SwitchingChoices, blackOutTimer;
-		Sound IChooseLeft = new Sound(), IChooseRight = new Sound();
+		Sound profileSound = new Sound ();
 		MainMenu mainMenu;
 		QueryProfile queryProfile;
-
-		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringFirst, stringSecond;
-		private int count, clickTimer, darkTimer;
+	
+		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringSecond;
+		private string imageOne, imageTwo, soundOne, soundTwo, selectedProfile, selectedButtonSetting, clickTimer, darkTimer; 
+		private int count, _selectedProfile, _clickTimer, _darkTimer;
 		private bool pushed = true, playingLeft = true, playingRight = true;
+		private string[] menuSettings = new string[4], profile = new string[6];
+
 //		private object returnFirst, returnSecond, returnClickTimer, returnDarkTimer;
 
 	}
