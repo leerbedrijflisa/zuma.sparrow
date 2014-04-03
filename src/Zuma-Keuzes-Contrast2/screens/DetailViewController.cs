@@ -6,14 +6,15 @@ using System.IO;
 using System.Text;
 using System.Data;
 using Mono.Data.Sqlite;
+using Lisa.Zuma;
 
 namespace ZumaKeuzesContrast2
 {
 	public partial class DetailViewController : UIViewController
 	{
-		public DetailViewController (QueryProfile queryProfile) : base ()
+		public DetailViewController (/*QueryProfile queryProfile*/) : base ()
 		{
-			this.queryProfile = queryProfile;
+//			this.queryProfile = queryProfile;
 		}
 
 		public override void ViewDidLoad ()
@@ -21,6 +22,10 @@ namespace ZumaKeuzesContrast2
 			base.ViewDidLoad ();
 
 			btnSaveProfile.Hidden = true;
+
+			btnSetLeftSnd.TouchUpInside += SetSnd;
+
+			btnSetRightSnd.TouchUpInside += SetSnd;
 		}
 
 		public void RefreshDetialView(int Row)
@@ -42,9 +47,23 @@ namespace ZumaKeuzesContrast2
 
 		}
 
-		private QueryProfile queryProfile;
+		private void SetSnd(object sender, EventArgs args)
+		{
+			if (sender == btnSetLeftSnd)
+			{
+				profileSnd.Play (databaseRow [3]);
+			} 
+			else if (sender == btnSetRightSnd) 
+			{
+				profileSnd.Play (databaseRow [4]);
+			}
+		}
+
+//		private QueryProfile queryProfile;
 		private string[] databaseRow = new string[5];
 		private int _row;
+		Sound profileSnd = new Sound();
+		QueryProfile queryProfile = new QueryProfile();
 
 
 	}

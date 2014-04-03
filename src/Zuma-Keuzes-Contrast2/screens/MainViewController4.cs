@@ -344,7 +344,7 @@ namespace ZumaKeuzesContrast2
 		{
 			if(mainMenu == null)
 			{
-				mainMenu = new MainMenu(queryProfile);
+				mainMenu = new MainMenu();
 			}
 
 			if (pushed == false) {
