@@ -96,7 +96,7 @@ namespace ZumaKeuzesContrast2
 			DatabaseRequests.StoreMenuSettings(segmetDifficultyLevel, clickTimer, darkTimer, selectedProfileRow);
 			if(viewController == null)
 			{
-				viewController = new MainViewController4();
+				viewController = new MainViewController4(queryProfile);
 			}
 
 			NavigationController.PushViewController(viewController, false);
