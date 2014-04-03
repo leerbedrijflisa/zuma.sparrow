@@ -12,10 +12,8 @@ namespace ZumaKeuzesContrast2
 		{
 		}
 
-		public string[] returnDatabaseRow(int Row)
+		public string[] returnProfileRow(int Row)
 		{
-			int adjust = Row + 1;
-			int _row = adjust;
 
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
@@ -26,41 +24,85 @@ namespace ZumaKeuzesContrast2
 				using (var cmd = conn.CreateCommand ()) {
 
 					cmd.CommandText = "SELECT * FROM Profile WHERE ID = @ID";
-					cmd.Parameters.AddWithValue ("@ID", _row);
+					cmd.Parameters.AddWithValue ("@ID", Row);
 					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
 						while (rdr.Read ()) {
 							returnRow = rdr ["ID"];
-							returnImageOne = rdr ["ImageOne"];
-							returnImageTwo = rdr ["ImageTwo"];
-							returnSoundOne = rdr ["SoundOne"];
-							returnSoundTwo = rdr ["SoundTwo"];
+							returnProfileName = rdr ["Name"];
+							returnImageOne = rdr ["imageOne"];
+							returnImageTwo = rdr ["imageTwo"];
+							returnSoundOne = rdr ["soundOne"];
+							returnSoundTwo = rdr ["soundTwo"];
 						}
 					}
 				}
 			}
 
-			ImageOne = returnImageOne.ToString ();
-			ImageTwo = returnImageTwo.ToString ();
-			SoundOne = returnSoundOne.ToString ();
-			SoundTwo = returnSoundTwo.ToString ();
+			profileName = returnProfileName.ToString ();
+			imageOne = returnImageOne.ToString ();
+			imageTwo = returnImageTwo.ToString ();
+			soundOne = returnSoundOne.ToString ();
+			soundTwo = returnSoundTwo.ToString ();
 
-			Console.WriteLine (ImageOne + ImageTwo + SoundOne + SoundTwo);
+			Console.WriteLine (profileName + imageOne + imageTwo + soundOne + soundTwo);
 			rowReturned = Convert.ToInt32 (returnRow);
 			row = rowReturned.ToString ();
 			Console.WriteLine (rowReturned);
 
-			databaseRow [0] = ImageOne;
-			databaseRow [1] = ImageTwo;
-			databaseRow [2] = SoundOne;
-			databaseRow [3] = SoundTwo;
-			databaseRow [4] = row;
+			databaseRow [0] = profileName;
+			databaseRow [1] = imageOne;
+			databaseRow [2] = imageTwo;
+			databaseRow [3] = soundOne;
+			databaseRow [4] = soundTwo;
+			databaseRow [5] = row;
 
 			return databaseRow;
 		}
 
-		private object returnRow, returnImageOne, returnImageTwo, returnSoundOne, returnSoundTwo;
-		private string ImageOne, ImageTwo, SoundOne, SoundTwo, row;
-		private string[] databaseRow = new string[5];
+		public string[] ReadMenuSettings()
+		{
+
+			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			var pathToDatebase = Path.Combine (documents, "db_Zuma_Keuzes.db");
+
+			var connectionString = String.Format ("Data source={0};Version=3", pathToDatebase);
+			using (var conn = new SqliteConnection (connectionString)) {
+
+				conn.Open ();
+				string stm = "SELECT * FROM MenuOptions";
+
+				using (SqliteCommand cmd = new SqliteCommand (stm, conn)) {
+					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
+						while (rdr.Read ()) {
+							// tijdens refactoren een beter naam bedenken voor returnFirst/first geld ook voor StoreMenuSettings!
+							returnFirst = rdr ["scFirst"];
+//							returnSecond = rdr ["scSecond"];
+							returnClickTimer = rdr ["clickTimer"];
+							returnDarkTimer = rdr ["darkTimer"];
+							returnStoredProfile = rdr ["storedProfile"];
+
+						}
+					}
+				}
+			}
+
+			first = returnFirst.ToString ();
+			clickTimer = returnClickTimer.ToString ();
+			darkTimer = returnDarkTimer.ToString ();
+			storedProfile = returnStoredProfile.ToString ();
+
+			menuSettings [0] = first;
+			menuSettings [1] = clickTimer;
+			menuSettings [2] = darkTimer;
+			menuSettings [3] = storedProfile;
+
+			return menuSettings;
+
+		}
+
+		private object returnProfileName, returnRow, returnImageOne, returnImageTwo, returnSoundOne, returnSoundTwo, returnFirst, returnClickTimer, returnDarkTimer, returnStoredProfile;
+		private string profileName, imageOne, imageTwo, soundOne, soundTwo, row, first, clickTimer, darkTimer, storedProfile;
+		private string[] databaseRow = new string[6], menuSettings = new string[4];
 		private int rowReturned;
 	}
 }

@@ -38,7 +38,7 @@ namespace ZumaKeuzesContrast2
 
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{
-			detailProfileMenu.DoSomethingInteresting (indexPath.Row);
+			detailProfileMenu.RefreshDetialView (indexPath.Row);
 
 			// NOTE: Don't call the base implementation on a Model class
 			// see http://docs.xamarin.com/guides/ios/application_fundamentals/delegates,_protocols,_and_events
@@ -46,6 +46,5 @@ namespace ZumaKeuzesContrast2
 		}
 
 		private DetailViewController detailProfileMenu;
-
 	}
 }

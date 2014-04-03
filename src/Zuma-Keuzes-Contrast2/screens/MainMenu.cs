@@ -26,18 +26,18 @@ namespace ZumaKeuzesContrast2
 			base.ViewDidLoad ();
 
 			//Create's a db if there isn't one already with a table to handle the Menu segement button options
-			DatabaseRequests.CreateDatabase ();
-			DatabaseRequests.CreateDefaultProfiles ();
 
-			btnChoiceProfile.TouchUpInside += PushProfileMenu;
+			SetProfileSettings();
 
-			InitializeTimerbtn ();
+			InitializeUI ();
 
 			btnClickTimer.TouchUpInside += ClickTimer;
 
 			btnDarkTimer.TouchUpInside += DarkTimer;
 
-			btnGo.TouchUpInside += PushMainMenu;
+			btnGo.TouchUpInside += PushMainView;
+
+			btnChoiceProfile.TouchUpInside += PushProfileMenu;
 
 		}
 
@@ -56,12 +56,24 @@ namespace ZumaKeuzesContrast2
 			return true;
 		}
 
-		private void InitializeTimerbtn()
+		private void SetProfileSettings()
+		{
+			menuSetting = queryProfile.ReadMenuSettings();
+			selectedProfileRow = menuSetting [3];
+			_selectedProfileRow = Convert.ToInt32 (selectedProfileRow);
+
+			Console.WriteLine ("selectedrow int " + _selectedProfileRow);
+			selectedProfile = queryProfile.returnProfileRow(_selectedProfileRow);
+		}
+
+		private void InitializeUI()
 		{
 			btnClickTimer.MinimumValue = 1;
 			btnDarkTimer.MinimumValue = 1;
 			btnClickTimer.Value = 5;
 			btnDarkTimer.Value = 5;
+
+			lblProfile.Text = selectedProfile [0];
 		}
 
 		private void PushProfileMenu(object sender, EventArgs args) 
@@ -73,17 +85,15 @@ namespace ZumaKeuzesContrast2
 			NavigationController.PushViewController (profileMenu, false);
 		}
 
-		private void PushMainMenu(object sender, EventArgs args)
+		private void PushMainView(object sender, EventArgs args)
 		{
 			Console.WriteLine (clickTimer.ToString () + " click");
 			Console.WriteLine (darkTimer.ToString () + " dark");
 
 			int segmetDifficultyLevel = scChoice.SelectedSegment;
-			int segmetType = scSingleChoiceOptions.SelectedSegment;
+//			int segmetType = scSingleChoiceOptions.SelectedSegment;
 
-			string temp = "temp";
-
-			DatabaseRequests.StoreMenuSettings(segmetDifficultyLevel, segmetType, clickTimer, darkTimer, temp);
+			DatabaseRequests.StoreMenuSettings(segmetDifficultyLevel, clickTimer, darkTimer, selectedProfileRow);
 			if(viewController == null)
 			{
 				viewController = new MainViewController4();
@@ -111,6 +121,8 @@ namespace ZumaKeuzesContrast2
 		private QueryProfile queryProfile;
 		private MainViewController4 viewController;
 		private ProfileMenu profileMenu;
-		private int clickTimer = 5, darkTimer = 5;
+		private int clickTimer = 5, darkTimer = 5, _selectedProfileRow;
+		private string[] menuSetting = new string[4], selectedProfile = new string[6];
+		private string selectedProfileRow;
 	}
 }

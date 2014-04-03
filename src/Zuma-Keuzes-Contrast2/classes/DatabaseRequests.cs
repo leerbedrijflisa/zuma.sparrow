@@ -26,7 +26,9 @@ namespace ZumaKeuzesContrast2
 				conn.Open ();
 				using (var cmd = conn.CreateCommand ()) {
 
-					cmd.CommandText = "CREATE TABLE MenuOptions (MenuOptionsID INTEGER PRIMARY KEY AUTOINCREMENT, scFirst INTEGER, scSecond INTEGER, clickTimer INTERGER, darkTimer INTERGER, storedProfile VARCHAR(255));";
+					// column removed from MenuOptions
+					//scSecond INTEGER, 
+					cmd.CommandText = "CREATE TABLE MenuOptions (MenuOptionsID INTEGER PRIMARY KEY AUTOINCREMENT, scFirst INTEGER, clickTimer INTERGER, darkTimer INTERGER, storedProfile VARCHAR(255));";
 					cmd.CommandType = CommandType.Text;
 					cmd.ExecuteNonQuery ();
 				}
@@ -41,10 +43,10 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public static void StoreMenuSettings(int scFirst, int scSecond, int clickTimer, int darkTimer, string storedProfile)
+		public static void StoreMenuSettings(int scFirst, int clickTimer, int darkTimer, string storedProfile)
 		{
 			var varScFirst = scFirst;
-			var varScSecond = scSecond;
+//			var varScSecond = scSecond;
 			var varClickTimer = clickTimer;
 			var varDarkTimer = darkTimer;
 			var varStoredProfile = storedProfile;
@@ -59,9 +61,9 @@ namespace ZumaKeuzesContrast2
 
 				using (var cmd = conn.CreateCommand ()) {
 
-					cmd.CommandText = "INSERT INTO MenuOptions (scFirst, scSecond, clickTimer, darkTimer, storedProfile) VALUES (@First, @Second, @clickTimer, @darkTimer, @storedProfile)";
+					cmd.CommandText = "INSERT INTO MenuOptions (scFirst, clickTimer, darkTimer, storedProfile) VALUES (@First, @clickTimer, @darkTimer, @storedProfile)";
 					cmd.Parameters.AddWithValue ("@First", varScFirst);
-					cmd.Parameters.AddWithValue ("@Second", varScSecond);
+//					cmd.Parameters.AddWithValue ("@Second", varScSecond);
 					cmd.Parameters.AddWithValue ("@clickTimer", varClickTimer);
 					cmd.Parameters.AddWithValue ("@darkTimer", varDarkTimer);
 					cmd.Parameters.AddWithValue ("@storedProfile", varStoredProfile);
@@ -80,6 +82,12 @@ namespace ZumaKeuzesContrast2
 			using (var conn = new SqliteConnection (connectionString)) 
 			{
 				conn.Open ();
+				using (var cmd = conn.CreateCommand ()) 
+				{
+					cmd.CommandText = "INSERT INTO MenuOptions (scFirst, clickTimer, darkTimer, storedProfile) VALUES (0, 5, 5, '1')";
+					cmd.ExecuteNonQuery ();
+				}
+
 				using (var cmd = conn.CreateCommand ()) 
 				{
 					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Links/Rechts', 'images/LeftArrow2.png', 'images/RightArrow2.png', 'sounds/Left.mp3', 'sounds/Right.mp3')";
@@ -101,7 +109,7 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public static void SetSelectedRow(int rowSelected)
+		public static void SetSelectedRow(string rowSelected)
 		{
 			var addRowSelected = rowSelected; 
 

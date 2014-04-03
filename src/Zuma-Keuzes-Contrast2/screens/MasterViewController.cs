@@ -17,11 +17,7 @@ namespace ZumaKeuzesContrast2
 			this.detailProfileMenu = detailProfileMenu;
 		}
 
-		string name;
-		object returnFirst;
-		List<string> ProfileNames = new List<string> ();
-		string[] items;
-		TableSource itemstable;
+
 
 		public override void ViewDidLoad ()
 		{
@@ -38,9 +34,7 @@ namespace ZumaKeuzesContrast2
 			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
 
 		}
-
-
-
+			
 		public void ReadMenuSettings()
 		{
 
@@ -66,6 +60,11 @@ namespace ZumaKeuzesContrast2
 		}
 
 		private DetailViewController detailProfileMenu;
+		string name;
+		object returnFirst;
+		List<string> ProfileNames = new List<string> ();
+		string[] items;
+		TableSource itemstable;
 	}
 }
 

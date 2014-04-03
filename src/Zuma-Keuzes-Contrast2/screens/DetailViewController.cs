@@ -23,27 +23,28 @@ namespace ZumaKeuzesContrast2
 			btnSaveProfile.Hidden = true;
 		}
 
-		public void DoSomethingInteresting(int Row)
+		public void RefreshDetialView(int Row)
 		{
 			vwHidden.Hidden = true;
+			_row = Row + 1;
+			Console.WriteLine (_row.ToString ());
 
-			Console.WriteLine (Row.ToString ());
-			databaseRow = queryProfile.returnDatabaseRow (Row);
-			Console.WriteLine (databaseRow [4] + " test databaseRow");
+			databaseRow = queryProfile.returnProfileRow(_row);
+			Console.WriteLine (databaseRow [5] + " test databaseRow");
 
-			UIImage ImgLeft = UIImage.FromFile (databaseRow[0]);
-			UIImage ImgRight = UIImage.FromFile (databaseRow[1]);
+			UIImage ImgLeft = UIImage.FromFile (databaseRow[1]);
+			UIImage ImgRight = UIImage.FromFile (databaseRow[2]);
 			imvLeft.Image = ImgLeft;
 			imvRight.Image = ImgRight;
 
-			DatabaseRequests.StoreMenuSettings (0, 0, 5, 5, databaseRow [4]);
+			DatabaseRequests.StoreMenuSettings (0, 5, 5, databaseRow [5]);
 			Console.WriteLine (databaseRow[4] + " databaseRow");
 
 		}
 
 		private QueryProfile queryProfile;
 		private string[] databaseRow = new string[5];
-		private UIImage ImgLeft, ImgRight;
+		private int _row;
 
 
 	}

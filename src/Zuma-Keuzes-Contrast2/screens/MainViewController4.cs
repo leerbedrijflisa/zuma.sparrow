@@ -28,18 +28,7 @@ namespace ZumaKeuzesContrast2
 			// Release any cached data, images, etc that aren't in use.
 		}
 
-		UIButton btnChoice, btnChoiceLeft, btnChoiceRight;
-		UIImageView imvChoiceLeft, imvChoiceRight, imvLayerLeft, imvLayerRight;
-		UIImage leftImage, rightImage, filterImage, empty;
-		NSTimer SwitchingChoices, blackOutTimer;
-		Sound IChooseLeft = new Sound(), IChooseRight = new Sound();
-		MainMenu mainMenu;
-		QueryProfile queryProfile;
 
-		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringFirst, stringSecond;
-		private int count, clickTimer, darkTimer;
-		private bool pushed = true, playingLeft = true, playingRight = true;
-		private object returnFirst, returnSecond, returnClickTimer, returnDarkTimer;
 
 		public override void ViewDidLoad ()
 		{
@@ -53,14 +42,14 @@ namespace ZumaKeuzesContrast2
 			ScreenReturnToMenu ();
 
 			//reads out the value of the scOption and TimerSettings
-			ReadMenuSettings ();
-
-			stringFirst = returnFirst.ToString ();
-			stringSecond = returnSecond.ToString ();
-			clickTimer = Convert.ToInt32 (returnClickTimer);
-			darkTimer = Convert.ToInt32 (returnDarkTimer);
-
-			Console.WriteLine (returnClickTimer.ToString () + "test click");
+//			ReadMenuSettings ();
+//
+//			stringFirst = returnFirst.ToString ();
+//			stringSecond = returnSecond.ToString ();
+//			clickTimer = Convert.ToInt32 (returnClickTimer);
+//			darkTimer = Convert.ToInt32 (returnDarkTimer);
+//
+//			Console.WriteLine (returnClickTimer.ToString () + "test click");
 			Console.WriteLine (darkTimer.ToString () + "test dark");
 
 			//Select and create UIImages.
@@ -493,32 +482,45 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public void ReadMenuSettings()
-		{
+//		public void ReadMenuSettings()
+//		{
+//
+//			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+//			var pathToDatebase = Path.Combine (documents, "db_Zuma_Keuzes.db");
+//			//SqliteConnection.CreateFile (pathToDatebase);
+//
+//			var connectionString = String.Format ("Data source={0};Version=3", pathToDatebase);
+//			using (var conn = new SqliteConnection (connectionString)) {
+//
+//				conn.Open ();
+//				string stm = "SELECT * FROM MenuOptions";
+//
+//				using (SqliteCommand cmd = new SqliteCommand (stm, conn)) {
+//					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
+//						while (rdr.Read ()) {
+//							returnFirst = rdr ["scFirst"];
+//							returnSecond = rdr ["scSecond"];
+//							returnClickTimer = rdr ["clickTimer"];
+//							returnDarkTimer = rdr ["darkTimer"];
+//
+//						}
+//					}
+//				}
+//			}
+//		}
 
-			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-			var pathToDatebase = Path.Combine (documents, "db_Zuma_Keuzes.db");
-			//SqliteConnection.CreateFile (pathToDatebase);
+		UIButton btnChoice, btnChoiceLeft, btnChoiceRight;
+		UIImageView imvChoiceLeft, imvChoiceRight, imvLayerLeft, imvLayerRight;
+		UIImage leftImage, rightImage, filterImage, empty;
+		NSTimer SwitchingChoices, blackOutTimer;
+		Sound IChooseLeft = new Sound(), IChooseRight = new Sound();
+		MainMenu mainMenu;
+		QueryProfile queryProfile;
 
-			var connectionString = String.Format ("Data source={0};Version=3", pathToDatebase);
-			using (var conn = new SqliteConnection (connectionString)) {
-
-				conn.Open ();
-				string stm = "SELECT * FROM MenuOptions";
-
-				using (SqliteCommand cmd = new SqliteCommand (stm, conn)) {
-					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
-						while (rdr.Read ()) {
-							returnFirst = rdr ["scFirst"];
-							returnSecond = rdr ["scSecond"];
-							returnClickTimer = rdr ["clickTimer"];
-							returnDarkTimer = rdr ["darkTimer"];
-
-						}
-					}
-				}
-			}
-		}
+		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringFirst, stringSecond;
+		private int count, clickTimer, darkTimer;
+		private bool pushed = true, playingLeft = true, playingRight = true;
+//		private object returnFirst, returnSecond, returnClickTimer, returnDarkTimer;
 
 	}
 }
