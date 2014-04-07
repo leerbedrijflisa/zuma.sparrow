@@ -344,6 +344,7 @@ namespace ZumaKeuzesContrast2
 				if (data.Acceleration.Z > 0.890) {
 					PushMainMenu ();
 					turnLandscape = true;
+					GetSupportedInterfaceOrientations();
 				}
 			});
 		}
