@@ -12,9 +12,8 @@ namespace ZumaKeuzesContrast2
 {
 	public partial class DetailViewController : UIViewController
 	{
-		public DetailViewController (/*QueryProfile queryProfile*/) : base ()
+		public DetailViewController () : base ()
 		{
-//			this.queryProfile = queryProfile;
 		}
 
 		public override void ViewDidLoad ()
@@ -24,7 +23,6 @@ namespace ZumaKeuzesContrast2
 			btnSaveProfile.Hidden = true;
 
 			btnSetLeftSnd.TouchUpInside += SetSnd;
-
 			btnSetRightSnd.TouchUpInside += SetSnd;
 		}
 
@@ -32,10 +30,8 @@ namespace ZumaKeuzesContrast2
 		{
 			vwHidden.Hidden = true;
 			_row = Row + 1;
-			Console.WriteLine (_row.ToString ());
 
 			databaseRow = queryProfile.returnProfileRow(_row);
-			Console.WriteLine (databaseRow [5] + " test databaseRow");
 
 			UIImage ImgLeft = UIImage.FromFile (databaseRow[1]);
 			UIImage ImgRight = UIImage.FromFile (databaseRow[2]);
@@ -43,8 +39,6 @@ namespace ZumaKeuzesContrast2
 			imvRight.Image = ImgRight;
 
 			DatabaseRequests.StoreMenuSettings (0, 5, 5, databaseRow [5]);
-			Console.WriteLine (databaseRow[4] + " databaseRow");
-
 		}
 
 		private void SetSnd(object sender, EventArgs args)
@@ -59,12 +53,9 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-//		private QueryProfile queryProfile;
 		private string[] databaseRow = new string[5];
 		private int _row;
 		Sound profileSnd = new Sound();
 		QueryProfile queryProfile = new QueryProfile();
-
-
 	}
 }

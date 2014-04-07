@@ -14,20 +14,22 @@ namespace ZumaKeuzesContrast2
 	{
 		UIViewController masterProfileMenu;
 		DetailViewController detailProfileMenu;
-//		QueryProfile queryProfile;
 		MainMenu mainMenu;
-
-
+	
 		public ProfileMenu () : base ()
 		{
+		}
+
+		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
+		{
+			return UIInterfaceOrientationMask.LandscapeLeft | UIInterfaceOrientationMask.LandscapeRight;
 		}
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 
-//			queryProfile = new QueryProfile ();
-			detailProfileMenu = new DetailViewController (/*queryProfile*/);
+			detailProfileMenu = new DetailViewController ();
 			masterProfileMenu = new MasterViewController (detailProfileMenu);
 
 			vwDetail.Add (detailProfileMenu.View);

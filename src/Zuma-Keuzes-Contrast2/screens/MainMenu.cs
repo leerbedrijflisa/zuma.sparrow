@@ -13,7 +13,6 @@ namespace ZumaKeuzesContrast2
 	{
 		public MainMenu () : base ()
 		{
-//			this.queryProfile = queryProfile;
 		}
 
 		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
@@ -25,20 +24,13 @@ namespace ZumaKeuzesContrast2
 		{
 			base.ViewDidLoad ();
 
-			//Create's a db if there isn't one already with a table to handle the Menu segement button options
-
 			SetProfileSettings();
-
 			InitializeUI ();
 
 			btnClickTimer.TouchUpInside += ClickTimer;
-
 			btnDarkTimer.TouchUpInside += DarkTimer;
-
 			btnGo.TouchUpInside += PushMainView;
-
 			btnChoiceProfile.TouchUpInside += PushProfileMenu;
-
 		}
 
 		public override void ViewWillAppear (bool animated) {
@@ -61,8 +53,6 @@ namespace ZumaKeuzesContrast2
 			menuSetting = queryProfile.ReadMenuSettings();
 			selectedProfileRow = menuSetting [3];
 			_selectedProfileRow = Convert.ToInt32 (selectedProfileRow);
-
-			Console.WriteLine ("selectedrow int " + _selectedProfileRow);
 			selectedProfile = queryProfile.returnProfileRow(_selectedProfileRow);
 		}
 
@@ -87,16 +77,12 @@ namespace ZumaKeuzesContrast2
 
 		private void PushMainView(object sender, EventArgs args)
 		{
-			Console.WriteLine (clickTimer.ToString () + " click");
-			Console.WriteLine (darkTimer.ToString () + " dark");
-
 			int segmetDifficultyLevel = scChoice.SelectedSegment;
-//			int segmetType = scSingleChoiceOptions.SelectedSegment;
 
 			DatabaseRequests.StoreMenuSettings(segmetDifficultyLevel, clickTimer, darkTimer, selectedProfileRow);
 			if(viewController == null)
 			{
-				viewController = new MainViewController4(queryProfile);
+				viewController = new MainViewController4();
 			}
 
 			NavigationController.PushViewController(viewController, false);
