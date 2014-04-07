@@ -343,8 +343,21 @@ namespace ZumaKeuzesContrast2
 			_motionManager.StartAccelerometerUpdates (NSOperationQueue.CurrentQueue, (data, error) => {
 				if (data.Acceleration.Z > 0.890) {
 					PushMainMenu ();
+					turnLandscape = true;
 				}
 			});
+		}
+		public bool turnLandscape = false;
+		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
+		{
+			if (turnLandscape) {
+				return UIInterfaceOrientationMask.LandscapeLeft | UIInterfaceOrientationMask.LandscapeRight;
+			} 
+			else 
+			{
+				return UIInterfaceOrientationMask.LandscapeLeft | UIInterfaceOrientationMask.LandscapeRight | 
+					UIInterfaceOrientationMask.Portrait | UIInterfaceOrientationMask.PortraitUpsideDown;
+			}
 		}
 
 		private void clearImageIMV(UIImageView imvImageCleared)
