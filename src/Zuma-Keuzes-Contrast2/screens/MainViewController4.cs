@@ -102,7 +102,6 @@ namespace ZumaKeuzesContrast2
 
 				imvChoiceLeft = new UIImageView (new RectangleF (50, 250, 412, 274));
 				imvChoiceRight = new UIImageView (new RectangleF (562, 250, 412, 274));
-//				FilterRotation = "landscape";
 				FilterRotation = setFilterRotation.landscape;
 
 					imvChoiceLeft.Image = UIimageOne;
@@ -122,7 +121,6 @@ namespace ZumaKeuzesContrast2
 
 				imvChoiceLeft = new UIImageView (new RectangleF (175, 100, 412, 274));
 				imvChoiceRight = new UIImageView (new RectangleF (175, 612, 412, 274));
-//			FilterRotation = "portrait";
 				 FilterRotation = setFilterRotation.landscape;
 
 					imvChoiceLeft.Image = UIimageOne;
@@ -151,52 +149,48 @@ namespace ZumaKeuzesContrast2
 			blackOutTimer.Dispose();
 			btnChoiceLeft.Enabled = true;
 			btnChoiceRight.Enabled = true;
-			imvLayerLeft.Image = empty;
-			imvLayerRight.Image = empty;
+			sideSet = Side.Both;
+			darkFilter ();
 		}
 
 		private void resetbtnForLowDifficulty()
 		{
+			filledFilter = fillFilter.OFF;
 			blackOutTimer.Dispose ();
 			btnChoice.Enabled = true;
 			imvLayerLeft.Image = empty;
 			imvLayerRight.Image = empty;
-			lowDifficultyfillFilteringChoices ();
+			View.AddSubview (imvLayerRight);
+			View.AddSubview (imvLayerRight);
+//			lowDifficultyfillFilteringChoices ();
 		}
 
 		private void lowDifficultyfillFilteringChoices()
 		{
-//			leftFilterDark ("On", FilterRotation);
-//			rightFilterDark ("Off", FilterRotation);
-//			blackout = "right";
-
-			sideSet = Side.Right;
-			soundSelect = "right";
+//			sideSet = Side.Right;
+//			filledFilter = fillFilter.OFF;
+//			soundSelect = "right";
 			darkFilter ();
 			count = 0;
+
 
 			fillFilteringChoices = NSTimer.CreateRepeatingScheduledTimer (TimeSpan.FromSeconds(5), delegate {
 				switch(count)
 				{
 					case 0:
-					filterFilled = fillFilter.ON;
-						count++;
-						imvLayerLeft.Image = empty;
-//						rightFilterDark (FilterRotation);
-
+					count++;
+					imvLayerLeft.Image = empty;
 					sideSet = Side.Left;
-//						blackout = "left";
-						soundSelect = "left";
+					soundSelect = "left";
 					darkFilter();
 					break;
+
 					case 1:
-					filterFilled = fillFilter.OFF;
-						count--;
-						imvLayerRight.Image = empty;
-//						leftFilterDark(FilterRotation);
+					Console.WriteLine(count.ToString() + " count");
+					count--;
+					imvLayerRight.Image = empty;
 					sideSet = Side.Right;
-//						blackout = "right";
-						soundSelect = "right";
+					soundSelect = "right";
 					darkFilter();
 					break;
 				}
@@ -224,77 +218,10 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		//een methode ????
-//		private void leftFilterDark(string fillFilter/* string setFilterRotation*/)
-//		{
-//			if (/*setFilterRotation == "landscape"*/setFilterRotation.landscape) 
-//			{
-//				imvLayerLeft = new UIImageView (new RectangleF (0, 0, 512, 768));
-//			} 
-//			else if (/*setFilterRotation == "portrait"*/setFilterRotation.portrait) 
-//			{
-//				imvLayerLeft = new UIImageView (new RectangleF (0, 0, 768, 512));
-//			}
-//			if (fillFilter == "On") 
-//			{
-//				imvLayerLeft.Image = filterImage;
-//			} 
-//			else if (fillFilter == "Off") 
-//			{
-//				imvLayerLeft.Image = empty;
-//			}
-//			View.AddSubview (imvLayerLeft);
-//		}
-
-//		private void rightFilterDark(string setFilterRotation)
-//		{
-//			if (/*setFilterRotation == "landscape"*/) {
-//
-//			} else if (setFilterRotation == "portrait") {
-//
-//			}
-//			if (fillFilter.ON) {
-//				imvLayerRight.Image = filterImage;
-//			} else if (fillFilter.OFF) {
-//				imvLayerRight.Image = empty;
-//			}
-//
-//			View.AddSubview (imvLayerRight);
-//		}
-
-		enum fillFilter 
+		private void darkFilter()
 		{
-			ON,
-			OFF
-		}
+			Console.WriteLine (filledFilter.ToString() + " && " + sideSet.ToString());
 
-		enum Side
-		{
-			Left,
-			Right,
-			Both
-		}
-
-		enum setFilterRotation
-		{
-			landscape,
-			portrait
-		}
-
-//		private void blackOutPart()
-//		{
-//			if (count == 0) {
-//				rightFilterDark ("On", FilterRotation);
-//
-//			} else if (count == 1) {
-//				leftFitlerDark ("On", FilterRotation);
-//
-//			}
-//		}
-//
-		private int darkFilter()
-		{
-			int x = 0;
 			if (FilterRotation == setFilterRotation.landscape) 
 			{
 				imvLayerLeft = new UIImageView (new RectangleF (0, 0, 512, 768));
@@ -305,96 +232,30 @@ namespace ZumaKeuzesContrast2
 				imvLayerLeft = new UIImageView (new RectangleF (0, 0, 768, 512));
 				imvLayerRight = new UIImageView (new RectangleF (0, 512, 768, 512));
 			}
-
-			if (sideSet != Side.Left) 
+ 
+			if (sideSet != Side.Left && filledFilter == fillFilter.OFF) 
 			{
 				imvLayerLeft.Image = filterImage;
-				x = 1;
-			} 
-			else if (sideSet == Side.Left) 
-			{
-				imvLayerLeft.Image = empty;
-				x = 2;
 			}
-
-			if (sideSet != Side.Right) 
+		
+			if (sideSet != Side.Right && filledFilter == fillFilter.OFF) 
 			{
 				imvLayerRight.Image = filterImage;
-				x = 2;
-			} 
-			else if (sideSet == Side.Right) 
-			{
-				imvLayerRight.Image = empty;
-				x = 1;
-			} 
-
-			if (sideSet == Side.Both) {
-				if (x == 1) {
-					imvLayerLeft.Image = empty;
-				}
-				if (x == 2) {
-					imvLayerRight.Image = empty;
-				}
-				View.AddSubview (imvLayerLeft);
-				View.AddSubview (imvLayerRight);
-
-//				imvLayerLeft.Image = filterImage;
-//				imvLayerRight.Image = filterImage;
 			}
+
+			if (filledFilter == fillFilter.ON) {
+				if (sideSet == Side.Left) {
+					imvLayerLeft.Image = filterImage;
+				}
+				else if (sideSet == Side.Right) {
+					imvLayerRight.Image = filterImage;
+				}
+			}
+
+			filledFilter = fillFilter.OFF;
 
 			View.AddSubview (imvLayerLeft);
 			View.AddSubview (imvLayerRight);
-
-			return x;
-
-//			if (FilterRotation == setFilterRotation.landscape) 
-//			{
-//				imvLayerRight = new UIImageView (new RectangleF (512, 0, 512, 768));
-//			} 
-//			else if (FilterRotation == setFilterRotation.portrait) 
-//			{
-//				imvLayerRight = new UIImageView (new RectangleF (0, 512, 768, 512));
-//			}
-//
-//
-//			if (blackout == "left") 
-//			{
-//
-//			} 
-//			else if (blackout == "right") 
-//			{
-//				rightFilterDark ("On", FilterRotation);
-//			}
-//			if (sideSet == Side.Left) 
-//			{
-
-//
-//			} 
-//			else if (sideSet == Side.Right) 
-//			{
-
-//			}
-
-
-
-
-//			if (setFilterRotation == "landscape") 
-//			{
-//				
-//			} 
-//			else if (setFilterRotation == "portrait") 
-//			{
-
-//			}
-//			if (fillFilter == "On") 
-//			{
-
-//			} 
-//			else if (fillFilter == "Off") 
-//			{
-//				imvLayerLeft.Image = empty;
-//			}
-//			View.AddSubview (imvLayerLeft);
 		}
 
 		private void PushMainMenu()
@@ -483,15 +344,10 @@ namespace ZumaKeuzesContrast2
 				profileSound.Play(soundTwo);
 			}
 			fillFilteringChoices.Dispose();
+
+			Console.WriteLine (sideSet.ToString () + " sideSet");
 			btnChoice.Enabled = false;
-//			if(count == 0) 
-//			{
-//				blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_clickTimer), BlackOutLowDifficulty);
-//			} 
-//			else if(count == 1) 
-//			{
-				blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_clickTimer), BlackOutLowDifficulty);
-//			}
+			blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_clickTimer), BlackOutLowDifficulty);
 		}
 
 		private void CreateDoubleButtonChoice(object sender, EventArgs args)
@@ -525,7 +381,7 @@ namespace ZumaKeuzesContrast2
 
 		private void BlackOutLowDifficulty()
 		{
-			sideSet = Side.Both;
+			filledFilter = fillFilter.ON;
 			darkFilter();
 			NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), resetbtnForLowDifficulty);
 		}
@@ -539,13 +395,32 @@ namespace ZumaKeuzesContrast2
 		QueryProfile queryProfile;
 		setFilterRotation FilterRotation;
 		Side sideSet;
-		fillFilter filterFilled;
+		fillFilter filledFilter;
 	
 		private string blackout, soundSelect, screenPositionHighDifficulty, /*FilterRotation*/ stringSecond;
 		private string imageOne, imageTwo, soundOne, soundTwo, selectedProfile, selectedButtonSetting, clickTimer, darkTimer; 
 		private int count, _selectedProfile, _clickTimer, _darkTimer;
 		private bool pushed = true, playingLeft = true, playingRight = true;
 		private string[] menuSettings = new string[4], profile = new string[6];
+
+		enum fillFilter 
+		{
+			ON,
+			OFF
+		}
+
+		enum Side
+		{
+			Left,
+			Right,
+			Both
+		}
+
+		enum setFilterRotation
+		{
+			landscape,
+			portrait
+		}
 
 	}
 }
