@@ -60,8 +60,6 @@ namespace ZumaKeuzesContrast2
 		{
 			btnClickTimer.MinimumValue = 1;
 			btnDarkTimer.MinimumValue = 1;
-			btnClickTimer.MaximumValue = 99;
-			btnDarkTimer.MaximumValue = 99;
 			btnClickTimer.Value = 5;
 			btnDarkTimer.Value = 5;
 
