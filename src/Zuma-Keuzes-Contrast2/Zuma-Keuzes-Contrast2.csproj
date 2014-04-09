@@ -92,6 +92,7 @@
     <Reference Include="monotouch" />
     <Reference Include="System.Data" />
     <Reference Include="Mono.Data.Sqlite" />
+    <Reference Include="MonoTouch.Dialog-1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -106,10 +107,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
-    <Compile Include="screens\MainViewController2.cs" />
-    <Compile Include="screens\MainViewController2.designer.cs">
-      <DependentUpon>MainViewController2.cs</DependentUpon>
-    </Compile>
     <Compile Include="classes\Sound.cs" />
     <Compile Include="screens\MainViewController4.cs" />
     <Compile Include="screens\MainViewController4.designer.cs">
@@ -119,7 +116,6 @@
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="screens\MainMenu.cs" />
-    <Compile Include="AppDelegate.cs" />
     <Compile Include="classes\Rotations.cs" />
     <Compile Include="screens\ProfileMenu.cs" />
     <Compile Include="screens\ProfileMenu.designer.cs">
@@ -128,24 +124,33 @@
     <Compile Include="classes\RotationNavigationController.cs" />
     <Compile Include="classes\DatabaseRequests.cs" />
     <Compile Include="classes\TableSource.cs" />
+    <Compile Include="screens\MasterViewController.cs" />
+    <Compile Include="screens\MasterViewController.designer.cs">
+      <DependentUpon>MasterViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="screens\DetailViewController.cs" />
+    <Compile Include="screens\DetailViewController.designer.cs">
+      <DependentUpon>DetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="classes\sendData.cs" />
+    <Compile Include="classes\QueryProfile.cs" />
+    <Compile Include="AppDelegate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <InterfaceDefinition Include="screens\MainViewController2.xib" />
     <InterfaceDefinition Include="screens\MainViewController4.xib" />
     <InterfaceDefinition Include="screens\MainMenu.xib" />
     <InterfaceDefinition Include="screens\ProfileMenu.xib" />
+    <InterfaceDefinition Include="screens\MasterViewController.xib" />
+    <InterfaceDefinition Include="screens\DetailViewController.xib" />
+    <InterfaceDefinition Include="TestViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\images\AddBTN2.png" />
     <BundleResource Include="Resources\images\AddBTN.png" />
     <BundleResource Include="Resources\images\clouds.jpg" />
     <BundleResource Include="Resources\images\layer_transparent.png" />
-    <BundleResource Include="Resources\images\LeftArrow.png" />
-    <BundleResource Include="Resources\images\LeftArrow2.png" />
     <BundleResource Include="Resources\images\No.jpg" />
-    <BundleResource Include="Resources\images\RightArrow.png" />
-    <BundleResource Include="Resources\images\RightArrow2.png" />
     <BundleResource Include="Resources\images\SubtractBTN.png" />
     <BundleResource Include="Resources\images\SubtractBTN2.png" />
     <BundleResource Include="Resources\images\Yes.jpg" />
@@ -159,5 +164,7 @@
     <BundleResource Include="Resources\sounds\testvoice.mp3" />
     <BundleResource Include="Resources\sounds\thirsty.mp3" />
     <BundleResource Include="Resources\sounds\Yes.mp3" />
+    <BundleResource Include="Resources\images\RightArrow2.png" />
+    <BundleResource Include="Resources\images\LeftArrow2.png" />
   </ItemGroup>
 </Project>

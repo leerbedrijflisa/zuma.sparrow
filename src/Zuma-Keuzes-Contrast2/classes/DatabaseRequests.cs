@@ -9,7 +9,11 @@ namespace ZumaKeuzesContrast2
 	public class DatabaseRequests
 	{
 
-		public static void CreateZumaSparrowDB()
+		public DatabaseRequests ()
+		{
+		}
+
+		public static void CreateDatabase()
 		{
 
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
@@ -22,7 +26,9 @@ namespace ZumaKeuzesContrast2
 				conn.Open ();
 				using (var cmd = conn.CreateCommand ()) {
 
-					cmd.CommandText = "CREATE TABLE MenuOptions (MenuOptionsID INTEGER PRIMARY KEY AUTOINCREMENT, scFirst INTEGER, scSecond INTEGER, Timer INTERGER);";
+					// column removed from MenuOptions
+					//scSecond INTEGER, 
+					cmd.CommandText = "CREATE TABLE MenuOptions (MenuOptionsID INTEGER PRIMARY KEY AUTOINCREMENT, scFirst INTEGER, clickTimer INTERGER, darkTimer INTERGER, storedProfile VARCHAR(255));";
 					cmd.CommandType = CommandType.Text;
 					cmd.ExecuteNonQuery ();
 				}
@@ -37,11 +43,13 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public static void StoreMenuSettings(int scFirst, int scSecond, int Timer)
+		public static void StoreMenuSettings(int scFirst, int clickTimer, int darkTimer, string storedProfile)
 		{
 			var varScFirst = scFirst;
-			var varScSecond = scSecond;
-			var varTimer = Timer;
+//			var varScSecond = scSecond;
+			var varClickTimer = clickTimer;
+			var varDarkTimer = darkTimer;
+			var varStoredProfile = storedProfile;
 
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
@@ -53,17 +61,19 @@ namespace ZumaKeuzesContrast2
 
 				using (var cmd = conn.CreateCommand ()) {
 
-					cmd.CommandText = "INSERT INTO MenuOptions (scFirst, scSecond, Timer) VALUES (@First, @Second, @Timer)";
+					cmd.CommandText = "INSERT INTO MenuOptions (scFirst, clickTimer, darkTimer, storedProfile) VALUES (@First, @clickTimer, @darkTimer, @storedProfile)";
 					cmd.Parameters.AddWithValue ("@First", varScFirst);
-					cmd.Parameters.AddWithValue ("@Second", varScSecond);
-					cmd.Parameters.AddWithValue ("@Timer", varTimer);
+//					cmd.Parameters.AddWithValue ("@Second", varScSecond);
+					cmd.Parameters.AddWithValue ("@clickTimer", varClickTimer);
+					cmd.Parameters.AddWithValue ("@darkTimer", varDarkTimer);
+					cmd.Parameters.AddWithValue ("@storedProfile", varStoredProfile);
 					cmd.ExecuteNonQuery ();
 
 				}
 			}
 		}
 
-		public static void StaticProfiles()
+		public static void CreateDefaultProfiles()
 		{
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
@@ -74,19 +84,32 @@ namespace ZumaKeuzesContrast2
 				conn.Open ();
 				using (var cmd = conn.CreateCommand ()) 
 				{
-					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Links/Rechts', 'images/LeftArrow.png', 'images/RightArrow.png', 'sounds/Left.mp3', 'sounds/Right.mp3')";
+					cmd.CommandText = "INSERT INTO MenuOptions (scFirst, clickTimer, darkTimer, storedProfile) VALUES (0, 5, 5, '1')";
 					cmd.ExecuteNonQuery ();
 				}
 
 				using (var cmd = conn.CreateCommand ()) 
 				{
-					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Ja/Nee', 'images/Yes.jpeg', 'images/No.jpg', 'sounds/Yes.mp3', 'sounds/No.mp3')";
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Links/Rechts', 'images/LeftArrow2.png', 'images/RightArrow2.png', 'sounds/Left.mp3', 'sounds/Right.mp3')";
 					cmd.ExecuteNonQuery ();
 				}
+
+				using (var cmd = conn.CreateCommand ()) 
+				{
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Ja/Nee', 'images/Yes.jpg', 'images/No.jpg', 'sounds/Yes.mp3', 'sounds/No.mp3')";
+					cmd.ExecuteNonQuery ();
+				}
+
+				using (var cmd = conn.CreateCommand ()) 
+				{
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Nee/Ja', 'images/No.jpg', 'images/Yes.jpg', 'sounds/No.mp3', 'sounds/Yes.mp3')";
+					cmd.ExecuteNonQuery ();
+				}
+
 			}
 		}
 
-		public static void SetSelectedRow(int rowSelected)
+		public static void SetSelectedRow(string rowSelected)
 		{
 			var addRowSelected = rowSelected; 
 
@@ -105,11 +128,5 @@ namespace ZumaKeuzesContrast2
 				}
 			}
 		}
-
-
-
 	}
-
 }
-
-

@@ -11,114 +11,26 @@ namespace ZumaKeuzesContrast2
 {
 	public partial class MainMenu : UIViewController
 	{
-
-		public MainMenu () : base ("MainMenu", null)
+		public MainMenu () : base ()
 		{
-		}
-
-		public override void DidReceiveMemoryWarning ()
-		{
-			// Releases the view if it doesn't have a superview.
-			base.DidReceiveMemoryWarning ();
-			
-			// Release any cached data, images, etc that aren't in use.
 		}
 
 		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
 		{
 			return UIInterfaceOrientationMask.LandscapeLeft | UIInterfaceOrientationMask.LandscapeRight;
 		}
-			
-
-		MainViewController4 viewController;
-		ProfileMenu profileMenu;
-
-		public override void ViewDidAppear (bool animated)
-		{
-			base.ViewDidAppear (animated);
-
-		}
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 
-			//Create's a db if there isn't one already with a table to handle the Menu segement button options
-			DatabaseRequests.CreateZumaSparrowDB ();
-			DatabaseRequests.StaticProfiles ();
-			returnSelectedRow ();
+			SetProfileSettings();
+			InitializeUI ();
 
-			btnAdd.SetImage (UIImage.FromFile ("images/AddBTN.png"), UIControlState.Normal);
-			btnSubtract.SetImage (UIImage.FromFile ("images/SubtractBTN.png"), UIControlState.Normal);
-
-			int Timer = 5;
-
-			btnChoiceProfile.TouchUpInside += (sender, e) => {
-				if (profileMenu == null) {
-					profileMenu = new ProfileMenu ();
-				}
-
-				NavigationController.PushViewController(profileMenu, false);
-			};						
-
-			LblTimer.Text = Timer.ToString();
-
-			btnAdd.TouchUpInside += (sender, e) => {
-				Timer ++;
-				LblTimer.Text = Timer.ToString();
-			};
-
-			btnSubtract.TouchUpInside += (sender, e) => {
-				if(Timer <= 1) 
-				{ 
-					btnSubtract.SetImage (UIImage.FromFile ("images/AddSubtractBTN.png"), UIControlState.Disabled);
-				} 
-				else 
-				{ 
-					btnSubtract.SetImage (UIImage.FromFile ("images/AddSubtractBTN.png"), UIControlState.Disabled);
-					Timer --;
-					LblTimer.Text = Timer.ToString();
-				}
-
-			};
-
-			btnGo.TouchUpInside += (sender, e) => {
-
-				int segmetDifficultyLevel = scChoice.SelectedSegment;
-				int segmetType = scSingleChoiceOptions.SelectedSegment;
-	
-				DatabaseRequests.StoreMenuSettings(segmetDifficultyLevel, segmetType, Timer);
-				if(viewController == null)
-				{
-					viewController = new MainViewController4();
-				}
-
-				NavigationController.PushViewController(viewController, false);
-
-			};
-		}
-
-		public void returnSelectedRow()
-		{
-			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
-
-			var connectionString = string.Format ("Data source={0};Version=3", pathToDatabase);
-			using (var conn = new SqliteConnection (connectionString)) 
-			{
-				conn.Open ();
-				string stm = "SELECT * FROM Profile";
-
-				using (SqliteCommand cmd = new SqliteCommand (stm, conn)) {
-					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
-						while (rdr.Read ()) {
-							object getSelectedRow = rdr ["selectedRow"];
-						}
-					}
-				}
-			}
-				
-
+			btnClickTimer.TouchUpInside += ClickTimer;
+			btnDarkTimer.TouchUpInside += DarkTimer;
+			btnGo.TouchUpInside += PushMainView;
+			btnChoiceProfile.TouchUpInside += PushProfileMenu;
 		}
 
 		public override void ViewWillAppear (bool animated) {
@@ -130,5 +42,73 @@ namespace ZumaKeuzesContrast2
 			base.ViewWillDisappear (animated);
 			this.NavigationController.SetNavigationBarHidden (false, animated);
 		}
+
+		public override bool PrefersStatusBarHidden ()
+		{
+			return true;
+		}
+
+		private void SetProfileSettings()
+		{
+			menuSetting = queryProfile.ReadMenuSettings();
+			selectedProfileRow = menuSetting [3];
+			_selectedProfileRow = Convert.ToInt32 (selectedProfileRow);
+			selectedProfile = queryProfile.returnProfileRow(_selectedProfileRow);
+		}
+
+		private void InitializeUI()
+		{
+			btnClickTimer.MinimumValue = 1;
+			btnDarkTimer.MinimumValue = 1;
+			btnClickTimer.Value = 5;
+			btnDarkTimer.Value = 5;
+
+			lblProfile.Text = selectedProfile [0];
+		}
+
+		private void PushProfileMenu(object sender, EventArgs args) 
+		{
+			if (profileMenu == null) {
+				profileMenu = new ProfileMenu ();
+			}
+
+			NavigationController.PushViewController (profileMenu, false);
+		}
+
+		private void PushMainView(object sender, EventArgs args)
+		{
+			int segmetDifficultyLevel = scChoice.SelectedSegment;
+
+			DatabaseRequests.StoreMenuSettings(segmetDifficultyLevel, clickTimer, darkTimer, selectedProfileRow);
+			if(viewController == null)
+			{
+				viewController = new MainViewController4();
+			}
+
+			NavigationController.PushViewController(viewController, false);
+		}
+
+		private void ClickTimer (object sender, EventArgs args)
+		{
+			LblTimer.Text = btnClickTimer.Value.ToString();
+			int clickTimerValue = Convert.ToInt32 (btnClickTimer.Value);
+			clickTimer = clickTimerValue;
+
+		}
+
+		private void DarkTimer (object sender, EventArgs args)
+		{
+			lblDarkTimer.Text = btnDarkTimer.Value.ToString();
+			int darkTimerValue = Convert.ToInt32 (btnDarkTimer.Value);
+			darkTimer = darkTimerValue;
+
+		}
+
+		QueryProfile queryProfile = new QueryProfile();
+		private MainViewController4 viewController;
+		private ProfileMenu profileMenu;
+		private int clickTimer = 5, darkTimer = 5, _selectedProfileRow;
+		private string[] menuSetting = new string[4], selectedProfile = new string[6];
+		private string selectedProfileRow;
 	}
 }

@@ -13,21 +13,45 @@ namespace ZumaKeuzesContrast2
 	partial class ProfileMenu
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIButton btnSaveProfile { get; set; }
+		MonoTouch.UIKit.UIButton btnPushMainMenu { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UITableView lisProfiles { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIView vwDetail { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIView vwDetial { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIView vwMaster { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (btnPushMainMenu != null) {
+				btnPushMainMenu.Dispose ();
+				btnPushMainMenu = null;
+			}
+
 			if (lisProfiles != null) {
 				lisProfiles.Dispose ();
 				lisProfiles = null;
 			}
 
-			if (btnSaveProfile != null) {
-				btnSaveProfile.Dispose ();
-				btnSaveProfile = null;
+			if (vwDetail != null) {
+				vwDetail.Dispose ();
+				vwDetail = null;
+			}
+
+			if (vwDetial != null) {
+				vwDetial.Dispose ();
+				vwDetial = null;
+			}
+
+			if (vwMaster != null) {
+				vwMaster.Dispose ();
+				vwMaster = null;
 			}
 		}
 	}
