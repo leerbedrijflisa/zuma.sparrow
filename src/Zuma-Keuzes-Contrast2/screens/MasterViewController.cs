@@ -17,8 +17,6 @@ namespace ZumaKeuzesContrast2
 			this.detailProfileMenu = detailProfileMenu;
 		}
 
-
-
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
