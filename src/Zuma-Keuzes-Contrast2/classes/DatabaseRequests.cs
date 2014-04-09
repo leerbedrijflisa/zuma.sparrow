@@ -46,7 +46,6 @@ namespace ZumaKeuzesContrast2
 		public static void StoreMenuSettings(int scFirst, int clickTimer, int darkTimer, string storedProfile)
 		{
 			var varScFirst = scFirst;
-//			var varScSecond = scSecond;
 			var varClickTimer = clickTimer;
 			var varDarkTimer = darkTimer;
 			var varStoredProfile = storedProfile;
@@ -63,7 +62,6 @@ namespace ZumaKeuzesContrast2
 
 					cmd.CommandText = "INSERT INTO MenuOptions (scFirst, clickTimer, darkTimer, storedProfile) VALUES (@First, @clickTimer, @darkTimer, @storedProfile)";
 					cmd.Parameters.AddWithValue ("@First", varScFirst);
-//					cmd.Parameters.AddWithValue ("@Second", varScSecond);
 					cmd.Parameters.AddWithValue ("@clickTimer", varClickTimer);
 					cmd.Parameters.AddWithValue ("@darkTimer", varDarkTimer);
 					cmd.Parameters.AddWithValue ("@storedProfile", varStoredProfile);
@@ -103,6 +101,12 @@ namespace ZumaKeuzesContrast2
 				using (var cmd = conn.CreateCommand ()) 
 				{
 					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Nee/Ja', 'images/No.jpg', 'images/Yes.jpg', 'sounds/No.mp3', 'sounds/Yes.mp3')";
+					cmd.ExecuteNonQuery ();
+				}
+
+				using (var cmd = conn.CreateCommand ()) 
+				{
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('eten/drinken', 'images/eten.jpg', 'images/beker.jpg', 'sounds/hungry.mp3', 'sounds/thirsty.mp3')";
 					cmd.ExecuteNonQuery ();
 				}
 
