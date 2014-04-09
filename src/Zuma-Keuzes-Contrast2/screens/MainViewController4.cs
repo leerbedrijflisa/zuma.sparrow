@@ -32,15 +32,15 @@ namespace ZumaKeuzesContrast2
 			//Create imageViews
 			PositionControls (InterfaceOrientation);
 
-			if (selectedButtonSetting == "0") 
-			{
+			switch (selectedButtonSetting){
+			case "0":
 				lowDifficultySwitchingChoices ();
 				btnChoice.TouchUpInside += CreateButtonChoice;
-			}
-			else if (selectedButtonSetting == "1") 
-			{
+				break;
+			case "1":
 				btnChoiceLeft.TouchUpInside += CreateDoubleButtonChoice;
 				btnChoiceRight.TouchUpInside += CreateDoubleButtonChoice;
+				break;
 			}
 		}
 
@@ -123,7 +123,6 @@ namespace ZumaKeuzesContrast2
 			View.AddSubview (imvChoiceRight);
 
 			SelectBtnDifficulty ();
-
 		}
 
 		public override void ViewWillAppear (bool animated) {
@@ -138,31 +137,30 @@ namespace ZumaKeuzesContrast2
 
 		private void CreateButtonChoice(object sender, EventArgs args)
 		{
-			if(soundSelect == "left")
-			{
+			switch (soundSelect){
+			case "left":
 				profileSound.Play(soundOne);
-			}
-			else if(soundSelect == "right")
-			{
-				profileSound.Play(soundTwo);
+				break;
+			case "right":
+				profileSound.Play (soundTwo);
+				break;
 			}
 			SwitchingChoices.Dispose();
 			btnChoice.Enabled = false;
-			if(count == 0) {
 
+			switch (count) {
+			case 0:
 				blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer), delegate {
 					blackOutLowDifficulty();
 					NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), resetbtnForLowDifficulty);
-
 				});
-
-			} else if(count == 1) {
-
+				break;
+			case 1:
 				blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer), delegate {
 					blackOutPart();
 					NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), resetbtnForLowDifficulty);
-
 				});
+				break;
 			}
 		}
 
@@ -187,7 +185,7 @@ namespace ZumaKeuzesContrast2
 				btnChoiceRight.Enabled = false;
 				blackout = "right";
 				profileSound.Play(soundTwo);
-				leftFitlerDark ("On", FilterRotation);
+				leftFilterDark ("On", FilterRotation);
 
 				blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer), delegate {
 					blackOutLowDifficulty();
@@ -216,7 +214,7 @@ namespace ZumaKeuzesContrast2
 
 		private void lowDifficultySwitchingChoices()
 		{
-			leftFitlerDark ("On", FilterRotation);
+			leftFilterDark ("On", FilterRotation);
 			rightFilterDark ("Off", FilterRotation);
 
 			blackout = "right";
@@ -238,10 +236,9 @@ namespace ZumaKeuzesContrast2
 					case 1:
 					count--;
 					imvLayerRight.Image = empty;
-					leftFitlerDark("On", FilterRotation);
+					leftFilterDark("On", FilterRotation);
 					blackout = "right";
 					soundSelect = "right";
-
 					break;
 				}
 			});
@@ -270,55 +267,69 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		private void leftFitlerDark(string Switch, string setFilterRotation)
+		private void leftFilterDark(string Switch, string setFilterRotation)
 		{
-			if (setFilterRotation == "landscape") {
+			switch (setFilterRotation){
+			case "landscape":
 				imvLayerLeft = new UIImageView (new RectangleF (0, 0, 512, 768));
-			} else if (setFilterRotation == "portrait") {
+				break;
+			case "portrait":
 				imvLayerLeft = new UIImageView (new RectangleF (0, 0, 768, 512));
+				break;
 			}
-			if (Switch == "On") {
+			switch (Switch){
+			case "On":
 				imvLayerLeft.Image = filterImage;
-			} else if (Switch == "Off") {
+				break;
+			case "Off":
 				imvLayerLeft.Image = empty;
+				break;
 			}
-
 			View.AddSubview (imvLayerLeft);
 		}
 
 		private void rightFilterDark(string Switch, string setFilterRotation)
 		{
-			if (setFilterRotation == "landscape") {
-				imvLayerRight = new UIImageView (new RectangleF (512, 0, 512, 768));
-			} else if (setFilterRotation == "portrait") {
-				imvLayerRight = new UIImageView (new RectangleF (0, 512, 768, 512)); 
+			switch (setFilterRotation){ 
+			case "landscape":
+							imvLayerRight = new UIImageView (new RectangleF (512, 0, 512, 768));
+				break;
+			case "portrait":
+							imvLayerRight = new UIImageView (new RectangleF (0, 512, 768, 512));
+				break;
 			}
-			if (Switch == "On") {
+			switch (Switch){
+			case "On":
 				imvLayerRight.Image = filterImage;
-			} else if (Switch == "Off") {
+				break;
+			case "Off":
 				imvLayerRight.Image = empty;
+				break;
 			}
-
 			View.AddSubview (imvLayerRight);
 		}
 
 		private void blackOutPart()
 		{
-			if (count == 0) {
+			switch (count){
+			case 0:
 				rightFilterDark ("On", FilterRotation);
-
-			} else if (count == 1) {
-				leftFitlerDark ("On", FilterRotation);
-
+				break;
+			case 1:
+				leftFilterDark ("On", FilterRotation);
+				break;
 			}
 		}
 
 		private void blackOutLowDifficulty()
 		{
-			if (blackout == "left") {
-				leftFitlerDark ("On", FilterRotation);
-			} else if (blackout == "right") {
+			switch (blackout){
+			case "left":
+				leftFilterDark ("On", FilterRotation);
+				break;
+			case "right":
 				rightFilterDark ("On", FilterRotation);
+				break;
 			}
 		}
 
@@ -359,18 +370,19 @@ namespace ZumaKeuzesContrast2
 			filterImage = UIImage.FromFile ("images/layer_transparent.png");
 			empty = UIImage.FromFile ("");
 
-			if (selectedButtonSetting == "0") {
+			switch (selectedButtonSetting){
+			case "0":
 				btnChoice = UIButton.FromType (UIButtonType.RoundedRect);
-
 				View.AddSubview (btnChoice);
-			} else if (selectedButtonSetting == "1") {
+				break;
+			case "1":
 				btnChoiceLeft = UIButton.FromType (UIButtonType.RoundedRect);
 				btnChoiceRight = UIButton.FromType (UIButtonType.RoundedRect);
 
 				View.AddSubview (btnChoiceLeft);
 				View.AddSubview (btnChoiceRight);
+				break;
 			}
-
 			UIimageOne = UIImage.FromFile (imageOne);
 			UIimageTwo = UIImage.FromFile (imageTwo);
 		}
@@ -394,7 +406,6 @@ namespace ZumaKeuzesContrast2
 			darkTimer = menuSettings [2];
 			_clickTimer = Convert.ToInt32 (clickTimer);
 			_darkTimer = Convert.ToInt32 (darkTimer);
-
 		}
 
 		UIButton btnChoice, btnChoiceLeft, btnChoiceRight;
