@@ -41,6 +41,16 @@ namespace ZumaKeuzesContrast2
 			DatabaseRequests.StoreMenuSettings (0, 5, 5, databaseRow [5]);
 		}
 
+		public void CreateEmptyProfile()
+		{
+			vwHidden.Hidden = true;
+
+			UIImage ImgLeft = UIImage.FromFile ("images/empty.png");
+			UIImage ImgRight = UIImage.FromFile ("images/empty.png");
+			imvLeft.Image = ImgLeft;
+			imvRight.Image = ImgRight;
+		}
+
 		private void SetSnd(object sender, EventArgs args)
 		{
 			if (sender == btnSetLeftSnd)
@@ -52,7 +62,7 @@ namespace ZumaKeuzesContrast2
 				profileSnd.Play (databaseRow [4]);
 			}
 		}
-
+			
 		private string[] databaseRow = new string[5];
 		private int _row;
 		Sound profileSnd = new Sound();

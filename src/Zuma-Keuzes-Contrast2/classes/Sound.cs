@@ -28,8 +28,6 @@ namespace Lisa.Zuma
 			player.FinishedPlaying += (sender, e) => {
 				onSoundEnd (); 
 			};
-
-
 		}
 
 		public void Stop(){

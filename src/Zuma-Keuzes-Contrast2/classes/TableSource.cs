@@ -15,10 +15,11 @@ namespace ZumaKeuzesContrast2
 		string[] tableItems;
 		string cellIdentifier = "TableCell";
 
-		public TableSource (string[] items, DetailViewController detailProfileMenu)
+		public TableSource (string[] items, DetailViewController detailProfileMenu, MasterViewController masterProfileMenu)
 		{
 			tableItems = items;
 			this.detailProfileMenu = detailProfileMenu;
+			this.masterProfileMenu = masterProfileMenu;
 		}
 
 		public override int RowsInSection (UITableView tableview, int section)
@@ -39,12 +40,11 @@ namespace ZumaKeuzesContrast2
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{
 			detailProfileMenu.RefreshDetialView (indexPath.Row);
+			masterProfileMenu.SetBackCreateNewProfile ();
 
-			// NOTE: Don't call the base implementation on a Model class
-			// see http://docs.xamarin.com/guides/ios/application_fundamentals/delegates,_protocols,_and_events
-//			throw new NotImplementedException ();
 		}
 
 		private DetailViewController detailProfileMenu;
+		private MasterViewController masterProfileMenu;
 	}
 }
