@@ -44,10 +44,8 @@ namespace ZumaKeuzesContrast2
 			soundOne = returnSoundOne.ToString ();
 			soundTwo = returnSoundTwo.ToString ();
 
-			Console.WriteLine (profileName + imageOne + imageTwo + soundOne + soundTwo);
 			rowReturned = Convert.ToInt32 (returnRow);
 			row = rowReturned.ToString ();
-			Console.WriteLine (rowReturned);
 
 			databaseRow [0] = profileName;
 			databaseRow [1] = imageOne;
@@ -74,9 +72,7 @@ namespace ZumaKeuzesContrast2
 				using (SqliteCommand cmd = new SqliteCommand (stm, conn)) {
 					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
 						while (rdr.Read ()) {
-							// tijdens refactoren een beter naam bedenken voor returnFirst/first geld ook voor StoreMenuSettings!
 							returnFirst = rdr ["scFirst"];
-//							returnSecond = rdr ["scSecond"];
 							returnClickTimer = rdr ["clickTimer"];
 							returnDarkTimer = rdr ["darkTimer"];
 							returnStoredProfile = rdr ["storedProfile"];
@@ -97,6 +93,28 @@ namespace ZumaKeuzesContrast2
 			menuSettings [3] = storedProfile;
 
 			return menuSettings;
+
+		}
+
+		public void CreateEmptyProfile(string name)
+		{
+			var varName = name;
+
+			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
+
+			var connectionString = String.Format ("Data source={0};Version=3", pathToDatabase);
+			using (var conn = new SqliteConnection (connectionString)) {
+
+				conn.Open ();
+
+				using (var cmd = conn.CreateCommand ()) 
+				{
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo) VALUES ('@name', 'images/empty.png', 'images/empty.png')";
+					cmd.Parameters.AddWithValue ("@name", varName);
+					cmd.ExecuteNonQuery ();
+				}
+			}
 
 		}
 

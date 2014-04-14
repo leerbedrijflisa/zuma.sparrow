@@ -31,6 +31,8 @@ namespace ZumaKeuzesContrast2
 
 			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
 
+			btnCreateNewProfile.TouchUpInside += CreateNewProfile;
+
 		}
 			
 		public void ReadMenuSettings()
@@ -57,12 +59,33 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
+		private void CreateNewProfile(object sender, EventArgs args)
+		{
+			View.AddSubview (inputProfileName);
+			newProfileName = inputProfileName.Text;
+			btnCreateNewProfile.Hidden = true;
+		}
+
 		private DetailViewController detailProfileMenu;
-		string name;
+		private string name, newProfileName;
 		object returnFirst;
 		List<string> ProfileNames = new List<string> ();
 		string[] items;
 		TableSource itemstable;
+		QueryProfile queryProfile = new QueryProfile ();
+
+		UITextField inputProfileName = new UITextField
+		{
+			Placeholder = "Vul naam in",
+			BorderStyle = UITextBorderStyle.RoundedRect,
+			Frame = new RectangleF(5, 30, 275, 25)
+		};
+
+		UIButton btnSaveProfileName = new UIButton()
+		{
+			UIButton.FromType(UIButtonType.RoundedRect),
+
+		};
 	}
 }
 
