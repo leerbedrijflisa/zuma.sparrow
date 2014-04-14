@@ -22,14 +22,14 @@ namespace ZumaKeuzesContrast2
 			base.ViewDidLoad ();
 			
 			ReadMenuSettings ();
+			InitializeUI ();
 
 			items = ProfileNames.ToArray ();
-
-			itemstable = new TableSource (items, detailProfileMenu);
-
+			itemstable = new TableSource (items, detailProfileMenu, this);
 			tblProfileList.Source = itemstable;
-
 			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
+
+			btnCreateNewProfile.TouchUpInside += CreateNewProfile;
 
 		}
 			
@@ -57,12 +57,48 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
+		public void SetBackCreateNewProfile()
+		{
+			btnCreateNewProfile.Hidden = false;
+			btnSaveProfileName.Hidden = true;
+			inputProfileName.Hidden = true;
+		}
+
+		private void CreateNewProfile(object sender, EventArgs args)
+		{
+			detailProfileMenu.CreateEmptyProfile ();
+			View.AddSubview (inputProfileName);
+			View.AddSubview (btnSaveProfileName);
+			btnSaveProfileName.Hidden = false;
+			inputProfileName.Hidden = false;
+			newProfileName = inputProfileName.Text;
+			btnCreateNewProfile.Hidden = true;
+		}
+			
+		private void InitializeUI()
+		{
+			btnSaveProfileName = UIButton.FromType (UIButtonType.RoundedRect);
+			btnSaveProfileName.Frame = new RectangleF (285, 30, 175, 25);
+			btnSaveProfileName.SetTitle ("Profiel aanmaken", UIControlState.Normal);
+			btnSaveProfileName.SetTitleColor(UIColor.White, UIControlState.Normal); 
+		}
+
 		private DetailViewController detailProfileMenu;
-		string name;
+		private string name, newProfileName;
 		object returnFirst;
 		List<string> ProfileNames = new List<string> ();
 		string[] items;
 		TableSource itemstable;
+		QueryProfile queryProfile = new QueryProfile ();
+		UIButton btnSaveProfileName = new UIButton ();
+
+		UITextField inputProfileName = new UITextField
+		{
+			Placeholder = "Vul naam in",
+			BorderStyle = UITextBorderStyle.RoundedRect,
+			Frame = new RectangleF(5, 30, 275, 25)
+		};
+
 	}
 }
 

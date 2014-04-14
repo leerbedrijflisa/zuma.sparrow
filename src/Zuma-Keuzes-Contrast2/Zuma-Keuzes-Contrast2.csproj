@@ -168,5 +168,6 @@
     <BundleResource Include="Resources\images\LeftArrow2.png" />
     <BundleResource Include="Resources\images\beker.jpg" />
     <BundleResource Include="Resources\images\eten.jpg" />
+    <BundleResource Include="Resources\images\empty.png" />
   </ItemGroup>
 </Project>

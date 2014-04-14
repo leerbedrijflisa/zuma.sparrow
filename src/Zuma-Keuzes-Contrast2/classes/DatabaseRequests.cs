@@ -25,9 +25,6 @@ namespace ZumaKeuzesContrast2
 
 				conn.Open ();
 				using (var cmd = conn.CreateCommand ()) {
-
-					// column removed from MenuOptions
-					//scSecond INTEGER, 
 					cmd.CommandText = "CREATE TABLE MenuOptions (MenuOptionsID INTEGER PRIMARY KEY AUTOINCREMENT, scFirst INTEGER, clickTimer INTERGER, darkTimer INTERGER, storedProfile VARCHAR(255));";
 					cmd.CommandType = CommandType.Text;
 					cmd.ExecuteNonQuery ();

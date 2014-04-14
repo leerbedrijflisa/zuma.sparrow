@@ -13,6 +13,9 @@ namespace ZumaKeuzesContrast2
 	partial class MasterViewController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIButton btnCreateNewProfile { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITableView tblProfileList { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -20,6 +23,11 @@ namespace ZumaKeuzesContrast2
 			if (tblProfileList != null) {
 				tblProfileList.Dispose ();
 				tblProfileList = null;
+			}
+
+			if (btnCreateNewProfile != null) {
+				btnCreateNewProfile.Dispose ();
+				btnCreateNewProfile = null;
 			}
 		}
 	}
