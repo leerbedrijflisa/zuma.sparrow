@@ -17,7 +17,7 @@ namespace Lisa.Zuma
 				player.Dispose ();
 				player = null;
 			});
-
+			MonoTouch.ObjCRuntime.Class.ThrowOnInitFailure = false;
 			NSUrl assets = NSUrl.FromString (sound);
 			player = AVAudioPlayer.FromUrl(assets);
 

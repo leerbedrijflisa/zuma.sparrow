@@ -78,7 +78,7 @@ namespace ZumaKeuzesContrast2
 		}
 			
 		public AVAudioRecorder recorder;
-		NSError error = new NSError(new NSString("com.xamarin"), 1);
+		NSError error = null;
 		NSUrl audioFilePath;
 		NSDictionary settings;
 
