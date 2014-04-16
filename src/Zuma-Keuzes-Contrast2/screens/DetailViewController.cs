@@ -182,17 +182,18 @@ namespace ZumaKeuzesContrast2
 		private void RecordNewProfileSnd(object sender, EventArgs args)
 		{
 //			recordSound.recorder.PrepareToRecord ();
-			recordSound.StartRecording ();
+//			recordSound.StartRecording ();
 
 			if (isRecording) 
 			{
-				recordSound.StopRecording ();
 				btnSetLeftSnd.SetTitle ("scream now!", UIControlState.Normal);
+				recordSound.StartRecording ();
 				isRecording = false;
 			} 
 			else if (!isRecording) 
 			{
 				btnSetLeftSnd.SetTitle ("Record", UIControlState.Normal);
+				recordSound.StopRecording ();
 				isRecording = true;
 			}
 		}
