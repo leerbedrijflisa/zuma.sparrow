@@ -22,17 +22,20 @@ namespace ZumaKeuzesContrast2
 		{
 			base.ViewDidLoad ();
 
+
+
 			btnSaveProfile.Hidden = true;
 			btnSetLeftImage.Hidden = false;
-			btnSetRightImage.Hidden = false;
-
-
+			btnSetRightImage.Hidden = true;
 
 			btnSetLeftImage.TouchUpInside += SetNewProfileImage;
 			btnSetRightImage.TouchUpInside += SetNewProfileImage;
 
-			btnSetLeftSnd.TouchUpInside += SetSnd;
-			btnSetRightSnd.TouchUpInside += SetSnd;
+			btnSetLeftSnd.TouchUpInside += RecordNewProfileSnd;
+			btnSetRightSnd.TouchUpInside += RecordNewProfileSnd;
+
+			btnPlayLeftSnd.TouchUpInside += PlaySnd;
+			btnPlayRightSnd.TouchUpInside += PlaySnd;
 		}
 
 		public void RefreshDetialView(int Row)
@@ -60,16 +63,18 @@ namespace ZumaKeuzesContrast2
 			imvRight.Image = ImgRight;
 		}
 
-		private void SetSnd(object sender, EventArgs args)
+		private void PlaySnd(object sender, EventArgs args)
 		{
-			if (sender == btnSetLeftSnd)
-			{
-				profileSnd.Play (databaseRow [3]);
-			} 
-			else if (sender == btnSetRightSnd) 
-			{
-				profileSnd.Play (databaseRow [4]);
-			}
+//			if (sender == btnPlayLeftSnd)
+//			{
+//				profileSnd.Play (databaseRow [3]);
+//			} 
+//			else if (sender == btnPlayRightSnd) 
+//			{
+//				profileSnd.Play (databaseRow [4]);
+//			}
+
+			recordSound.PlayTempAudio ();
 		}
 
 		private void SetNewProfileImage(object sender, EventArgs args)
@@ -174,12 +179,32 @@ namespace ZumaKeuzesContrast2
 			imagePicker.DismissModalViewControllerAnimated(true);
 		}
 
+		private void RecordNewProfileSnd(object sender, EventArgs args)
+		{
+//			recordSound.recorder.PrepareToRecord ();
+			recordSound.StartRecording ();
+
+			if (isRecording) 
+			{
+				recordSound.StopRecording ();
+				btnSetLeftSnd.SetTitle ("scream now!", UIControlState.Normal);
+				isRecording = false;
+			} 
+			else if (!isRecording) 
+			{
+				btnSetLeftSnd.SetTitle ("Record", UIControlState.Normal);
+				isRecording = true;
+			}
+		}
+
 		private string[] databaseRow = new string[5];
 		private int _row, isSide;
+		private bool isRecording = true;
 		Sound profileSnd = new Sound();
 		QueryProfile queryProfile = new QueryProfile();
 		UIImagePickerController imagePicker;
 		private UINavigationController navigationController;
+		RecordSound recordSound = new RecordSound();
 
 
 		enum side 
