@@ -9,9 +9,15 @@ namespace Lisa.Zuma
 	public class Sound
 	{
 		AVAudioPlayer player;
+		NSObject observer;
 
 		public void Play (string sound,int repeat = 0)
 		{
+			observer = NSNotificationCenter.DefaultCenter.AddObserver (AVPlayerItem.DidPlayToEndTimeNotification, delegate (NSNotification n) {
+				player.Dispose ();
+				player = null;
+			});
+
 			NSUrl assets = NSUrl.FromString (sound);
 			player = AVAudioPlayer.FromUrl(assets);
 

@@ -5,6 +5,7 @@ using MonoTouch.AVFoundation;
 using System.Diagnostics;
 using System.IO;
 using MonoTouch.AudioToolbox;
+using Lisa.Zuma;
 
 namespace ZumaKeuzesContrast2
 {
@@ -27,7 +28,7 @@ namespace ZumaKeuzesContrast2
 			{    
 				NSNumber.FromFloat(44100.0f),
 				NSNumber.FromInt32((int)MonoTouch.AudioToolbox.AudioFormatType.MPEG4AAC),
-				NSNumber.FromInt32(1),
+				NSNumber.FromInt32(2),
 				NSNumber.FromInt32((int)AVAudioQuality.High)
 			};
 			//Set up the NSObject Array of keys that will be combined with the values to make the NSDictionary
@@ -72,9 +73,8 @@ namespace ZumaKeuzesContrast2
 
 		public void PlayTempAudio()
 		{
-			var player = new AVPlayer (audioFilePath);
-			Console.WriteLine (audioFilePath.ToString ());
-			player.Play ();
+			Sound snd = new Sound();
+			snd.Play (audioFilePath.ToString());
 		}
 			
 		public AVAudioRecorder recorder;

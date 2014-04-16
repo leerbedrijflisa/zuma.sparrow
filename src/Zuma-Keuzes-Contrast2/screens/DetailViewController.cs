@@ -189,12 +189,14 @@ namespace ZumaKeuzesContrast2
 				btnSetLeftSnd.SetTitle ("scream now!", UIControlState.Normal);
 				recordSound.StartRecording ();
 				isRecording = false;
+				Console.WriteLine (isRecording);
 			} 
 			else if (!isRecording) 
 			{
 				btnSetLeftSnd.SetTitle ("Record", UIControlState.Normal);
 				recordSound.StopRecording ();
 				isRecording = true;
+				Console.WriteLine (isRecording);
 			}
 		}
 
