@@ -70,9 +70,11 @@ namespace ZumaKeuzesContrast2
 			View.AddSubview (inputProfileName);
 			View.AddSubview (btnSaveProfileName);
 			btnSaveProfileName.Hidden = false;
+			btnSaveProfileName.TouchUpInside += SaveNewProfile;
 			inputProfileName.Hidden = false;
 			newProfileName = inputProfileName.Text;
 			btnCreateNewProfile.Hidden = true;
+
 		}
 			
 		private void InitializeUI()
@@ -81,6 +83,14 @@ namespace ZumaKeuzesContrast2
 			btnSaveProfileName.Frame = new RectangleF (285, 30, 175, 25);
 			btnSaveProfileName.SetTitle ("Profiel aanmaken", UIControlState.Normal);
 			btnSaveProfileName.SetTitleColor(UIColor.White, UIControlState.Normal); 
+		}
+
+		private void SaveNewProfile (object sender, EventArgs args)
+		{
+			string name;
+			name = inputProfileName.Text;
+
+			detailProfileMenu.CreateMiracle (name);
 		}
 
 		private DetailViewController detailProfileMenu;

@@ -24,20 +24,27 @@ namespace ZumaKeuzesContrast2
 
 			btnSaveProfile.Hidden = true;
 			btnSetLeftImage.Hidden = false;
-			btnSetRightImage.Hidden = false;
-
-
+			btnSetRightImage.Hidden = true;
+			btnSetLeftSnd.Hidden = true;
+			btnSetRightSnd.Hidden = true;
 
 			btnSetLeftImage.TouchUpInside += SetNewProfileImage;
 			btnSetRightImage.TouchUpInside += SetNewProfileImage;
 
-			btnSetLeftSnd.TouchUpInside += SetSnd;
-			btnSetRightSnd.TouchUpInside += SetSnd;
+			btnSetLeftSnd.TouchUpInside += RecordNewProfileSnd;
+			btnSetRightSnd.TouchUpInside += RecordNewProfileSnd;
+
+			btnPlayLeftSnd.TouchUpInside += PlaySnd;
+			btnPlayRightSnd.TouchUpInside += PlaySnd;
+
+			btnSaveProfile.TouchUpInside += CreateMiracle;
 		}
 
 		public void RefreshDetialView(int Row)
 		{
 			vwHidden.Hidden = true;
+			btnSetLeftSnd.Hidden = true;
+			btnSetRightSnd.Hidden = true;
 			_row = Row + 1;
 
 			databaseRow = queryProfile.returnProfileRow(_row);
@@ -53,6 +60,10 @@ namespace ZumaKeuzesContrast2
 		public void CreateEmptyProfile()
 		{
 			vwHidden.Hidden = true;
+			isNewProfile = true;
+
+			btnSetLeftSnd.Hidden = false;
+			btnSetRightSnd.Hidden = false;
 
 			UIImage ImgLeft = UIImage.FromFile ("images/empty.png");
 			UIImage ImgRight = UIImage.FromFile ("images/empty.png");
@@ -60,16 +71,16 @@ namespace ZumaKeuzesContrast2
 			imvRight.Image = ImgRight;
 		}
 
-		private void SetSnd(object sender, EventArgs args)
+		private void PlaySnd(object sender, EventArgs args)
 		{
-			if (sender == btnSetLeftSnd)
+			if (sender == btnPlayLeftSnd) 
 			{
-				profileSnd.Play (databaseRow [3]);
+				recordSound.PlayTempAudio (true);
 			} 
-			else if (sender == btnSetRightSnd) 
+			else if (sender == btnPlayRightSnd) 
 			{
-				profileSnd.Play (databaseRow [4]);
-			}
+				recordSound.PlayTempAudio (false);
+			} 
 		}
 
 		private void SetNewProfileImage(object sender, EventArgs args)
@@ -174,12 +185,54 @@ namespace ZumaKeuzesContrast2
 			imagePicker.DismissModalViewControllerAnimated(true);
 		}
 
+		private void RecordNewProfileSnd(object sender, EventArgs args)
+		{
+			if (isRecording && sender == btnSetLeftSnd) 
+			{
+				btnSetLeftSnd.SetTitle ("stop", UIControlState.Normal);
+				recordSound.StartRecording (true);
+				isRecording = false;
+				Console.WriteLine (isRecording);
+			} 
+			else if (isRecording && sender == btnSetRightSnd) 
+			{
+				btnSetRightSnd.SetTitle ("stop", UIControlState.Normal);
+				recordSound.StartRecording (false);
+				isRecording = false;
+				Console.WriteLine (isRecording);
+			} 
+			else if (!isRecording && sender == btnSetLeftSnd) 
+			{
+				btnSetLeftSnd.SetTitle ("Record", UIControlState.Normal);
+				recordSound.StopRecording ();
+				isRecording = true;
+				Console.WriteLine (isRecording);
+			}
+			else if (!isRecording && sender == btnSetRightSnd) 
+			{
+				btnSetRightSnd.SetTitle ("Record", UIControlState.Normal);
+				recordSound.StopRecording ();
+				isRecording = true;
+				Console.WriteLine (isRecording);
+			}
+		}
+
+		public void CreateMiracle()
+		{
+			Console.WriteLine ("A miracle is created");
+			string name;
+
+
+		}
+
 		private string[] databaseRow = new string[5];
 		private int _row, isSide;
+		private bool isRecording = true, isNewProfile;
 		Sound profileSnd = new Sound();
 		QueryProfile queryProfile = new QueryProfile();
 		UIImagePickerController imagePicker;
 		private UINavigationController navigationController;
+		RecordSound recordSound = new RecordSound();
 
 
 		enum side 
