@@ -16,7 +16,7 @@ namespace ZumaKeuzesContrast2
 			//kaas
 		}
 
-		bool PrepareAudioRecording ()
+		bool PrepareAudioRecording (bool isLeft)
 		{
 			//Declare string for application temp path and tack on the file extension
 			string fileName = string.Format("Myfile{0}.aac", DateTime.Now.ToString("yyyyMMddHHmmss"));
@@ -24,6 +24,14 @@ namespace ZumaKeuzesContrast2
 
 			Console.WriteLine(tempRecording);
 			this.audioFilePath = NSUrl.FromFilename(tempRecording);
+
+			if (isLeft)
+			{
+				audioLeft = this.audioFilePath.ToString ();
+			} else 
+			{
+				audioRight = this.audioFilePath.ToString ();
+			}
 
 			var audioSettings = new AudioSettings() {
 				SampleRate = 44100.0f, 
@@ -58,12 +66,12 @@ namespace ZumaKeuzesContrast2
 			return true;
 		}
 
-		public void StartRecording()
+		public void StartRecording(bool isLeft)
 		{
 			NSError error;
 			var session = AVAudioSession.SharedInstance();
 			session.SetCategory (AVAudioSession.CategoryRecord, out error);
-			PrepareAudioRecording ();
+			PrepareAudioRecording (isLeft);
 			recorder.Record ();
 		}
 
@@ -72,16 +80,24 @@ namespace ZumaKeuzesContrast2
 			this.recorder.Stop ();
 		}
 
-		public void PlayTempAudio()
+		public void PlayTempAudio(bool isLeft)
 		{
 			Sound snd = new Sound();
-			snd.Play (audioFilePath.ToString());
+			if (isLeft)
+			{
+				snd.Play (audioLeft);
+			}
+			else 
+			{
+				snd.Play (audioRight);
+			}
 		}
 			
 		public AVAudioRecorder recorder;
 		NSError error = null;
 		NSUrl audioFilePath;
 		NSDictionary settings;
+		string audioLeft, audioRight;
 
 	}
 }

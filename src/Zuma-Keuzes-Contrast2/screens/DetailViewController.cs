@@ -22,11 +22,11 @@ namespace ZumaKeuzesContrast2
 		{
 			base.ViewDidLoad ();
 
-
-
 			btnSaveProfile.Hidden = true;
 			btnSetLeftImage.Hidden = false;
 			btnSetRightImage.Hidden = true;
+			btnSetLeftSnd.Hidden = true;
+			btnSetRightSnd.Hidden = true;
 
 			btnSetLeftImage.TouchUpInside += SetNewProfileImage;
 			btnSetRightImage.TouchUpInside += SetNewProfileImage;
@@ -36,11 +36,15 @@ namespace ZumaKeuzesContrast2
 
 			btnPlayLeftSnd.TouchUpInside += PlaySnd;
 			btnPlayRightSnd.TouchUpInside += PlaySnd;
+
+			btnSaveProfile.TouchUpInside += CreateMiracle;
 		}
 
 		public void RefreshDetialView(int Row)
 		{
 			vwHidden.Hidden = true;
+			btnSetLeftSnd.Hidden = true;
+			btnSetRightSnd.Hidden = true;
 			_row = Row + 1;
 
 			databaseRow = queryProfile.returnProfileRow(_row);
@@ -56,6 +60,10 @@ namespace ZumaKeuzesContrast2
 		public void CreateEmptyProfile()
 		{
 			vwHidden.Hidden = true;
+			isNewProfile = true;
+
+			btnSetLeftSnd.Hidden = false;
+			btnSetRightSnd.Hidden = false;
 
 			UIImage ImgLeft = UIImage.FromFile ("images/empty.png");
 			UIImage ImgRight = UIImage.FromFile ("images/empty.png");
@@ -65,16 +73,14 @@ namespace ZumaKeuzesContrast2
 
 		private void PlaySnd(object sender, EventArgs args)
 		{
-//			if (sender == btnPlayLeftSnd)
-//			{
-//				profileSnd.Play (databaseRow [3]);
-//			} 
-//			else if (sender == btnPlayRightSnd) 
-//			{
-//				profileSnd.Play (databaseRow [4]);
-//			}
-
-			recordSound.PlayTempAudio ();
+			if (sender == btnPlayLeftSnd) 
+			{
+				recordSound.PlayTempAudio (true);
+			} 
+			else if (sender == btnPlayRightSnd) 
+			{
+				recordSound.PlayTempAudio (false);
+			} 
 		}
 
 		private void SetNewProfileImage(object sender, EventArgs args)
@@ -181,28 +187,47 @@ namespace ZumaKeuzesContrast2
 
 		private void RecordNewProfileSnd(object sender, EventArgs args)
 		{
-//			recordSound.recorder.PrepareToRecord ();
-//			recordSound.StartRecording ();
-
-			if (isRecording) 
+			if (isRecording && sender == btnSetLeftSnd) 
 			{
-				btnSetLeftSnd.SetTitle ("scream now!", UIControlState.Normal);
-				recordSound.StartRecording ();
+				btnSetLeftSnd.SetTitle ("stop", UIControlState.Normal);
+				recordSound.StartRecording (true);
 				isRecording = false;
 				Console.WriteLine (isRecording);
 			} 
-			else if (!isRecording) 
+			else if (isRecording && sender == btnSetRightSnd) 
+			{
+				btnSetRightSnd.SetTitle ("stop", UIControlState.Normal);
+				recordSound.StartRecording (false);
+				isRecording = false;
+				Console.WriteLine (isRecording);
+			} 
+			else if (!isRecording && sender == btnSetLeftSnd) 
 			{
 				btnSetLeftSnd.SetTitle ("Record", UIControlState.Normal);
 				recordSound.StopRecording ();
 				isRecording = true;
 				Console.WriteLine (isRecording);
 			}
+			else if (!isRecording && sender == btnSetRightSnd) 
+			{
+				btnSetRightSnd.SetTitle ("Record", UIControlState.Normal);
+				recordSound.StopRecording ();
+				isRecording = true;
+				Console.WriteLine (isRecording);
+			}
+		}
+
+		public void CreateMiracle()
+		{
+			Console.WriteLine ("A miracle is created");
+			string name;
+
+
 		}
 
 		private string[] databaseRow = new string[5];
 		private int _row, isSide;
-		private bool isRecording = true;
+		private bool isRecording = true, isNewProfile;
 		Sound profileSnd = new Sound();
 		QueryProfile queryProfile = new QueryProfile();
 		UIImagePickerController imagePicker;
