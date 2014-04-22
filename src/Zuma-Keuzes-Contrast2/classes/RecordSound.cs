@@ -13,55 +13,56 @@ namespace ZumaKeuzesContrast2
 	{
 		public RecordSound ()
 		{
-
+			//kaas
 		}
 
 		bool PrepareAudioRecording ()
 		{
 			//Declare string for application temp path and tack on the file extension
-			string fileName = string.Format ("Myfile{0}.aac", DateTime.Now.ToString ("yyyyMMddHHmmss"));
+			string fileName = string.Format("Myfile{0}.aac", DateTime.Now.ToString("yyyyMMddHHmmss"));
 			string tempRecording = NSBundle.MainBundle.BundlePath + "/../tmp/" + fileName;
+
+			Console.WriteLine(tempRecording);
 			this.audioFilePath = NSUrl.FromFilename(tempRecording);
 
-			//set up the NSObject Array of values that will be combined with the keys to make the NSDictionary
-			NSObject[] values = new NSObject[]
-			{    
-				NSNumber.FromFloat(44100.0f),
-				NSNumber.FromInt32((int)MonoTouch.AudioToolbox.AudioFormatType.MPEG4AAC),
-				NSNumber.FromInt32(2),
-				NSNumber.FromInt32((int)AVAudioQuality.High)
+			var audioSettings = new AudioSettings() {
+				SampleRate = 44100.0f, 
+				Format = MonoTouch.AudioToolbox.AudioFormatType.MPEG4AAC,
+				NumberChannels = 1,
+				AudioQuality = AVAudioQuality.High
 			};
-			//Set up the NSObject Array of keys that will be combined with the values to make the NSDictionary
-			NSObject[] keys = new NSObject[]
-			{
-				AVAudioSettings.AVSampleRateKey,
-				AVAudioSettings.AVFormatIDKey,
-				AVAudioSettings.AVNumberOfChannelsKey,
-				AVAudioSettings.AVEncoderAudioQualityKey
-			};			
-			//Set Settings with the Values and Keys to create the NSDictionary
-			settings = NSDictionary.FromObjectsAndKeys (values, keys);
 
 			//Set recorder parameters
 			NSError error;
-			recorder = AVAudioRecorder.ToUrl(this.audioFilePath, settings, out error);
+			recorder = AVAudioRecorder.Create(this.audioFilePath, audioSettings, out error);
+			if((recorder == null) || (error != null))
+			{
+				Console.WriteLine(error);
+				return false;
+			}
 
 			//Set Recorder to Prepare To Record
-			if (!recorder.PrepareToRecord ()) {
-				recorder.Dispose ();
+			if(!recorder.PrepareToRecord())
+			{
+				recorder.Dispose();
 				recorder = null;
 				return false;
 			}
 
 			recorder.FinishedRecording += delegate (object sender, AVStatusEventArgs e) {
-				recorder.Dispose ();
+				recorder.Dispose();
 				recorder = null;
+				Console.WriteLine("Done Recording (status: {0})", e.Status);
 			};
+
 			return true;
 		}
 
 		public void StartRecording()
 		{
+			NSError error;
+			var session = AVAudioSession.SharedInstance();
+			session.SetCategory (AVAudioSession.CategoryRecord, out error);
 			PrepareAudioRecording ();
 			recorder.Record ();
 		}
