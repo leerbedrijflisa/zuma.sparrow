@@ -110,6 +110,34 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
+		public static void StoreNewProfile(string name, int clickTimer, int darkTimer, string storedProfile)
+		{
+			var varName = name;
+			var varClickTimer = clickTimer;
+			var varDarkTimer = darkTimer;
+			var varStoredProfile = storedProfile;
+
+			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
+
+			var connectionString = String.Format ("Data source={0};Version=3", pathToDatabase);
+			using (var conn = new SqliteConnection (connectionString)) {
+
+				conn.Open ();
+
+				using (var cmd = conn.CreateCommand ()) {
+
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('@name', '', 'images/beker.jpg', 'sounds/hungry.mp3', 'sounds/thirsty.mp3')";
+					cmd.Parameters.AddWithValue ("@name", varName);
+					cmd.Parameters.AddWithValue ("@clickTimer", varClickTimer);
+					cmd.Parameters.AddWithValue ("@darkTimer", varDarkTimer);
+					cmd.Parameters.AddWithValue ("@storedProfile", varStoredProfile);
+					cmd.ExecuteNonQuery ();
+
+				}
+			}
+		}
+
 		public static void SetSelectedRow(string rowSelected)
 		{
 			var addRowSelected = rowSelected; 

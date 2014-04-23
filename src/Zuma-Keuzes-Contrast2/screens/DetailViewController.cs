@@ -23,10 +23,10 @@ namespace ZumaKeuzesContrast2
 			base.ViewDidLoad ();
 
 			btnSaveProfile.Hidden = true;
-			btnSetLeftImage.Hidden = false;
-			btnSetRightImage.Hidden = true;
 			btnSetLeftSnd.Hidden = true;
 			btnSetRightSnd.Hidden = true;
+			btnSaveProfile.Hidden = true;
+			txtProfileName.Hidden = true;
 
 			btnSetLeftImage.TouchUpInside += SetNewProfileImage;
 			btnSetRightImage.TouchUpInside += SetNewProfileImage;
@@ -36,8 +36,6 @@ namespace ZumaKeuzesContrast2
 
 			btnPlayLeftSnd.TouchUpInside += PlaySnd;
 			btnPlayRightSnd.TouchUpInside += PlaySnd;
-
-			btnSaveProfile.TouchUpInside += CreateMiracle;
 		}
 
 		public void RefreshDetialView(int Row)
@@ -62,13 +60,27 @@ namespace ZumaKeuzesContrast2
 			vwHidden.Hidden = true;
 			isNewProfile = true;
 
+			btnSetLeftImage.Hidden = false;
+			btnSetRightImage.Hidden = false;
 			btnSetLeftSnd.Hidden = false;
 			btnSetRightSnd.Hidden = false;
+			btnSaveProfile.Hidden = false;
+			txtProfileName.Hidden = false;
 
 			UIImage ImgLeft = UIImage.FromFile ("images/empty.png");
 			UIImage ImgRight = UIImage.FromFile ("images/empty.png");
 			imvLeft.Image = ImgLeft;
 			imvRight.Image = ImgRight;
+		}
+
+		public void SetBackCreateNewProfile ()
+		{
+			txtProfileName.Hidden = true;
+			btnSetLeftImage.Hidden = true;
+			btnSetRightImage.Hidden = true;
+			btnSetLeftSnd.Hidden = true;
+			btnSetRightSnd.Hidden = true;
+			btnSaveProfile.Hidden = true;
 		}
 
 		private void PlaySnd(object sender, EventArgs args)
@@ -103,6 +115,7 @@ namespace ZumaKeuzesContrast2
 			else if (sender == btnSetRightImage) 
 			{
 				isSide = (int)side.right;
+				Console.WriteLine (isSide.ToString());
 			}
 		}
 
@@ -215,14 +228,6 @@ namespace ZumaKeuzesContrast2
 				isRecording = true;
 				Console.WriteLine (isRecording);
 			}
-		}
-
-		public void CreateMiracle()
-		{
-			Console.WriteLine ("A miracle is created");
-			string name;
-
-
 		}
 
 		private string[] databaseRow = new string[5];
