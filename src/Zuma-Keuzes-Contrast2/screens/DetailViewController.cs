@@ -23,8 +23,6 @@ namespace ZumaKeuzesContrast2
 			base.ViewDidLoad ();
 
 			btnSaveProfile.Hidden = true;
-			btnSetLeftImage.Hidden = false;
-			btnSetRightImage.Hidden = true;
 			btnSetLeftSnd.Hidden = true;
 			btnSetRightSnd.Hidden = true;
 
@@ -36,8 +34,6 @@ namespace ZumaKeuzesContrast2
 
 			btnPlayLeftSnd.TouchUpInside += PlaySnd;
 			btnPlayRightSnd.TouchUpInside += PlaySnd;
-
-			btnSaveProfile.TouchUpInside += CreateMiracle;
 		}
 
 		public void RefreshDetialView(int Row)
@@ -62,6 +58,8 @@ namespace ZumaKeuzesContrast2
 			vwHidden.Hidden = true;
 			isNewProfile = true;
 
+			btnSetLeftImage.Hidden = false;
+			btnSetRightImage.Hidden = false;
 			btnSetLeftSnd.Hidden = false;
 			btnSetRightSnd.Hidden = false;
 
@@ -103,6 +101,7 @@ namespace ZumaKeuzesContrast2
 			else if (sender == btnSetRightImage) 
 			{
 				isSide = (int)side.right;
+				Console.WriteLine (isSide.ToString());
 			}
 		}
 
@@ -217,12 +216,11 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public void CreateMiracle()
+		public void CreateMiracle(string name)
 		{
 			Console.WriteLine ("A miracle is created");
-			string name;
-
-
+			Console.WriteLine (imvLeft.Image.ToString());
+//			DatabaseRequests.StoreNewProfile (name);
 		}
 
 		private string[] databaseRow = new string[5];

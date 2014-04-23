@@ -30,7 +30,7 @@ namespace ZumaKeuzesContrast2
 			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
 
 			btnCreateNewProfile.TouchUpInside += CreateNewProfile;
-
+			btnSaveProfileName.TouchUpInside += SaveNewProfile;
 		}
 			
 		public void ReadMenuSettings()
@@ -67,10 +67,8 @@ namespace ZumaKeuzesContrast2
 		private void CreateNewProfile(object sender, EventArgs args)
 		{
 			detailProfileMenu.CreateEmptyProfile ();
-			View.AddSubview (inputProfileName);
-			View.AddSubview (btnSaveProfileName);
+
 			btnSaveProfileName.Hidden = false;
-			btnSaveProfileName.TouchUpInside += SaveNewProfile;
 			inputProfileName.Hidden = false;
 			newProfileName = inputProfileName.Text;
 			btnCreateNewProfile.Hidden = true;
@@ -82,14 +80,19 @@ namespace ZumaKeuzesContrast2
 			btnSaveProfileName = UIButton.FromType (UIButtonType.RoundedRect);
 			btnSaveProfileName.Frame = new RectangleF (285, 30, 175, 25);
 			btnSaveProfileName.SetTitle ("Profiel aanmaken", UIControlState.Normal);
-			btnSaveProfileName.SetTitleColor(UIColor.White, UIControlState.Normal); 
+			btnSaveProfileName.SetTitleColor(UIColor.White, UIControlState.Normal);
+			View.AddSubview (inputProfileName);
+			View.AddSubview (btnSaveProfileName);
+			inputProfileName.Hidden = true;
+			btnSaveProfileName.Hidden = true;
+
 		}
 
 		private void SaveNewProfile (object sender, EventArgs args)
 		{
 			string name;
 			name = inputProfileName.Text;
-
+			Console.WriteLine ("Test save profile");
 			detailProfileMenu.CreateMiracle (name);
 		}
 
@@ -99,7 +102,6 @@ namespace ZumaKeuzesContrast2
 		List<string> ProfileNames = new List<string> ();
 		string[] items;
 		TableSource itemstable;
-		QueryProfile queryProfile = new QueryProfile ();
 		UIButton btnSaveProfileName = new UIButton ();
 
 		UITextField inputProfileName = new UITextField
@@ -111,4 +113,3 @@ namespace ZumaKeuzesContrast2
 
 	}
 }
-
