@@ -25,9 +25,6 @@ namespace ZumaKeuzesContrast2
 
 				conn.Open ();
 				using (var cmd = conn.CreateCommand ()) {
-
-					// column removed from MenuOptions
-					//scSecond INTEGER, 
 					cmd.CommandText = "CREATE TABLE MenuOptions (MenuOptionsID INTEGER PRIMARY KEY AUTOINCREMENT, scFirst INTEGER, clickTimer INTERGER, darkTimer INTERGER, storedProfile VARCHAR(255));";
 					cmd.CommandType = CommandType.Text;
 					cmd.ExecuteNonQuery ();
@@ -46,7 +43,6 @@ namespace ZumaKeuzesContrast2
 		public static void StoreMenuSettings(int scFirst, int clickTimer, int darkTimer, string storedProfile)
 		{
 			var varScFirst = scFirst;
-//			var varScSecond = scSecond;
 			var varClickTimer = clickTimer;
 			var varDarkTimer = darkTimer;
 			var varStoredProfile = storedProfile;
@@ -63,7 +59,6 @@ namespace ZumaKeuzesContrast2
 
 					cmd.CommandText = "INSERT INTO MenuOptions (scFirst, clickTimer, darkTimer, storedProfile) VALUES (@First, @clickTimer, @darkTimer, @storedProfile)";
 					cmd.Parameters.AddWithValue ("@First", varScFirst);
-//					cmd.Parameters.AddWithValue ("@Second", varScSecond);
 					cmd.Parameters.AddWithValue ("@clickTimer", varClickTimer);
 					cmd.Parameters.AddWithValue ("@darkTimer", varDarkTimer);
 					cmd.Parameters.AddWithValue ("@storedProfile", varStoredProfile);
@@ -106,6 +101,40 @@ namespace ZumaKeuzesContrast2
 					cmd.ExecuteNonQuery ();
 				}
 
+				using (var cmd = conn.CreateCommand ()) 
+				{
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('eten/drinken', 'images/eten.jpg', 'images/beker.jpg', 'sounds/hungry.mp3', 'sounds/thirsty.mp3')";
+					cmd.ExecuteNonQuery ();
+				}
+
+			}
+		}
+
+		public static void StoreNewProfile(string name, int clickTimer, int darkTimer, string storedProfile)
+		{
+			var varName = name;
+			var varClickTimer = clickTimer;
+			var varDarkTimer = darkTimer;
+			var varStoredProfile = storedProfile;
+
+			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
+
+			var connectionString = String.Format ("Data source={0};Version=3", pathToDatabase);
+			using (var conn = new SqliteConnection (connectionString)) {
+
+				conn.Open ();
+
+				using (var cmd = conn.CreateCommand ()) {
+
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('@name', '', 'images/beker.jpg', 'sounds/hungry.mp3', 'sounds/thirsty.mp3')";
+					cmd.Parameters.AddWithValue ("@name", varName);
+					cmd.Parameters.AddWithValue ("@clickTimer", varClickTimer);
+					cmd.Parameters.AddWithValue ("@darkTimer", varDarkTimer);
+					cmd.Parameters.AddWithValue ("@storedProfile", varStoredProfile);
+					cmd.ExecuteNonQuery ();
+
+				}
 			}
 		}
 

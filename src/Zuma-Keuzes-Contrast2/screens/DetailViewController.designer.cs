@@ -13,6 +13,12 @@ namespace ZumaKeuzesContrast2
 	partial class DetailViewController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIButton btnPlayLeftSnd { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton btnPlayRightSnd { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIImageView btnRight { get; set; }
 
 		[Outlet]
@@ -40,10 +46,23 @@ namespace ZumaKeuzesContrast2
 		MonoTouch.UIKit.UIImageView imvRight { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UITextField txtProfileName { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIView vwHidden { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (btnPlayLeftSnd != null) {
+				btnPlayLeftSnd.Dispose ();
+				btnPlayLeftSnd = null;
+			}
+
+			if (btnPlayRightSnd != null) {
+				btnPlayRightSnd.Dispose ();
+				btnPlayRightSnd = null;
+			}
+
 			if (btnRight != null) {
 				btnRight.Dispose ();
 				btnRight = null;
@@ -87,6 +106,11 @@ namespace ZumaKeuzesContrast2
 			if (imvRight != null) {
 				imvRight.Dispose ();
 				imvRight = null;
+			}
+
+			if (txtProfileName != null) {
+				txtProfileName.Dispose ();
+				txtProfileName = null;
 			}
 
 			if (vwHidden != null) {

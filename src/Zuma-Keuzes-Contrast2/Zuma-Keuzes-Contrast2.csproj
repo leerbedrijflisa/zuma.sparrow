@@ -135,6 +135,7 @@
     <Compile Include="classes\sendData.cs" />
     <Compile Include="classes\QueryProfile.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="classes\RecordSound.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -166,5 +167,8 @@
     <BundleResource Include="Resources\sounds\Yes.mp3" />
     <BundleResource Include="Resources\images\RightArrow2.png" />
     <BundleResource Include="Resources\images\LeftArrow2.png" />
+    <BundleResource Include="Resources\images\beker.jpg" />
+    <BundleResource Include="Resources\images\eten.jpg" />
+    <BundleResource Include="Resources\images\empty.png" />
   </ItemGroup>
 </Project>
