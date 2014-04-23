@@ -46,10 +46,23 @@ namespace ZumaKeuzesContrast2
 		MonoTouch.UIKit.UIImageView imvRight { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UITextField txtProfileName { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIView vwHidden { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (btnPlayLeftSnd != null) {
+				btnPlayLeftSnd.Dispose ();
+				btnPlayLeftSnd = null;
+			}
+
+			if (btnPlayRightSnd != null) {
+				btnPlayRightSnd.Dispose ();
+				btnPlayRightSnd = null;
+			}
+
 			if (btnRight != null) {
 				btnRight.Dispose ();
 				btnRight = null;
@@ -95,19 +108,14 @@ namespace ZumaKeuzesContrast2
 				imvRight = null;
 			}
 
+			if (txtProfileName != null) {
+				txtProfileName.Dispose ();
+				txtProfileName = null;
+			}
+
 			if (vwHidden != null) {
 				vwHidden.Dispose ();
 				vwHidden = null;
-			}
-
-			if (btnPlayLeftSnd != null) {
-				btnPlayLeftSnd.Dispose ();
-				btnPlayLeftSnd = null;
-			}
-
-			if (btnPlayRightSnd != null) {
-				btnPlayRightSnd.Dispose ();
-				btnPlayRightSnd = null;
 			}
 		}
 	}

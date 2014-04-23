@@ -25,6 +25,8 @@ namespace ZumaKeuzesContrast2
 			btnSaveProfile.Hidden = true;
 			btnSetLeftSnd.Hidden = true;
 			btnSetRightSnd.Hidden = true;
+			btnSaveProfile.Hidden = true;
+			txtProfileName.Hidden = true;
 
 			btnSetLeftImage.TouchUpInside += SetNewProfileImage;
 			btnSetRightImage.TouchUpInside += SetNewProfileImage;
@@ -62,11 +64,23 @@ namespace ZumaKeuzesContrast2
 			btnSetRightImage.Hidden = false;
 			btnSetLeftSnd.Hidden = false;
 			btnSetRightSnd.Hidden = false;
+			btnSaveProfile.Hidden = false;
+			txtProfileName.Hidden = false;
 
 			UIImage ImgLeft = UIImage.FromFile ("images/empty.png");
 			UIImage ImgRight = UIImage.FromFile ("images/empty.png");
 			imvLeft.Image = ImgLeft;
 			imvRight.Image = ImgRight;
+		}
+
+		public void SetBackCreateNewProfile ()
+		{
+			txtProfileName.Hidden = true;
+			btnSetLeftImage.Hidden = true;
+			btnSetRightImage.Hidden = true;
+			btnSetLeftSnd.Hidden = true;
+			btnSetRightSnd.Hidden = true;
+			btnSaveProfile.Hidden = true;
 		}
 
 		private void PlaySnd(object sender, EventArgs args)
@@ -214,13 +228,6 @@ namespace ZumaKeuzesContrast2
 				isRecording = true;
 				Console.WriteLine (isRecording);
 			}
-		}
-
-		public void CreateMiracle(string name)
-		{
-			Console.WriteLine ("A miracle is created");
-			Console.WriteLine (imvLeft.Image.ToString());
-//			DatabaseRequests.StoreNewProfile (name);
 		}
 
 		private string[] databaseRow = new string[5];

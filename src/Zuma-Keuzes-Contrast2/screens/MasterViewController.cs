@@ -22,7 +22,7 @@ namespace ZumaKeuzesContrast2
 			base.ViewDidLoad ();
 			
 			ReadMenuSettings ();
-			InitializeUI ();
+//			InitializeUI ();
 
 			items = ProfileNames.ToArray ();
 			itemstable = new TableSource (items, detailProfileMenu, this);
@@ -30,7 +30,7 @@ namespace ZumaKeuzesContrast2
 			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
 
 			btnCreateNewProfile.TouchUpInside += CreateNewProfile;
-			btnSaveProfileName.TouchUpInside += SaveNewProfile;
+//			btnSaveProfileName.TouchUpInside += SaveNewProfile;
 		}
 			
 		public void ReadMenuSettings()
@@ -59,42 +59,42 @@ namespace ZumaKeuzesContrast2
 
 		public void SetBackCreateNewProfile()
 		{
-			btnCreateNewProfile.Hidden = false;
-			btnSaveProfileName.Hidden = true;
-			inputProfileName.Hidden = true;
+//			btnCreateNewProfile.Hidden = false;
+//			btnSaveProfileName.Hidden = true;
+//			inputProfileName.Hidden = true;
 		}
 
 		private void CreateNewProfile(object sender, EventArgs args)
 		{
 			detailProfileMenu.CreateEmptyProfile ();
 
-			btnSaveProfileName.Hidden = false;
-			inputProfileName.Hidden = false;
-			newProfileName = inputProfileName.Text;
-			btnCreateNewProfile.Hidden = true;
+//			btnSaveProfileName.Hidden = false;
+//			inputProfileName.Hidden = false;
+//			newProfileName = inputProfileName.Text;
+//			btnCreateNewProfile.Hidden = true;
 
 		}
 			
-		private void InitializeUI()
-		{
-			btnSaveProfileName = UIButton.FromType (UIButtonType.RoundedRect);
-			btnSaveProfileName.Frame = new RectangleF (285, 30, 175, 25);
-			btnSaveProfileName.SetTitle ("Profiel aanmaken", UIControlState.Normal);
-			btnSaveProfileName.SetTitleColor(UIColor.White, UIControlState.Normal);
-			View.AddSubview (inputProfileName);
-			View.AddSubview (btnSaveProfileName);
-			inputProfileName.Hidden = true;
-			btnSaveProfileName.Hidden = true;
+//		private void InitializeUI()
+//		{
+//			btnSaveProfileName = UIButton.FromType (UIButtonType.RoundedRect);
+//			btnSaveProfileName.Frame = new RectangleF (285, 30, 175, 25);
+//			btnSaveProfileName.SetTitle ("Profiel aanmaken", UIControlState.Normal);
+//			btnSaveProfileName.SetTitleColor(UIColor.White, UIControlState.Normal);
+//			View.AddSubview (inputProfileName);
+//			View.AddSubview (btnSaveProfileName);
+//			inputProfileName.Hidden = true;
+//			btnSaveProfileName.Hidden = true;
+//
+//		}
 
-		}
-
-		private void SaveNewProfile (object sender, EventArgs args)
-		{
-			string name;
-			name = inputProfileName.Text;
-			Console.WriteLine ("Test save profile");
-			detailProfileMenu.CreateMiracle (name);
-		}
+//		private void SaveNewProfile (object sender, EventArgs args)
+//		{
+//			string name;
+//			name = inputProfileName.Text;
+//			Console.WriteLine ("Test save profile");
+//			detailProfileMenu.CreateMiracle (name);
+//		}
 
 		private DetailViewController detailProfileMenu;
 		private string name, newProfileName;
