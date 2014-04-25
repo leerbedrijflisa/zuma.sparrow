@@ -36,6 +36,20 @@ namespace ZumaKeuzesContrast2
 
 			btnPlayLeftSnd.TouchUpInside += PlaySnd;
 			btnPlayRightSnd.TouchUpInside += PlaySnd;
+
+			btnSaveProfile.TouchUpInside += SaveProfile;
+		}
+
+		public void NewSndPath (string path, bool isLeft)
+		{
+			if (isLeft) 
+			{
+				leftSndPath = path;
+			} 
+			else 
+			{
+				rightSndPath = path;
+			}
 		}
 
 		public void RefreshDetialView(int Row)
@@ -44,13 +58,22 @@ namespace ZumaKeuzesContrast2
 			btnSetLeftSnd.Hidden = true;
 			btnSetRightSnd.Hidden = true;
 			_row = Row + 1;
-
 			databaseRow = queryProfile.returnProfileRow(_row);
 
-			UIImage ImgLeft = UIImage.FromFile (databaseRow[1]);
-			UIImage ImgRight = UIImage.FromFile (databaseRow[2]);
-			imvLeft.Image = ImgLeft;
-			imvRight.Image = ImgRight;
+			if (databaseRow [6] == "0") 
+			{
+				leftAssetUrl = NSUrl.FromString(databaseRow[1]);
+				rightAssetUrl = NSUrl.FromString(databaseRow [2]);
+				library.AssetForUrl(leftAssetUrl, (asset)=>{imvLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+				library.AssetForUrl(rightAssetUrl, (asset)=>{imvRight.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+			} 
+			else if (databaseRow [6] == "1") 
+			{
+				UIImage ImgLeft = UIImage.FromFile (databaseRow[1]);
+				UIImage ImgRight = UIImage.FromFile (databaseRow[2]);
+				imvLeft.Image = ImgLeft;
+				imvRight.Image = ImgRight;
+			}
 
 			DatabaseRequests.StoreMenuSettings (0, 5, 5, databaseRow [5]);
 		}
@@ -81,17 +104,26 @@ namespace ZumaKeuzesContrast2
 			btnSetLeftSnd.Hidden = true;
 			btnSetRightSnd.Hidden = true;
 			btnSaveProfile.Hidden = true;
+			isNewProfile = false;
 		}
 
-		private void PlaySnd(object sender, EventArgs args)
+		private void PlaySnd (object sender, EventArgs args)
 		{
-			if (sender == btnPlayLeftSnd) 
+			if (sender == btnPlayLeftSnd && isNewProfile) 
 			{
 				recordSound.PlayTempAudio (true);
 			} 
-			else if (sender == btnPlayRightSnd) 
+			else if (sender == btnPlayRightSnd && isNewProfile) 
 			{
 				recordSound.PlayTempAudio (false);
+			} 
+			else if (sender == btnPlayLeftSnd && !isNewProfile) 
+			{
+				profileSnd.Play (databaseRow [3]);
+			} 
+			else if (sender == btnPlayRightSnd && !isNewProfile) 
+			{
+				profileSnd.Play (databaseRow [4]);
 			} 
 		}
 
@@ -148,13 +180,29 @@ namespace ZumaKeuzesContrast2
 				if(originalImage != null) {
 					if (isSide == 0) 
 					{
+						library.WriteImageToSavedPhotosAlbum (originalImage.CGImage,meta, (assetUrl, error) =>
+						{
+							Console.WriteLine ("assetUrl:"+assetUrl);
+//							library.AssetForUrl(assetUrl, (asset)=>{imvLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+							leftAssetUrl = assetUrl;
+						});
+
 						imvLeft.Image = originalImage;
 						imagePicker.View.RemoveFromSuperview ();
 					} 
 					else if (isSide == 1) 
 					{
+						library.WriteImageToSavedPhotosAlbum (originalImage.CGImage,meta, (assetUrl, error) =>
+							{
+								Console.WriteLine ("assetUrl:"+assetUrl);
+//								library.AssetForUrl(assetUrl, (asset)=>{imvRight.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+								rightAssetUrl = assetUrl;
+							});
+
 						imvRight.Image = originalImage;
 						imagePicker.View.RemoveFromSuperview ();
+
+
 					}
 				}
 
@@ -230,15 +278,25 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
+		private void SaveProfile(object sender, EventArgs args)
+		{
+			string storeName = txtProfileName.Text;
+			Console.WriteLine ("Naam " + storeName + " image left " + leftAssetUrl+ " image right " + rightAssetUrl + " snd left " + leftSndPath + " snd right " + rightSndPath);
+			DatabaseRequests.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath);
+		}
+
 		private string[] databaseRow = new string[5];
 		private int _row, isSide;
 		private bool isRecording = true, isNewProfile;
+		private string leftSndPath, rightSndPath;
 		Sound profileSnd = new Sound();
 		QueryProfile queryProfile = new QueryProfile();
 		UIImagePickerController imagePicker;
 		private UINavigationController navigationController;
 		RecordSound recordSound = new RecordSound();
-
+		NSDictionary meta = new NSDictionary ();
+		ALAssetsLibrary library = new ALAssetsLibrary();
+		NSUrl leftAssetUrl, rightAssetUrl;
 
 		enum side 
 		{
