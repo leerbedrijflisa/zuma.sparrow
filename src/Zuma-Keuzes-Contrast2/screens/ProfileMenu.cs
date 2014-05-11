@@ -29,7 +29,8 @@ namespace ZumaKeuzesContrast2
 		{
 			base.ViewDidLoad ();
 
-			detailProfileMenu = new DetailViewController (this.NavigationController);
+
+			detailProfileMenu = new DetailViewController();
 			masterProfileMenu = new MasterViewController (detailProfileMenu);
 
 			vwDetail.Add (detailProfileMenu.View);

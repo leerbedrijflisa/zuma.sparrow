@@ -46,6 +46,9 @@ namespace ZumaKeuzesContrast2
 		MonoTouch.UIKit.UIImageView imvRight { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UILabel lblNameRequired { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITextField txtProfileName { get; set; }
 
 		[Outlet]
@@ -106,6 +109,11 @@ namespace ZumaKeuzesContrast2
 			if (imvRight != null) {
 				imvRight.Dispose ();
 				imvRight = null;
+			}
+
+			if (lblNameRequired != null) {
+				lblNameRequired.Dispose ();
+				lblNameRequired = null;
 			}
 
 			if (txtProfileName != null) {

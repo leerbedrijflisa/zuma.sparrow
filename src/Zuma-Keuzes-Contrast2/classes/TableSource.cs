@@ -15,11 +15,10 @@ namespace ZumaKeuzesContrast2
 		string[] tableItems;
 		string cellIdentifier = "TableCell";
 
-		public TableSource (string[] items, DetailViewController detailProfileMenu, MasterViewController masterProfileMenu)
+		public TableSource (string[] items, DetailViewController detailProfileMenu)
 		{
 			tableItems = items;
 			this.detailProfileMenu = detailProfileMenu;
-			this.masterProfileMenu = masterProfileMenu;
 		}
 
 		public override int RowsInSection (UITableView tableview, int section)
@@ -45,6 +44,5 @@ namespace ZumaKeuzesContrast2
 		}
 
 		private DetailViewController detailProfileMenu;
-		private MasterViewController masterProfileMenu;
 	}
 }
