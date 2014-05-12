@@ -36,7 +36,7 @@ namespace ZumaKeuzesContrast2
 			btnPlayLeftSnd.TouchUpInside += PlaySnd;
 			btnPlayRightSnd.TouchUpInside += PlaySnd;
 
-			btnSaveProfile.TouchUpInside += SaveProfile;
+			btnSaveProfile.TouchUpInside += SaveOrRemoveProfile;
 		}
 
 		public void RefreshDetialView(int Row)
@@ -49,6 +49,8 @@ namespace ZumaKeuzesContrast2
 
 			if (databaseRow [6] == "0") 
 			{
+				btnSaveProfile.Hidden = false;
+				btnSaveProfile.SetTitle ("Verwijder Profiel", UIControlState.Normal);
 				leftAssetUrl = NSUrl.FromString(databaseRow[1]);
 				rightAssetUrl = NSUrl.FromString(databaseRow [2]);
 				library.AssetForUrl(leftAssetUrl, (asset)=>{imvLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
@@ -56,6 +58,7 @@ namespace ZumaKeuzesContrast2
 			} 
 			else if (databaseRow [6] == "1") 
 			{
+				btnSaveProfile.Hidden = true;
 				UIImage ImgLeft = UIImage.FromFile (databaseRow[1]);
 				UIImage ImgRight = UIImage.FromFile (databaseRow[2]);
 				imvLeft.Image = ImgLeft;
@@ -77,6 +80,8 @@ namespace ZumaKeuzesContrast2
 			btnSaveProfile.Hidden = false;
 			txtProfileName.Hidden = false;
 
+			btnSaveProfile.SetTitle ("Bewaar Profiel", UIControlState.Normal);
+
 			UIImage ImgLeft = UIImage.FromFile ("images/empty.png");
 			UIImage ImgRight = UIImage.FromFile ("images/empty.png");
 			imvLeft.Image = ImgLeft;
@@ -90,9 +95,10 @@ namespace ZumaKeuzesContrast2
 			btnSetRightImage.Hidden = true;
 			btnSetLeftSnd.Hidden = true;
 			btnSetRightSnd.Hidden = true;
-			btnSaveProfile.Hidden = true;
 			isNewProfile = false;
 			lblNameRequired.Text = "";
+
+//			btnSaveProfile.Hidden = true;
 		}
 
 		private void PlaySnd (object sender, EventArgs args)
@@ -273,16 +279,20 @@ namespace ZumaKeuzesContrast2
 
 		private void SaveOrRemoveProfile(object sender, EventArgs args)
 		{
-			string storeName = txtProfileName.Text;
-			Console.WriteLine ("Naam " + storeName + " image left " + leftAssetUrl + " image right " + rightAssetUrl + " snd left " + leftSndPath + " snd right " + rightSndPath);
+			if (btnSetLeftSnd.Hidden == false) {
+				string storeName = txtProfileName.Text;
+				if (storeName.Length != 0 && leftAssetUrl != null && rightAssetUrl != null && leftSndPath != null && rightSndPath != null) {
+					DatabaseRequests.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath);
+					SetBackCreateNewProfile ();
+					RefreshDetialView (1);
 
-			if (storeName.Length != 0 && leftAssetUrl != null && rightAssetUrl != null && leftSndPath != null && rightSndPath != null) {
-				DatabaseRequests.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath);
-				SetBackCreateNewProfile ();
-				RefreshDetialView (1);
-				//masterViewController.FillTablelList ();
+				} else {
+					lblNameRequired.Text = "Sommigen velden zijn niet ingevuld.";
+				}
 			} else {
-				lblNameRequired.Text = "Sommigen velden zijn niet ingevuld.";
+				DatabaseRequests.RemoveProfile (_row);
+				RefreshDetialView (1);
+//				masterViewController.RefreshProfileTable ();
 			}
 		}
 

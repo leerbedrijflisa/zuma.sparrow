@@ -178,26 +178,28 @@ namespace ZumaKeuzesContrast2
 			{
 				btnChoiceRight.Enabled = false;
 				btnChoiceLeft.Enabled = false;
-				blackout = "left";
+//				blackout = "left";
 				profileSound.Play (soundOne);
-				rightFilterDark ("On", FilterRotation);
-
+//				rightFilterDark ("On", FilterRotation);
+				imvChoiceRight.Image = empty;
 				blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_clickTimer), delegate {
 					blackOutLowDifficulty ();
-					NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_darkTimer), resetbtnForHighDifficulty);
+					resetbtnForHighDifficulty();
+//					NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_darkTimer), );
 				});
 			} 
 			else if (sender == btnChoiceRight) 
 			{
 				btnChoiceLeft.Enabled = false;
 				btnChoiceRight.Enabled = false;
-				blackout = "right";
+//				blackout = "right";
 				profileSound.Play(soundTwo);
-				leftFilterDark ("On", FilterRotation);
-
+//				leftFilterDark ("On", FilterRotation);
+				imvChoiceLeft.Image = empty;
 				blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer), delegate {
 					blackOutLowDifficulty();
-					NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), resetbtnForHighDifficulty);
+					resetbtnForHighDifficulty();
+//					NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), );
 				});
 			}
 		}
@@ -207,8 +209,8 @@ namespace ZumaKeuzesContrast2
 			blackOutTimer.Dispose();
 			btnChoiceLeft.Enabled = true;
 			btnChoiceRight.Enabled = true;
-			imvLayerLeft.Image = empty;
-			imvLayerRight.Image = empty;
+			imvChoiceLeft.Image = UIimageOne;
+			imvChoiceRight.Image = UIimageTwo;
 		}
 
 		private void resetbtnForLowDifficulty()

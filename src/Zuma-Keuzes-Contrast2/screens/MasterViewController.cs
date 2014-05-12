@@ -20,11 +20,9 @@ namespace ZumaKeuzesContrast2
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
-			FillTableList ();
+			RefreshProfileTable ();
 
 			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
-
 			btnCreateNewProfile.TouchUpInside += CreateNewProfile;
 		}
 			
@@ -52,12 +50,18 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public void FillTableList()
+		public void RefreshProfileTable()
 		{
 			ReadMenuSettings ();
 			items = ProfileNames.ToArray ();
-			var itemstable = new TableSource (items, detailProfileMenu);
-			tblProfileList.Source = itemstable;
+			Console.WriteLine (items.Length.ToString() + " number of keys in items array");
+
+			var itemsTable = new TableSource (items, detailProfileMenu, this);
+			if (tblProfileList.Source == null) {
+				tblProfileList.Source = itemsTable;
+			} else {
+				tblProfileList.ReloadData ();
+			}
 		}
 
 		private void CreateNewProfile(object sender, EventArgs args)
@@ -70,7 +74,6 @@ namespace ZumaKeuzesContrast2
 		object returnFirst;
 		List<string> ProfileNames = new List<string> ();
 		string[] items;
-//		TableSource itemstable;
-
+//		TableSource itemsTable = new TableSource (items, detailProfileMenu);
 	}
 }

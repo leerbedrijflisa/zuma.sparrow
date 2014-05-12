@@ -138,6 +138,23 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
+		public static void RemoveProfile (int row)
+		{
+			var removeRow = row;
+			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
+
+			var connectionString = String.Format ("Data source={0};Version=3", pathToDatabase);
+			using (var conn = new SqliteConnection (connectionString)) {
+				conn.Open ();
+				using (var cmd = conn.CreateCommand ()) {
+					cmd.CommandText = "DELETE from Profile WHERE id = @removeRow";
+					cmd.Parameters.AddWithValue ("@removeRow", removeRow);
+					cmd.ExecuteNonQuery ();
+				}
+			}
+		}
+
 		public static void SetSelectedRow(string rowSelected)
 		{
 			var addRowSelected = rowSelected; 
