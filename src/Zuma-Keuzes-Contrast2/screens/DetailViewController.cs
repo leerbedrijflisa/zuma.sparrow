@@ -271,7 +271,7 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		private void SaveProfile(object sender, EventArgs args)
+		private void SaveOrRemoveProfile(object sender, EventArgs args)
 		{
 			string storeName = txtProfileName.Text;
 			Console.WriteLine ("Naam " + storeName + " image left " + leftAssetUrl + " image right " + rightAssetUrl + " snd left " + leftSndPath + " snd right " + rightSndPath);
@@ -280,7 +280,7 @@ namespace ZumaKeuzesContrast2
 				DatabaseRequests.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath);
 				SetBackCreateNewProfile ();
 				RefreshDetialView (1);
-//				masterViewController.FillTableList ();
+				//masterViewController.FillTablelList ();
 			} else {
 				lblNameRequired.Text = "Sommigen velden zijn niet ingevuld.";
 			}
