@@ -13,7 +13,6 @@ namespace ZumaKeuzesContrast2
 	{
 		public RecordSound ()
 		{
-			//kaas
 		}
 
 		bool PrepareAudioRecording (bool isLeft)
@@ -28,9 +27,12 @@ namespace ZumaKeuzesContrast2
 			if (isLeft)
 			{
 				audioLeft = this.audioFilePath.ToString ();
-			} else 
+//				detailViewController.NewSndPath (audioLeft, true);
+			} 
+			else 
 			{
 				audioRight = this.audioFilePath.ToString ();
+//				detailViewController.NewSndPath (audioRight, false);
 			}
 
 			var audioSettings = new AudioSettings() {
@@ -75,21 +77,13 @@ namespace ZumaKeuzesContrast2
 			recorder.Record ();
 		}
 
-		public void StopRecording()
+		public string StopRecording(bool isLeft)
 		{
 			this.recorder.Stop ();
-		}
-
-		public void PlayTempAudio(bool isLeft)
-		{
-			Sound snd = new Sound();
-			if (isLeft)
-			{
-				snd.Play (audioLeft);
-			}
-			else 
-			{
-				snd.Play (audioRight);
+			if (isLeft) {
+				return audioLeft;
+			} else {
+				return audioRight;
 			}
 		}
 			
@@ -98,7 +92,6 @@ namespace ZumaKeuzesContrast2
 		NSUrl audioFilePath;
 		NSDictionary settings;
 		string audioLeft, audioRight;
-
 	}
 }
 

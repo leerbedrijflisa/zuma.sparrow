@@ -44,6 +44,9 @@ namespace ZumaKeuzesContrast2
 
 		[Outlet]
 		MonoTouch.UIKit.UISegmentedControl scSingleChoiceOptions { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel txtLblDarkTimer { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -82,14 +85,14 @@ namespace ZumaKeuzesContrast2
 				lblDarkTimer = null;
 			}
 
-			if (LblTimer != null) {
-				LblTimer.Dispose ();
-				LblTimer = null;
-			}
-
 			if (lblProfile != null) {
 				lblProfile.Dispose ();
 				lblProfile = null;
+			}
+
+			if (LblTimer != null) {
+				LblTimer.Dispose ();
+				LblTimer = null;
 			}
 
 			if (scChoice != null) {
@@ -100,6 +103,11 @@ namespace ZumaKeuzesContrast2
 			if (scSingleChoiceOptions != null) {
 				scSingleChoiceOptions.Dispose ();
 				scSingleChoiceOptions = null;
+			}
+
+			if (txtLblDarkTimer != null) {
+				txtLblDarkTimer.Dispose ();
+				txtLblDarkTimer = null;
 			}
 		}
 	}

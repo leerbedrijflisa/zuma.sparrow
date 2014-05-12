@@ -115,11 +115,19 @@ namespace ZumaKeuzesContrast2
 
 				break;
 			}
+			if (profile [6] == "0") {
+				var leftAssetUrl = NSUrl.FromString(profile[1]);
+				var rightAssetUrl = NSUrl.FromString(profile [2]);
+				library.AssetForUrl(leftAssetUrl, (asset)=>{imvChoiceLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+				library.AssetForUrl(rightAssetUrl, (asset)=>{imvChoiceRight.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+			} else if (profile [6] == "1") {
+				imvChoiceLeft.Image = UIimageOne;
+				imvChoiceRight.Image = UIimageTwo;
+			}
 
-			imvChoiceLeft.Image = UIimageOne;
 			View.AddSubview (imvChoiceLeft);
 
-			imvChoiceRight.Image = UIimageTwo;
+
 			View.AddSubview (imvChoiceRight);
 
 			SelectBtnDifficulty ();
@@ -383,8 +391,10 @@ namespace ZumaKeuzesContrast2
 				View.AddSubview (btnChoiceRight);
 				break;
 			}
+
 			UIimageOne = UIImage.FromFile (imageOne);
 			UIimageTwo = UIImage.FromFile (imageTwo);
+
 		}
 
 		private void SetProfile()
@@ -400,6 +410,7 @@ namespace ZumaKeuzesContrast2
 			imageTwo = profile [2];
 			soundOne = profile [3];
 			soundTwo = profile [4];
+			Console.WriteLine (imageOne + " " + imageTwo + " " + soundOne + " " + soundTwo);
 
 			selectedButtonSetting = menuSettings[0];
 			clickTimer = menuSettings [1];
@@ -415,6 +426,7 @@ namespace ZumaKeuzesContrast2
 		Sound profileSound = new Sound ();
 		MainMenu mainMenu;
 		QueryProfile queryProfile = new QueryProfile();
+		ALAssetsLibrary library = new ALAssetsLibrary();
 	
 		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringSecond;
 		private string imageOne, imageTwo, soundOne, soundTwo, selectedProfile, selectedButtonSetting, clickTimer, darkTimer; 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -14,6 +14,7 @@
                 <outlet property="lblDarkTimer" destination="qbG-B5-6ek" id="KPP-Kp-dAz"/>
                 <outlet property="lblProfile" destination="ldO-RA-a8W" id="tBe-Ul-nmn"/>
                 <outlet property="scChoice" destination="UD9-Uu-TnA" id="zmK-pu-lFp"/>
+                <outlet property="txtLblDarkTimer" destination="FEt-qp-EXm" id="3sU-75-ZXI"/>
                 <outlet property="view" destination="2" id="3"/>
             </connections>
         </placeholder>

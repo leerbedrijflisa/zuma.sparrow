@@ -21,16 +21,11 @@ namespace ZumaKeuzesContrast2
 		{
 			base.ViewDidLoad ();
 			
-			ReadMenuSettings ();
-//			InitializeUI ();
+			FillTableList ();
 
-			items = ProfileNames.ToArray ();
-			itemstable = new TableSource (items, detailProfileMenu, this);
-			tblProfileList.Source = itemstable;
 			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
 
 			btnCreateNewProfile.TouchUpInside += CreateNewProfile;
-//			btnSaveProfileName.TouchUpInside += SaveNewProfile;
 		}
 			
 		public void ReadMenuSettings()
@@ -57,59 +52,25 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public void SetBackCreateNewProfile()
+		public void FillTableList()
 		{
-//			btnCreateNewProfile.Hidden = false;
-//			btnSaveProfileName.Hidden = true;
-//			inputProfileName.Hidden = true;
+			ReadMenuSettings ();
+			items = ProfileNames.ToArray ();
+			var itemstable = new TableSource (items, detailProfileMenu);
+			tblProfileList.Source = itemstable;
 		}
 
 		private void CreateNewProfile(object sender, EventArgs args)
 		{
 			detailProfileMenu.CreateEmptyProfile ();
-
-//			btnSaveProfileName.Hidden = false;
-//			inputProfileName.Hidden = false;
-//			newProfileName = inputProfileName.Text;
-//			btnCreateNewProfile.Hidden = true;
-
 		}
-			
-//		private void InitializeUI()
-//		{
-//			btnSaveProfileName = UIButton.FromType (UIButtonType.RoundedRect);
-//			btnSaveProfileName.Frame = new RectangleF (285, 30, 175, 25);
-//			btnSaveProfileName.SetTitle ("Profiel aanmaken", UIControlState.Normal);
-//			btnSaveProfileName.SetTitleColor(UIColor.White, UIControlState.Normal);
-//			View.AddSubview (inputProfileName);
-//			View.AddSubview (btnSaveProfileName);
-//			inputProfileName.Hidden = true;
-//			btnSaveProfileName.Hidden = true;
-//
-//		}
-
-//		private void SaveNewProfile (object sender, EventArgs args)
-//		{
-//			string name;
-//			name = inputProfileName.Text;
-//			Console.WriteLine ("Test save profile");
-//			detailProfileMenu.CreateMiracle (name);
-//		}
 
 		private DetailViewController detailProfileMenu;
-		private string name, newProfileName;
+		private string name; 
 		object returnFirst;
 		List<string> ProfileNames = new List<string> ();
 		string[] items;
-		TableSource itemstable;
-		UIButton btnSaveProfileName = new UIButton ();
-
-		UITextField inputProfileName = new UITextField
-		{
-			Placeholder = "Vul naam in",
-			BorderStyle = UITextBorderStyle.RoundedRect,
-			Frame = new RectangleF(5, 30, 275, 25)
-		};
+//		TableSource itemstable;
 
 	}
 }

@@ -33,6 +33,7 @@ namespace ZumaKeuzesContrast2
 							returnImageTwo = rdr ["imageTwo"];
 							returnSoundOne = rdr ["soundOne"];
 							returnSoundTwo = rdr ["soundTwo"];
+							returnDefaultProfile = rdr ["defaultProfile"];
 						}
 					}
 				}
@@ -43,6 +44,9 @@ namespace ZumaKeuzesContrast2
 			imageTwo = returnImageTwo.ToString ();
 			soundOne = returnSoundOne.ToString ();
 			soundTwo = returnSoundTwo.ToString ();
+			defaultProfile = returnDefaultProfile.ToString ();
+
+			Console.WriteLine ("default profile " + defaultProfile);
 
 			rowReturned = Convert.ToInt32 (returnRow);
 			row = rowReturned.ToString ();
@@ -53,6 +57,7 @@ namespace ZumaKeuzesContrast2
 			databaseRow [3] = soundOne;
 			databaseRow [4] = soundTwo;
 			databaseRow [5] = row;
+			databaseRow [6] = defaultProfile;
 
 			return databaseRow;
 		}
@@ -118,9 +123,9 @@ namespace ZumaKeuzesContrast2
 
 		}
 
-		private object returnProfileName, returnRow, returnImageOne, returnImageTwo, returnSoundOne, returnSoundTwo, returnFirst, returnClickTimer, returnDarkTimer, returnStoredProfile;
-		private string profileName, imageOne, imageTwo, soundOne, soundTwo, row, first, clickTimer, darkTimer, storedProfile;
-		private string[] databaseRow = new string[6], menuSettings = new string[4];
+		private object returnProfileName, returnRow, returnImageOne, returnImageTwo, returnSoundOne, returnSoundTwo, returnFirst, returnClickTimer, returnDarkTimer, returnStoredProfile, returnDefaultProfile;
+		private string profileName, imageOne, imageTwo, soundOne, soundTwo, row, first, clickTimer, darkTimer, storedProfile, defaultProfile;
+		private string[] databaseRow = new string[7], menuSettings = new string[4];
 		private int rowReturned;
 	}
 }

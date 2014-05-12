@@ -13,9 +13,8 @@ namespace ZumaKeuzesContrast2
 {
 	public partial class DetailViewController : UIViewController
 	{
-		public DetailViewController (UINavigationController navigationController) : base ()
+		public DetailViewController () : base ()
 		{
-			this.navigationController = navigationController;
 		}
 
 		public override void ViewDidLoad ()
@@ -36,6 +35,8 @@ namespace ZumaKeuzesContrast2
 
 			btnPlayLeftSnd.TouchUpInside += PlaySnd;
 			btnPlayRightSnd.TouchUpInside += PlaySnd;
+
+			btnSaveProfile.TouchUpInside += SaveProfile;
 		}
 
 		public void RefreshDetialView(int Row)
@@ -44,13 +45,22 @@ namespace ZumaKeuzesContrast2
 			btnSetLeftSnd.Hidden = true;
 			btnSetRightSnd.Hidden = true;
 			_row = Row + 1;
-
 			databaseRow = queryProfile.returnProfileRow(_row);
 
-			UIImage ImgLeft = UIImage.FromFile (databaseRow[1]);
-			UIImage ImgRight = UIImage.FromFile (databaseRow[2]);
-			imvLeft.Image = ImgLeft;
-			imvRight.Image = ImgRight;
+			if (databaseRow [6] == "0") 
+			{
+				leftAssetUrl = NSUrl.FromString(databaseRow[1]);
+				rightAssetUrl = NSUrl.FromString(databaseRow [2]);
+				library.AssetForUrl(leftAssetUrl, (asset)=>{imvLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+				library.AssetForUrl(rightAssetUrl, (asset)=>{imvRight.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+			} 
+			else if (databaseRow [6] == "1") 
+			{
+				UIImage ImgLeft = UIImage.FromFile (databaseRow[1]);
+				UIImage ImgRight = UIImage.FromFile (databaseRow[2]);
+				imvLeft.Image = ImgLeft;
+				imvRight.Image = ImgRight;
+			}
 
 			DatabaseRequests.StoreMenuSettings (0, 5, 5, databaseRow [5]);
 		}
@@ -81,18 +91,35 @@ namespace ZumaKeuzesContrast2
 			btnSetLeftSnd.Hidden = true;
 			btnSetRightSnd.Hidden = true;
 			btnSaveProfile.Hidden = true;
+			isNewProfile = false;
+			lblNameRequired.Text = "";
 		}
 
-		private void PlaySnd(object sender, EventArgs args)
+		private void PlaySnd (object sender, EventArgs args)
 		{
-			if (sender == btnPlayLeftSnd) 
+			if (isNewProfile) 
 			{
-				recordSound.PlayTempAudio (true);
+				if (sender == btnPlayLeftSnd) 
+				{
+					profileSnd.Play (leftSndPath);
+				} 
+				else if (sender == btnPlayRightSnd) 
+				{
+					profileSnd.Play (rightSndPath);
+				}
 			} 
-			else if (sender == btnPlayRightSnd) 
+			else if (!isNewProfile) 
 			{
-				recordSound.PlayTempAudio (false);
-			} 
+				if (sender == btnPlayLeftSnd) 
+				{
+					profileSnd.Play (databaseRow [3]);
+				} 
+				else if (sender == btnPlayRightSnd) 
+				{
+					profileSnd.Play (databaseRow [4]);
+				}
+			}
+
 		}
 
 		private void SetNewProfileImage(object sender, EventArgs args)
@@ -148,13 +175,27 @@ namespace ZumaKeuzesContrast2
 				if(originalImage != null) {
 					if (isSide == 0) 
 					{
+						library.WriteImageToSavedPhotosAlbum (originalImage.CGImage,meta, (assetUrl, error) =>
+						{
+							Console.WriteLine ("assetUrl:"+assetUrl);
+							leftAssetUrl = assetUrl;
+						});
+
 						imvLeft.Image = originalImage;
 						imagePicker.View.RemoveFromSuperview ();
 					} 
 					else if (isSide == 1) 
 					{
+						library.WriteImageToSavedPhotosAlbum (originalImage.CGImage,meta, (assetUrl, error) =>
+							{
+								Console.WriteLine ("assetUrl:"+assetUrl);
+								rightAssetUrl = assetUrl;
+							});
+
 						imvRight.Image = originalImage;
 						imagePicker.View.RemoveFromSuperview ();
+
+
 					}
 				}
 
@@ -217,28 +258,47 @@ namespace ZumaKeuzesContrast2
 			else if (!isRecording && sender == btnSetLeftSnd) 
 			{
 				btnSetLeftSnd.SetTitle ("Record", UIControlState.Normal);
-				recordSound.StopRecording ();
+				leftSndPath = recordSound.StopRecording (true);
 				isRecording = true;
 				Console.WriteLine (isRecording);
 			}
 			else if (!isRecording && sender == btnSetRightSnd) 
 			{
 				btnSetRightSnd.SetTitle ("Record", UIControlState.Normal);
-				recordSound.StopRecording ();
+				rightSndPath = recordSound.StopRecording (false);
 				isRecording = true;
 				Console.WriteLine (isRecording);
+			}
+		}
+
+		private void SaveOrRemoveProfile(object sender, EventArgs args)
+		{
+			string storeName = txtProfileName.Text;
+			Console.WriteLine ("Naam " + storeName + " image left " + leftAssetUrl + " image right " + rightAssetUrl + " snd left " + leftSndPath + " snd right " + rightSndPath);
+
+			if (storeName.Length != 0 && leftAssetUrl != null && rightAssetUrl != null && leftSndPath != null && rightSndPath != null) {
+				DatabaseRequests.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath);
+				SetBackCreateNewProfile ();
+				RefreshDetialView (1);
+				//masterViewController.FillTablelList ();
+			} else {
+				lblNameRequired.Text = "Sommigen velden zijn niet ingevuld.";
 			}
 		}
 
 		private string[] databaseRow = new string[5];
 		private int _row, isSide;
 		private bool isRecording = true, isNewProfile;
+		private string leftSndPath, rightSndPath;
 		Sound profileSnd = new Sound();
 		QueryProfile queryProfile = new QueryProfile();
 		UIImagePickerController imagePicker;
-		private UINavigationController navigationController;
 		RecordSound recordSound = new RecordSound();
+		NSDictionary meta = new NSDictionary ();
+		ALAssetsLibrary library = new ALAssetsLibrary();
+		NSUrl leftAssetUrl, rightAssetUrl;
 
+		MasterViewController masterViewController;
 
 		enum side 
 		{

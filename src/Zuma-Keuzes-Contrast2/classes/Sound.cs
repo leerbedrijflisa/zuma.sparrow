@@ -18,7 +18,8 @@ namespace Lisa.Zuma
 			var session = AVAudioSession.SharedInstance();
 			session.SetCategory (AVAudioSession.CategoryPlayback, out error);
 
-			NSUrl assets = NSUrl.FromString (sound);			player = AVAudioPlayer.FromUrl(assets);
+			NSUrl assets = NSUrl.FromString (sound);			
+			player = AVAudioPlayer.FromUrl(assets);
 
 			player.NumberOfLoops = repeat;
 			player.PrepareToPlay ();

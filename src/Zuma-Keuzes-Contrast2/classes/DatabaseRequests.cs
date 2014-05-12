@@ -32,7 +32,7 @@ namespace ZumaKeuzesContrast2
 
 				using (var cmd = conn.CreateCommand ()) {
 
-					cmd.CommandText = "CREATE TABLE Profile (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name VARCHAR(255), ImageOne VARCHAR(255), ImageTwo VARCHAR(255), SoundOne VARCHAR(255), SoundTwo VARCHAR(255), selectedRow INTEGER);";
+					cmd.CommandText = "CREATE TABLE Profile (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name VARCHAR(255), ImageOne VARCHAR(255), ImageTwo VARCHAR(255), SoundOne VARCHAR(255), SoundTwo VARCHAR(255), selectedRow INTEGER, defaultProfile INTEGER);";
 					cmd.CommandType = CommandType.Text;
 					cmd.ExecuteNonQuery ();
 				}
@@ -85,37 +85,36 @@ namespace ZumaKeuzesContrast2
 
 				using (var cmd = conn.CreateCommand ()) 
 				{
-					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Links/Rechts', 'images/LeftArrow2.png', 'images/RightArrow2.png', 'sounds/Left.mp3', 'sounds/Right.mp3')";
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo, defaultProfile) VALUES ('Links/Rechts', 'images/LeftArrow2.png', 'images/RightArrow2.png', 'sounds/Left.mp3', 'sounds/Right.mp3', 1)";
 					cmd.ExecuteNonQuery ();
 				}
 
 				using (var cmd = conn.CreateCommand ()) 
 				{
-					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Ja/Nee', 'images/Yes.jpg', 'images/No.jpg', 'sounds/Yes.mp3', 'sounds/No.mp3')";
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo, defaultProfile) VALUES ('Ja/Nee', 'images/Yes.jpg', 'images/No.jpg', 'sounds/Yes.mp3', 'sounds/No.mp3', 1)";
 					cmd.ExecuteNonQuery ();
 				}
 
 				using (var cmd = conn.CreateCommand ()) 
 				{
-					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('Nee/Ja', 'images/No.jpg', 'images/Yes.jpg', 'sounds/No.mp3', 'sounds/Yes.mp3')";
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo, defaultProfile) VALUES ('Nee/Ja', 'images/No.jpg', 'images/Yes.jpg', 'sounds/No.mp3', 'sounds/Yes.mp3', 1)";
 					cmd.ExecuteNonQuery ();
 				}
 
 				using (var cmd = conn.CreateCommand ()) 
 				{
-					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('eten/drinken', 'images/eten.jpg', 'images/beker.jpg', 'sounds/hungry.mp3', 'sounds/thirsty.mp3')";
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo, defaultProfile) VALUES ('eten/drinken', 'images/eten.jpg', 'images/beker.jpg', 'sounds/hungry.mp3', 'sounds/thirsty.mp3', 1)";
 					cmd.ExecuteNonQuery ();
 				}
 
 			}
 		}
 
-		public static void StoreNewProfile(string name, int clickTimer, int darkTimer, string storedProfile)
+		public static void StoreNewProfile(string name, object leftImage, object rightImage, string leftSnd, string rightSnd)
 		{
 			var varName = name;
-			var varClickTimer = clickTimer;
-			var varDarkTimer = darkTimer;
-			var varStoredProfile = storedProfile;
+			var varLeftSnd = leftSnd;
+			var varRightSnd = rightSnd;
 
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
@@ -127,11 +126,12 @@ namespace ZumaKeuzesContrast2
 
 				using (var cmd = conn.CreateCommand ()) {
 
-					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo) VALUES ('@name', '', 'images/beker.jpg', 'sounds/hungry.mp3', 'sounds/thirsty.mp3')";
+					cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo, defaultProfile) VALUES (@name, @leftImage, @rightImage, @leftSnd, @rightSnd, 0)";
 					cmd.Parameters.AddWithValue ("@name", varName);
-					cmd.Parameters.AddWithValue ("@clickTimer", varClickTimer);
-					cmd.Parameters.AddWithValue ("@darkTimer", varDarkTimer);
-					cmd.Parameters.AddWithValue ("@storedProfile", varStoredProfile);
+					cmd.Parameters.AddWithValue ("@leftImage", leftImage);
+					cmd.Parameters.AddWithValue ("@rightImage", rightImage);
+					cmd.Parameters.AddWithValue ("@leftSnd", varLeftSnd);
+					cmd.Parameters.AddWithValue ("@rightSnd", varRightSnd);
 					cmd.ExecuteNonQuery ();
 
 				}
