@@ -41,8 +41,6 @@ namespace ZumaKeuzesContrast2
 		{
 			detailProfileMenu.RefreshDetialView (indexPath.Row);
 			detailProfileMenu.SetBackCreateNewProfile ();
-			masterViewController.RefreshProfileTable ();
-//			masterViewController.FillTableWithProfiles ();
 		}
 
 		private DetailViewController detailProfileMenu;

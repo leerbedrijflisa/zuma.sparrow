@@ -31,6 +31,12 @@ namespace ZumaKeuzesContrast2
 		MonoTouch.UIKit.UIButton btnSubtract { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIImageView imvBackgroundImage { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView imvLogoImage { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel lblDarkTimer { get; set; }
 
 		[Outlet]
@@ -50,6 +56,16 @@ namespace ZumaKeuzesContrast2
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (imvBackgroundImage != null) {
+				imvBackgroundImage.Dispose ();
+				imvBackgroundImage = null;
+			}
+
+			if (imvLogoImage != null) {
+				imvLogoImage.Dispose ();
+				imvLogoImage = null;
+			}
+
 			if (btnAdd != null) {
 				btnAdd.Dispose ();
 				btnAdd = null;

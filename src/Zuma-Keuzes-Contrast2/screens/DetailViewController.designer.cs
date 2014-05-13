@@ -19,6 +19,9 @@ namespace ZumaKeuzesContrast2
 		MonoTouch.UIKit.UIButton btnPlayRightSnd { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton btnReloadTable { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIImageView btnRight { get; set; }
 
 		[Outlet]
@@ -119,6 +122,11 @@ namespace ZumaKeuzesContrast2
 			if (txtProfileName != null) {
 				txtProfileName.Dispose ();
 				txtProfileName = null;
+			}
+
+			if (btnReloadTable != null) {
+				btnReloadTable.Dispose ();
+				btnReloadTable = null;
 			}
 
 			if (vwHidden != null) {

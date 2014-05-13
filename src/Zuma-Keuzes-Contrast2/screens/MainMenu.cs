@@ -59,10 +59,15 @@ namespace ZumaKeuzesContrast2
 
 		private void InitializeUI()
 		{
+			imvBackgroundImage.Image = UIImage.FromFile ("images/achtergrond.png");
+			imvLogoImage.Image = UIImage.FromFile ("images/wanna-logo.png");
 			btnClickTimer.MinimumValue = 1;
 			btnDarkTimer.MinimumValue = 1;
+			btnClickTimer.MaximumValue = 99;
+			btnDarkTimer.MaximumValue = 99;
 			btnClickTimer.Value = 5;
 			btnDarkTimer.Value = 5;
+
 
 			lblProfile.Text = selectedProfile [0];
 		}

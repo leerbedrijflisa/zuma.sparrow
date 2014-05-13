@@ -12,7 +12,7 @@ namespace ZumaKeuzesContrast2
 {
 	public partial class MasterViewController : UIViewController
 	{
-		public MasterViewController (DetailViewController detailProfileMenu) : base ()
+		public MasterViewController (DetailViewController detailProfileMenu = null) : base ()
 		{
 			this.detailProfileMenu = detailProfileMenu;
 		}
@@ -20,15 +20,18 @@ namespace ZumaKeuzesContrast2
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			RefreshProfileTable ();
+			ReadMenuSettings ();
+			LoadItemsToTableSource ();
+
+
 
 			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
+
 			btnCreateNewProfile.TouchUpInside += CreateNewProfile;
 		}
 			
 		public void ReadMenuSettings()
 		{
-
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 			var pathToDatebase = Path.Combine (documents, "db_Zuma_Keuzes.db");
 
@@ -50,23 +53,28 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public void RefreshProfileTable()
+		public void ProfileSaved()
 		{
-			ReadMenuSettings ();
-			items = ProfileNames.ToArray ();
-			Console.WriteLine (items.Length.ToString() + " number of keys in items array");
+			profileIsUnsaved = false;
+			Console.WriteLine (profileIsUnsaved);
+		}
 
+		private void LoadItemsToTableSource()
+		{
+			items = ProfileNames.ToArray ();
 			var itemsTable = new TableSource (items, detailProfileMenu, this);
-			if (tblProfileList.Source == null) {
-				tblProfileList.Source = itemsTable;
-			} else {
-				tblProfileList.ReloadData ();
-			}
+			tblProfileList.Source = itemsTable;
+			tblProfileList.ReloadData ();
 		}
 
 		private void CreateNewProfile(object sender, EventArgs args)
 		{
-			detailProfileMenu.CreateEmptyProfile ();
+			if (!profileIsUnsaved) {
+				profileIsUnsaved = true;
+				ProfileNames.Add ("Untiteld Profile");
+				LoadItemsToTableSource ();
+				detailProfileMenu.CreateEmptyProfile ();
+			}
 		}
 
 		private DetailViewController detailProfileMenu;
@@ -74,6 +82,6 @@ namespace ZumaKeuzesContrast2
 		object returnFirst;
 		List<string> ProfileNames = new List<string> ();
 		string[] items;
-//		TableSource itemsTable = new TableSource (items, detailProfileMenu);
+		bool profileIsUnsaved;
 	}
 }

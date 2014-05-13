@@ -21,6 +21,8 @@ namespace ZumaKeuzesContrast2
 		{
 			base.ViewDidLoad ();
 
+			RefreshDetialView (0);
+
 			btnSaveProfile.Hidden = true;
 			btnSetLeftSnd.Hidden = true;
 			btnSetRightSnd.Hidden = true;
@@ -97,8 +99,6 @@ namespace ZumaKeuzesContrast2
 			btnSetRightSnd.Hidden = true;
 			isNewProfile = false;
 			lblNameRequired.Text = "";
-
-//			btnSaveProfile.Hidden = true;
 		}
 
 		private void PlaySnd (object sender, EventArgs args)
@@ -200,8 +200,6 @@ namespace ZumaKeuzesContrast2
 
 						imvRight.Image = originalImage;
 						imagePicker.View.RemoveFromSuperview ();
-
-
 					}
 				}
 
@@ -285,14 +283,14 @@ namespace ZumaKeuzesContrast2
 					DatabaseRequests.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath);
 					SetBackCreateNewProfile ();
 					RefreshDetialView (1);
+					masterViewController.ProfileSaved ();
 
 				} else {
-					lblNameRequired.Text = "Sommigen velden zijn niet ingevuld.";
+					lblNameRequired.Text = "Er zijn velden niet ingevuld.";
 				}
 			} else {
 				DatabaseRequests.RemoveProfile (_row);
 				RefreshDetialView (1);
-//				masterViewController.RefreshProfileTable ();
 			}
 		}
 
@@ -308,7 +306,7 @@ namespace ZumaKeuzesContrast2
 		ALAssetsLibrary library = new ALAssetsLibrary();
 		NSUrl leftAssetUrl, rightAssetUrl;
 
-		MasterViewController masterViewController;
+		MasterViewController masterViewController = new MasterViewController();
 
 		enum side 
 		{

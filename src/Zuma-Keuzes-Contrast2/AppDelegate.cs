@@ -18,7 +18,7 @@ namespace ZumaKeuzesContrast2
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			DatabaseRequests.CreateDatabase ();
-			DatabaseRequests.CreateDefaultProfiles ();
+//			DatabaseRequests.CreateDefaultProfiles ();
 
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 
