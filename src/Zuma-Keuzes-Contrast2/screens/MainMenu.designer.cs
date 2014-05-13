@@ -31,6 +31,12 @@ namespace ZumaKeuzesContrast2
 		MonoTouch.UIKit.UIButton btnSubtract { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIImageView imvBackgroundImage { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView imvLogoImage { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel lblDarkTimer { get; set; }
 
 		[Outlet]
@@ -44,9 +50,22 @@ namespace ZumaKeuzesContrast2
 
 		[Outlet]
 		MonoTouch.UIKit.UISegmentedControl scSingleChoiceOptions { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel txtLblDarkTimer { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (imvBackgroundImage != null) {
+				imvBackgroundImage.Dispose ();
+				imvBackgroundImage = null;
+			}
+
+			if (imvLogoImage != null) {
+				imvLogoImage.Dispose ();
+				imvLogoImage = null;
+			}
+
 			if (btnAdd != null) {
 				btnAdd.Dispose ();
 				btnAdd = null;
@@ -82,14 +101,14 @@ namespace ZumaKeuzesContrast2
 				lblDarkTimer = null;
 			}
 
-			if (LblTimer != null) {
-				LblTimer.Dispose ();
-				LblTimer = null;
-			}
-
 			if (lblProfile != null) {
 				lblProfile.Dispose ();
 				lblProfile = null;
+			}
+
+			if (LblTimer != null) {
+				LblTimer.Dispose ();
+				LblTimer = null;
 			}
 
 			if (scChoice != null) {
@@ -100,6 +119,11 @@ namespace ZumaKeuzesContrast2
 			if (scSingleChoiceOptions != null) {
 				scSingleChoiceOptions.Dispose ();
 				scSingleChoiceOptions = null;
+			}
+
+			if (txtLblDarkTimer != null) {
+				txtLblDarkTimer.Dispose ();
+				txtLblDarkTimer = null;
 			}
 		}
 	}

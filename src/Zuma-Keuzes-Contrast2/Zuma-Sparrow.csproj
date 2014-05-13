@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}</ProjectGuid>
     <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -135,6 +135,7 @@
     <Compile Include="classes\sendData.cs" />
     <Compile Include="classes\QueryProfile.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="classes\RecordSound.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -154,8 +155,6 @@
     <BundleResource Include="Resources\images\SubtractBTN.png" />
     <BundleResource Include="Resources\images\SubtractBTN2.png" />
     <BundleResource Include="Resources\images\Yes.jpg" />
-    <BundleResource Include="Resources\sounds\drink.mp3" />
-    <BundleResource Include="Resources\sounds\Eating.mp3" />
     <BundleResource Include="Resources\sounds\hungry.mp3" />
     <BundleResource Include="Resources\sounds\Left.mp3" />
     <BundleResource Include="Resources\sounds\No.mp3" />
@@ -166,5 +165,14 @@
     <BundleResource Include="Resources\sounds\Yes.mp3" />
     <BundleResource Include="Resources\images\RightArrow2.png" />
     <BundleResource Include="Resources\images\LeftArrow2.png" />
+    <BundleResource Include="Resources\images\beker.jpg" />
+    <BundleResource Include="Resources\images\eten.jpg" />
+    <BundleResource Include="Resources\images\empty.png" />
+    <BundleResource Include="Resources\sounds\drink.mp3" />
+    <BundleResource Include="Resources\sounds\eat.mp3" />
+    <BundleResource Include="Resources\images\achtergrond.png" />
+    <BundleResource Include="Resources\images\wanna-logo.png" />
+    <BundleResource Include="Resources\Icon-76.png" />
+    <BundleResource Include="Resources\Icon-76%402x.png" />
   </ItemGroup>
 </Project>

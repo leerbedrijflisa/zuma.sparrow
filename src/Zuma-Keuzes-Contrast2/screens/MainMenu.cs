@@ -31,6 +31,7 @@ namespace ZumaKeuzesContrast2
 			btnDarkTimer.TouchUpInside += DarkTimer;
 			btnGo.TouchUpInside += PushMainView;
 			btnChoiceProfile.TouchUpInside += PushProfileMenu;
+			scChoice.ValueChanged += HideDarkTimer;
 		}
 
 		public override void ViewWillAppear (bool animated) {
@@ -58,8 +59,12 @@ namespace ZumaKeuzesContrast2
 
 		private void InitializeUI()
 		{
+			imvBackgroundImage.Image = UIImage.FromFile ("images/achtergrond.png");
+			imvLogoImage.Image = UIImage.FromFile ("images/wanna-logo.png");
 			btnClickTimer.MinimumValue = 1;
 			btnDarkTimer.MinimumValue = 1;
+			btnClickTimer.MaximumValue = 99;
+			btnDarkTimer.MaximumValue = 99;
 			btnClickTimer.Value = 5;
 			btnDarkTimer.Value = 5;
 
@@ -102,6 +107,19 @@ namespace ZumaKeuzesContrast2
 			int darkTimerValue = Convert.ToInt32 (btnDarkTimer.Value);
 			darkTimer = darkTimerValue;
 
+		}
+
+		private void HideDarkTimer(object sender, EventArgs args)
+		{
+			if (scChoice.SelectedSegment == 1) {
+				lblDarkTimer.Hidden = true;
+				btnDarkTimer.Hidden = true;
+				txtLblDarkTimer.Hidden = true;
+			} else {
+				lblDarkTimer.Hidden = false;
+				btnDarkTimer.Hidden = false;
+				txtLblDarkTimer.Hidden = false;
+			}
 		}
 
 		QueryProfile queryProfile = new QueryProfile();

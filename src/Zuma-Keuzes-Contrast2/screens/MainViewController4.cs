@@ -115,11 +115,19 @@ namespace ZumaKeuzesContrast2
 
 				break;
 			}
+			if (profile [6] == "0") {
+				var leftAssetUrl = NSUrl.FromString(profile[1]);
+				var rightAssetUrl = NSUrl.FromString(profile [2]);
+				library.AssetForUrl(leftAssetUrl, (asset)=>{imvChoiceLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+				library.AssetForUrl(rightAssetUrl, (asset)=>{imvChoiceRight.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+			} else if (profile [6] == "1") {
+				imvChoiceLeft.Image = UIimageOne;
+				imvChoiceRight.Image = UIimageTwo;
+			}
 
-			imvChoiceLeft.Image = UIimageOne;
 			View.AddSubview (imvChoiceLeft);
 
-			imvChoiceRight.Image = UIimageTwo;
+
 			View.AddSubview (imvChoiceRight);
 
 			SelectBtnDifficulty ();
@@ -170,26 +178,28 @@ namespace ZumaKeuzesContrast2
 			{
 				btnChoiceRight.Enabled = false;
 				btnChoiceLeft.Enabled = false;
-				blackout = "left";
+//				blackout = "left";
 				profileSound.Play (soundOne);
-				rightFilterDark ("On", FilterRotation);
-
+//				rightFilterDark ("On", FilterRotation);
+				imvChoiceRight.Image = empty;
 				blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_clickTimer), delegate {
 					blackOutLowDifficulty ();
-					NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_darkTimer), resetbtnForHighDifficulty);
+					resetbtnForHighDifficulty();
+//					NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_darkTimer), );
 				});
 			} 
 			else if (sender == btnChoiceRight) 
 			{
 				btnChoiceLeft.Enabled = false;
 				btnChoiceRight.Enabled = false;
-				blackout = "right";
+//				blackout = "right";
 				profileSound.Play(soundTwo);
-				leftFilterDark ("On", FilterRotation);
-
+//				leftFilterDark ("On", FilterRotation);
+				imvChoiceLeft.Image = empty;
 				blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer), delegate {
 					blackOutLowDifficulty();
-					NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), resetbtnForHighDifficulty);
+					resetbtnForHighDifficulty();
+//					NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), );
 				});
 			}
 		}
@@ -199,8 +209,8 @@ namespace ZumaKeuzesContrast2
 			blackOutTimer.Dispose();
 			btnChoiceLeft.Enabled = true;
 			btnChoiceRight.Enabled = true;
-			imvLayerLeft.Image = empty;
-			imvLayerRight.Image = empty;
+			imvChoiceLeft.Image = UIimageOne;
+			imvChoiceRight.Image = UIimageTwo;
 		}
 
 		private void resetbtnForLowDifficulty()
@@ -383,8 +393,10 @@ namespace ZumaKeuzesContrast2
 				View.AddSubview (btnChoiceRight);
 				break;
 			}
+
 			UIimageOne = UIImage.FromFile (imageOne);
 			UIimageTwo = UIImage.FromFile (imageTwo);
+
 		}
 
 		private void SetProfile()
@@ -400,6 +412,7 @@ namespace ZumaKeuzesContrast2
 			imageTwo = profile [2];
 			soundOne = profile [3];
 			soundTwo = profile [4];
+			Console.WriteLine (imageOne + " " + imageTwo + " " + soundOne + " " + soundTwo);
 
 			selectedButtonSetting = menuSettings[0];
 			clickTimer = menuSettings [1];
@@ -415,6 +428,7 @@ namespace ZumaKeuzesContrast2
 		Sound profileSound = new Sound ();
 		MainMenu mainMenu;
 		QueryProfile queryProfile = new QueryProfile();
+		ALAssetsLibrary library = new ALAssetsLibrary();
 	
 		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringSecond;
 		private string imageOne, imageTwo, soundOne, soundTwo, selectedProfile, selectedButtonSetting, clickTimer, darkTimer; 
