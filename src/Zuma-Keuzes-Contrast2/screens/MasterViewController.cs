@@ -23,8 +23,6 @@ namespace ZumaKeuzesContrast2
 			ReadMenuSettings ();
 			LoadItemsToTableSource ();
 
-
-
 			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
 
 			btnCreateNewProfile.TouchUpInside += CreateNewProfile;

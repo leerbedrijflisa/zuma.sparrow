@@ -68,7 +68,6 @@ namespace ZumaKeuzesContrast2
 			btnClickTimer.Value = 5;
 			btnDarkTimer.Value = 5;
 
-
 			lblProfile.Text = selectedProfile [0];
 		}
 

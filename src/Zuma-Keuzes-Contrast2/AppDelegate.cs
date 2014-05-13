@@ -18,16 +18,13 @@ namespace ZumaKeuzesContrast2
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			DatabaseRequests.CreateDatabase ();
-//			DatabaseRequests.CreateDefaultProfiles ();
 
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 
 			var rootNavigationController = new RotationNavigationController ();
-
-			MainMenu mainMenu = new MainMenu ();
+			var mainMenu = new MainMenu ();
 
 			rootNavigationController.PushViewController (mainMenu, false);
-
 			this.window.RootViewController = rootNavigationController;
 
 			window.MakeKeyAndVisible ();
