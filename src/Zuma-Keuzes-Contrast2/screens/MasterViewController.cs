@@ -12,7 +12,7 @@ namespace ZumaKeuzesContrast2
 {
 	public partial class MasterViewController : UIViewController
 	{
-		public MasterViewController (DetailViewController detailProfileMenu) : base ()
+		public MasterViewController (DetailViewController detailProfileMenu = null) : base ()
 		{
 			this.detailProfileMenu = detailProfileMenu;
 		}
@@ -20,22 +20,16 @@ namespace ZumaKeuzesContrast2
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
 			ReadMenuSettings ();
-//			InitializeUI ();
+			LoadItemsToTableSource ();
 
-			items = ProfileNames.ToArray ();
-			itemstable = new TableSource (items, detailProfileMenu, this);
-			tblProfileList.Source = itemstable;
 			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
 
 			btnCreateNewProfile.TouchUpInside += CreateNewProfile;
-//			btnSaveProfileName.TouchUpInside += SaveNewProfile;
 		}
 			
 		public void ReadMenuSettings()
 		{
-
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 			var pathToDatebase = Path.Combine (documents, "db_Zuma_Keuzes.db");
 
@@ -57,59 +51,35 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public void SetBackCreateNewProfile()
+		public void ProfileSaved()
 		{
-//			btnCreateNewProfile.Hidden = false;
-//			btnSaveProfileName.Hidden = true;
-//			inputProfileName.Hidden = true;
+			profileIsUnsaved = false;
+			Console.WriteLine (profileIsUnsaved);
+		}
+
+		private void LoadItemsToTableSource()
+		{
+			items = ProfileNames.ToArray ();
+			var itemsTable = new TableSource (items, detailProfileMenu, this);
+			tblProfileList.Source = itemsTable;
+			tblProfileList.ReloadData ();
 		}
 
 		private void CreateNewProfile(object sender, EventArgs args)
 		{
-			detailProfileMenu.CreateEmptyProfile ();
-
-//			btnSaveProfileName.Hidden = false;
-//			inputProfileName.Hidden = false;
-//			newProfileName = inputProfileName.Text;
-//			btnCreateNewProfile.Hidden = true;
-
+			if (!profileIsUnsaved) {
+				profileIsUnsaved = true;
+				ProfileNames.Add ("Untiteld Profile");
+				LoadItemsToTableSource ();
+				detailProfileMenu.CreateEmptyProfile ();
+			}
 		}
-			
-//		private void InitializeUI()
-//		{
-//			btnSaveProfileName = UIButton.FromType (UIButtonType.RoundedRect);
-//			btnSaveProfileName.Frame = new RectangleF (285, 30, 175, 25);
-//			btnSaveProfileName.SetTitle ("Profiel aanmaken", UIControlState.Normal);
-//			btnSaveProfileName.SetTitleColor(UIColor.White, UIControlState.Normal);
-//			View.AddSubview (inputProfileName);
-//			View.AddSubview (btnSaveProfileName);
-//			inputProfileName.Hidden = true;
-//			btnSaveProfileName.Hidden = true;
-//
-//		}
-
-//		private void SaveNewProfile (object sender, EventArgs args)
-//		{
-//			string name;
-//			name = inputProfileName.Text;
-//			Console.WriteLine ("Test save profile");
-//			detailProfileMenu.CreateMiracle (name);
-//		}
 
 		private DetailViewController detailProfileMenu;
-		private string name, newProfileName;
+		private string name; 
 		object returnFirst;
 		List<string> ProfileNames = new List<string> ();
 		string[] items;
-		TableSource itemstable;
-		UIButton btnSaveProfileName = new UIButton ();
-
-		UITextField inputProfileName = new UITextField
-		{
-			Placeholder = "Vul naam in",
-			BorderStyle = UITextBorderStyle.RoundedRect,
-			Frame = new RectangleF(5, 30, 275, 25)
-		};
-
+		bool profileIsUnsaved;
 	}
 }

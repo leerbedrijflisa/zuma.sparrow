@@ -16,6 +16,9 @@ namespace ZumaKeuzesContrast2
 		MonoTouch.UIKit.UIButton btnPushMainMenu { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton btnRefresh { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITableView lisProfiles { get; set; }
 
 		[Outlet]
@@ -52,6 +55,11 @@ namespace ZumaKeuzesContrast2
 			if (vwMaster != null) {
 				vwMaster.Dispose ();
 				vwMaster = null;
+			}
+
+			if (btnRefresh != null) {
+				btnRefresh.Dispose ();
+				btnRefresh = null;
 			}
 		}
 	}
