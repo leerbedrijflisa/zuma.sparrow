@@ -42,8 +42,11 @@ namespace ZumaKeuzesContrast2
 				using (SqliteCommand cmd = new SqliteCommand (stm, conn)) {
 					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
 						while (rdr.Read ()) {
+							returnID = rdr ["ID"];
 							returnFirst = rdr ["Name"];
+							ID = Convert.ToInt32 (returnID);
 							name = returnFirst.ToString ();
+							ProfileID.Add (ID);
 							ProfileNames.Add (name);
 						}
 					}
@@ -71,13 +74,15 @@ namespace ZumaKeuzesContrast2
 				profileIsUnsaved = true;
 				ProfileNames.Add ("Untiteld Profile");
 				LoadItemsToTableSource ();
-				detailProfileMenu.CreateEmptyProfile ();
+				detailProfileMenu.CreateEmptyProfile (ProfileID);
 			}
 		}
 
 		private DetailViewController detailProfileMenu;
-		private string name; 
-		object returnFirst;
+		private string name;
+		private int ID;
+		object returnID, returnFirst;
+		List<int> ProfileID = new List<int>();
 		List<string> ProfileNames = new List<string> ();
 		string[] items;
 		bool profileIsUnsaved;

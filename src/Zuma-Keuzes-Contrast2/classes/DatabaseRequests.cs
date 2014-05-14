@@ -35,7 +35,7 @@ namespace ZumaKeuzesContrast2
 
 					using (var cmd = conn.CreateCommand ()) {
 
-						cmd.CommandText = "CREATE TABLE Profile (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name VARCHAR(255), ImageOne VARCHAR(255), ImageTwo VARCHAR(255), SoundOne VARCHAR(255), SoundTwo VARCHAR(255), selectedRow INTEGER, defaultProfile INTEGER);";
+						cmd.CommandText = "CREATE TABLE Profile (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name VARCHAR(255), ImageOne VARCHAR(255), ImageTwo VARCHAR(255), SoundOne VARCHAR(255), SoundTwo VARCHAR(255), selectedRow INTEGER, defaultProfile INTEGER, storedInRow);";
 						cmd.CommandType = CommandType.Text;
 						cmd.ExecuteNonQuery ();
 					}
@@ -96,49 +96,7 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-//		public static void CreateDefaultProfiles()
-//		{
-//			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-//			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
-//
-//				var connectionString = String.Format ("Data source={0};Version=3", pathToDatabase);
-//				using (var conn = new SqliteConnection (connectionString)) 
-//				{
-////					conn.Open ();
-////					using (var cmd = conn.CreateCommand ()) 
-////					{
-////						cmd.CommandText = "INSERT INTO MenuOptions (scFirst, clickTimer, darkTimer, storedProfile) VALUES (0, 5, 5, '1')";
-////						cmd.ExecuteNonQuery ();
-////					}
-////
-////					using (var cmd = conn.CreateCommand ()) 
-////					{
-////						cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo, defaultProfile) VALUES ('Links/Rechts', 'images/LeftArrow2.png', 'images/RightArrow2.png', 'sounds/Left.mp3', 'sounds/Right.mp3', 1)";
-////						cmd.ExecuteNonQuery ();
-////					}
-////
-////					using (var cmd = conn.CreateCommand ()) 
-////					{
-////						cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo, defaultProfile) VALUES ('Ja/Nee', 'images/Yes.jpg', 'images/No.jpg', 'sounds/Yes.mp3', 'sounds/No.mp3', 1)";
-////						cmd.ExecuteNonQuery ();
-////					}
-////
-////					using (var cmd = conn.CreateCommand ()) 
-////					{
-////						cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo, defaultProfile) VALUES ('Nee/Ja', 'images/No.jpg', 'images/Yes.jpg', 'sounds/No.mp3', 'sounds/Yes.mp3', 1)";
-////						cmd.ExecuteNonQuery ();
-////					}
-////
-////					using (var cmd = conn.CreateCommand ()) 
-////					{
-////						cmd.CommandText = "INSERT INTO Profile (Name, ImageOne, ImageTwo, SoundOne, SoundTwo, defaultProfile) VALUES ('eten/drinken', 'images/eten.jpg', 'images/beker.jpg', 'sounds/eat.mp3', 'sounds/drink.mp3', 1)";
-////						cmd.ExecuteNonQuery ();
-////					}
-//
-//				}
-//		}
-
-		public static void StoreNewProfile(string name, object leftImage, object rightImage, string leftSnd, string rightSnd)
+		public void StoreNewProfile(string name, object leftImage, object rightImage, string leftSnd, string rightSnd)
 		{
 			var varName = name;
 			var varLeftSnd = leftSnd;

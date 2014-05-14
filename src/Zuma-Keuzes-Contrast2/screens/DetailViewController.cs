@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using MonoTouch.AssetsLibrary;
 using MonoTouch.Foundation;
@@ -52,7 +53,6 @@ namespace ZumaKeuzesContrast2
 			if (databaseRow [6] == "0") 
 			{
 				btnSaveProfile.Hidden = true;
-//				btnSaveProfile.SetTitle ("Verwijder Profiel", UIControlState.Normal);
 				leftAssetUrl = NSUrl.FromString(databaseRow[1]);
 				rightAssetUrl = NSUrl.FromString(databaseRow [2]);
 				library.AssetForUrl(leftAssetUrl, (asset)=>{imvLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
@@ -70,8 +70,13 @@ namespace ZumaKeuzesContrast2
 			DatabaseRequests.StoreMenuSettings (0, 5, 5, databaseRow [5]);
 		}
 
-		public void CreateEmptyProfile()
+		public void CreateEmptyProfile(List<int> listOfProfileID)
 		{
+			foreach (var row in listOfProfileID) {
+				Console.WriteLine (row);
+				profileID.Add (row);
+			}
+
 			vwHidden.Hidden = true;
 			isNewProfile = true;
 
@@ -88,6 +93,8 @@ namespace ZumaKeuzesContrast2
 			UIImage ImgRight = UIImage.FromFile ("images/empty.png");
 			imvLeft.Image = ImgLeft;
 			imvRight.Image = ImgRight;
+
+
 		}
 
 		public void SetBackCreateNewProfile ()
@@ -280,17 +287,14 @@ namespace ZumaKeuzesContrast2
 //			if (btnSetLeftSnd.Hidden == false) {
 				string storeName = txtProfileName.Text;
 				if (storeName.Length != 0 && leftAssetUrl != null && rightAssetUrl != null && leftSndPath != null && rightSndPath != null) {
-					DatabaseRequests.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath);
+					databaseRequests.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath);
 					SetBackCreateNewProfile ();
-//					RefreshDetialView (1);
 					masterViewController.ProfileSaved ();
-
 				} else {
 					lblNameRequired.Text = "Er zijn velden niet ingevuld.";
 				}
 //			} else {
 //				DatabaseRequests.RemoveProfile (_row);
-////				RefreshDetialView (1);
 //			}
 		}
 
@@ -298,12 +302,14 @@ namespace ZumaKeuzesContrast2
 		private int _row, isSide;
 		private bool isRecording = true, isNewProfile;
 		private string leftSndPath, rightSndPath;
+		List<int> profileID = new List<int> ();
 		Sound profileSnd = new Sound();
 		QueryProfile queryProfile = new QueryProfile();
 		UIImagePickerController imagePicker;
 		RecordSound recordSound = new RecordSound();
 		NSDictionary meta = new NSDictionary ();
 		ALAssetsLibrary library = new ALAssetsLibrary();
+		DatabaseRequests databaseRequests = new DatabaseRequests();
 		NSUrl leftAssetUrl, rightAssetUrl;
 
 		MasterViewController masterViewController = new MasterViewController();
