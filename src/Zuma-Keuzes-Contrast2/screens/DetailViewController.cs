@@ -51,8 +51,8 @@ namespace ZumaKeuzesContrast2
 
 			if (databaseRow [6] == "0") 
 			{
-				btnSaveProfile.Hidden = false;
-				btnSaveProfile.SetTitle ("Verwijder Profiel", UIControlState.Normal);
+				btnSaveProfile.Hidden = true;
+//				btnSaveProfile.SetTitle ("Verwijder Profiel", UIControlState.Normal);
 				leftAssetUrl = NSUrl.FromString(databaseRow[1]);
 				rightAssetUrl = NSUrl.FromString(databaseRow [2]);
 				library.AssetForUrl(leftAssetUrl, (asset)=>{imvLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
@@ -277,21 +277,21 @@ namespace ZumaKeuzesContrast2
 
 		private void SaveOrRemoveProfile(object sender, EventArgs args)
 		{
-			if (btnSetLeftSnd.Hidden == false) {
+//			if (btnSetLeftSnd.Hidden == false) {
 				string storeName = txtProfileName.Text;
 				if (storeName.Length != 0 && leftAssetUrl != null && rightAssetUrl != null && leftSndPath != null && rightSndPath != null) {
 					DatabaseRequests.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath);
 					SetBackCreateNewProfile ();
-					RefreshDetialView (1);
+//					RefreshDetialView (1);
 					masterViewController.ProfileSaved ();
 
 				} else {
 					lblNameRequired.Text = "Er zijn velden niet ingevuld.";
 				}
-			} else {
-				DatabaseRequests.RemoveProfile (_row);
-				RefreshDetialView (1);
-			}
+//			} else {
+//				DatabaseRequests.RemoveProfile (_row);
+////				RefreshDetialView (1);
+//			}
 		}
 
 		private string[] databaseRow = new string[5];

@@ -209,8 +209,15 @@ namespace ZumaKeuzesContrast2
 			blackOutTimer.Dispose();
 			btnChoiceLeft.Enabled = true;
 			btnChoiceRight.Enabled = true;
-			imvChoiceLeft.Image = UIimageOne;
-			imvChoiceRight.Image = UIimageTwo;
+			if (profile [6] == "0") {
+				var leftAssetUrl = NSUrl.FromString(profile[1]);
+				var rightAssetUrl = NSUrl.FromString(profile [2]);
+				library.AssetForUrl(leftAssetUrl, (asset)=>{imvChoiceLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+				library.AssetForUrl(rightAssetUrl, (asset)=>{imvChoiceRight.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+			} else if (profile [6] == "1") {
+				imvChoiceLeft.Image = UIimageOne;
+				imvChoiceRight.Image = UIimageTwo;
+			}
 		}
 
 		private void resetbtnForLowDifficulty()
