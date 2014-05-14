@@ -35,7 +35,7 @@ namespace ZumaKeuzesContrast2
 
 					using (var cmd = conn.CreateCommand ()) {
 
-						cmd.CommandText = "CREATE TABLE Profile (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name VARCHAR(255), ImageOne VARCHAR(255), ImageTwo VARCHAR(255), SoundOne VARCHAR(255), SoundTwo VARCHAR(255), selectedRow INTEGER, defaultProfile INTEGER, storedInRow);";
+						cmd.CommandText = "CREATE TABLE Profile (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name VARCHAR(255), ImageOne VARCHAR(255), ImageTwo VARCHAR(255), SoundOne VARCHAR(255), SoundTwo VARCHAR(255), selectedRow INTEGER, defaultProfile INTEGER, storedInRow INTEGER);";
 						cmd.CommandType = CommandType.Text;
 						cmd.ExecuteNonQuery ();
 					}
@@ -119,12 +119,11 @@ namespace ZumaKeuzesContrast2
 					cmd.Parameters.AddWithValue ("@leftSnd", varLeftSnd);
 					cmd.Parameters.AddWithValue ("@rightSnd", varRightSnd);
 					cmd.ExecuteNonQuery ();
-
 				}
 			}
 		}
 
-		public static void RemoveProfile (int row)
+		public static void RemoveProfile (string row)
 		{
 			var removeRow = row;
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
@@ -134,11 +133,12 @@ namespace ZumaKeuzesContrast2
 			using (var conn = new SqliteConnection (connectionString)) {
 				conn.Open ();
 				using (var cmd = conn.CreateCommand ()) {
-					cmd.CommandText = "DELETE from Profile WHERE id = @removeRow";
+					cmd.CommandText = "DELETE from Profile WHERE storedInRow = @removeRow";
 					cmd.Parameters.AddWithValue ("@removeRow", removeRow);
 					cmd.ExecuteNonQuery ();
 				}
 			}
+			Console.WriteLine (row);
 		}
 
 		public static void SetSelectedRow(string rowSelected)

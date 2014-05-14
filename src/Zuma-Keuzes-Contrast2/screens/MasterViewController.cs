@@ -20,38 +20,13 @@ namespace ZumaKeuzesContrast2
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			ReadMenuSettings ();
+			profileNames = queryProfile.ReadProfilesNamesAndUpdateStoredInRow();
+			queryProfile.ReadStoredInRowTest ();
 			LoadItemsToTableSource ();
 
 			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
 
 			btnCreateNewProfile.TouchUpInside += CreateNewProfile;
-		}
-			
-		public void ReadMenuSettings()
-		{
-			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-			var pathToDatebase = Path.Combine (documents, "db_Zuma_Keuzes.db");
-
-			var connectionString = String.Format ("Data source={0};Version=3", pathToDatebase);
-			using (var conn = new SqliteConnection (connectionString)) {
-
-				conn.Open ();
-				string stm = "SELECT * FROM Profile";
-
-				using (SqliteCommand cmd = new SqliteCommand (stm, conn)) {
-					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
-						while (rdr.Read ()) {
-							returnID = rdr ["ID"];
-							returnFirst = rdr ["Name"];
-							ID = Convert.ToInt32 (returnID);
-							name = returnFirst.ToString ();
-							ProfileID.Add (ID);
-							ProfileNames.Add (name);
-						}
-					}
-				}
-			}
 		}
 
 		public void ProfileSaved()
@@ -62,7 +37,7 @@ namespace ZumaKeuzesContrast2
 
 		private void LoadItemsToTableSource()
 		{
-			items = ProfileNames.ToArray ();
+			items = profileNames.ToArray ();
 			var itemsTable = new TableSource (items, detailProfileMenu, this);
 			tblProfileList.Source = itemsTable;
 			tblProfileList.ReloadData ();
@@ -72,19 +47,19 @@ namespace ZumaKeuzesContrast2
 		{
 			if (!profileIsUnsaved) {
 				profileIsUnsaved = true;
-				ProfileNames.Add ("Untiteld Profile");
+				profileNames.Add ("Untiteld Profile");
 				LoadItemsToTableSource ();
-				detailProfileMenu.CreateEmptyProfile (ProfileID);
+				detailProfileMenu.CreateEmptyProfile ();
 			}
 		}
 
 		private DetailViewController detailProfileMenu;
-		private string name;
-		private int ID;
-		object returnID, returnFirst;
-		List<int> ProfileID = new List<int>();
-		List<string> ProfileNames = new List<string> ();
-		string[] items;
-		bool profileIsUnsaved;
+		private string[] items;
+		private bool profileIsUnsaved;
+
+		List<int> profileID = new List<int>();
+		List<string> profileNames = new List<string> ();
+		QueryProfile queryProfile = new QueryProfile();
+
 	}
 }

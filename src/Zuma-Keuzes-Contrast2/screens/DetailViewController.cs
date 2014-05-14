@@ -48,35 +48,31 @@ namespace ZumaKeuzesContrast2
 			btnSetLeftSnd.Hidden = true;
 			btnSetRightSnd.Hidden = true;
 			_row = Row + 1;
-			databaseRow = queryProfile.returnProfileRow(_row);
+			profileRow = queryProfile.returnProfileRow(_row);
 
-			if (databaseRow [6] == "0") 
+			if (profileRow [6] == "0") 
 			{
-				btnSaveProfile.Hidden = true;
-				leftAssetUrl = NSUrl.FromString(databaseRow[1]);
-				rightAssetUrl = NSUrl.FromString(databaseRow [2]);
+				btnSaveProfile.Hidden = false;
+				btnSaveProfile.SetTitle ("Profiel verwijderen", UIControlState.Normal);
+				leftAssetUrl = NSUrl.FromString(profileRow[1]);
+				rightAssetUrl = NSUrl.FromString(profileRow [2]);
 				library.AssetForUrl(leftAssetUrl, (asset)=>{imvLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
 				library.AssetForUrl(rightAssetUrl, (asset)=>{imvRight.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
 			} 
-			else if (databaseRow [6] == "1") 
+			else if (profileRow [6] == "1") 
 			{
 				btnSaveProfile.Hidden = true;
-				UIImage ImgLeft = UIImage.FromFile (databaseRow[1]);
-				UIImage ImgRight = UIImage.FromFile (databaseRow[2]);
+				UIImage ImgLeft = UIImage.FromFile (profileRow[1]);
+				UIImage ImgRight = UIImage.FromFile (profileRow[2]);
 				imvLeft.Image = ImgLeft;
 				imvRight.Image = ImgRight;
 			}
 
-			DatabaseRequests.StoreMenuSettings (0, 5, 5, databaseRow [5]);
+			DatabaseRequests.StoreMenuSettings (0, 5, 5, profileRow [5]);
 		}
 
-		public void CreateEmptyProfile(List<int> listOfProfileID)
+		public void CreateEmptyProfile()
 		{
-			foreach (var row in listOfProfileID) {
-				Console.WriteLine (row);
-				profileID.Add (row);
-			}
-
 			vwHidden.Hidden = true;
 			isNewProfile = true;
 
@@ -93,7 +89,6 @@ namespace ZumaKeuzesContrast2
 			UIImage ImgRight = UIImage.FromFile ("images/empty.png");
 			imvLeft.Image = ImgLeft;
 			imvRight.Image = ImgRight;
-
 
 		}
 
@@ -125,11 +120,11 @@ namespace ZumaKeuzesContrast2
 			{
 				if (sender == btnPlayLeftSnd) 
 				{
-					profileSnd.Play (databaseRow [3]);
+					profileSnd.Play (profileRow [3]);
 				} 
 				else if (sender == btnPlayRightSnd) 
 				{
-					profileSnd.Play (databaseRow [4]);
+					profileSnd.Play (profileRow [4]);
 				}
 			}
 
@@ -284,7 +279,7 @@ namespace ZumaKeuzesContrast2
 
 		private void SaveOrRemoveProfile(object sender, EventArgs args)
 		{
-//			if (btnSetLeftSnd.Hidden == false) {
+			if (btnSetLeftSnd.Hidden == false) {
 				string storeName = txtProfileName.Text;
 				if (storeName.Length != 0 && leftAssetUrl != null && rightAssetUrl != null && leftSndPath != null && rightSndPath != null) {
 					databaseRequests.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath);
@@ -293,16 +288,17 @@ namespace ZumaKeuzesContrast2
 				} else {
 					lblNameRequired.Text = "Er zijn velden niet ingevuld.";
 				}
-//			} else {
-//				DatabaseRequests.RemoveProfile (_row);
-//			}
+			} else {
+				DatabaseRequests.RemoveProfile (profileRow[7]);
+				RefreshDetialView (0);
+			}
 		}
 
-		private string[] databaseRow = new string[5];
+		private string[] profileRow = new string[6];
 		private int _row, isSide;
 		private bool isRecording = true, isNewProfile;
 		private string leftSndPath, rightSndPath;
-		List<int> profileID = new List<int> ();
+//		List<int> profileID = new List<int> ();
 		Sound profileSnd = new Sound();
 		QueryProfile queryProfile = new QueryProfile();
 		UIImagePickerController imagePicker;
