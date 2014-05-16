@@ -7,6 +7,7 @@ using MonoTouch.CoreImage;
 using MonoTouch.CoreGraphics;
 using MonoTouch.CoreMotion;
 using Lisa.Zuma;
+using MonoTouch.ObjCRuntime;
 
 namespace ZumaKeuzesContrast2
 {
@@ -174,35 +175,91 @@ namespace ZumaKeuzesContrast2
 
 		private void CreateDoubleButtonChoice(object sender, EventArgs args)
 		{
+			right_pt = imvChoiceRight.Center;
+			left_pt = imvChoiceLeft.Center;
+
 			if (sender == btnChoiceLeft) 
 			{
 				btnChoiceRight.Enabled = false;
 				btnChoiceLeft.Enabled = false;
-//				blackout = "left";
 				profileSound.Play (soundOne);
-//				rightFilterDark ("On", FilterRotation);
 				imvChoiceRight.Image = empty;
 				blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_clickTimer), delegate {
 					blackOutLowDifficulty ();
 					resetbtnForHighDifficulty();
-//					NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_darkTimer), );
 				});
 			} 
 			else if (sender == btnChoiceRight) 
 			{
 				btnChoiceLeft.Enabled = false;
 				btnChoiceRight.Enabled = false;
-//				blackout = "right";
 				profileSound.Play(soundTwo);
-//				leftFilterDark ("On", FilterRotation);
 				imvChoiceLeft.Image = empty;
 				blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer), delegate {
 					blackOutLowDifficulty();
 					resetbtnForHighDifficulty();
-//					NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), );
 				});
 			}
+			startAnimation (sender);
 		}
+
+		[Export("slideAnimationFinished:")]
+		public void SlideStopped (NSObject obj)
+		{
+			imvChoiceRight.Center = right_pt;
+			imvChoiceLeft.Center = left_pt;
+		}
+
+		private void startAnimation(object _sender)
+		{
+			if (_sender == btnChoiceLeft && FilterRotation == "landscape") {
+				UIView.Animate (_clickTimer /2, 0, UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.Autoreverse,
+					() => {
+						imvChoiceLeft.Center = 
+							new PointF (UIScreen.MainScreen.Bounds.Right - imvChoiceLeft.Frame.Width / 2, 
+							imvChoiceLeft.Center.Y);
+					}, 
+					() => {
+						imvChoiceLeft.Center = left_pt;
+					}
+				);
+			} else if (_sender == btnChoiceRight && FilterRotation == "landscape") {
+				UIView.Animate (_clickTimer /2, 0, UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.Autoreverse,
+					() => {
+						imvChoiceRight.Center = 
+							new PointF (UIScreen.MainScreen.Bounds.Right - imvChoiceRight.Frame.Width / 2, 
+								imvChoiceLeft.Center.Y);
+					}, 
+					() => {
+						imvChoiceRight.Center = right_pt;
+					}
+				);
+			} else if (_sender == btnChoiceLeft && FilterRotation == "portrait") {
+				UIView.Animate (_clickTimer /2, 0, UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.Autoreverse,
+					() => {
+						imvChoiceLeft.Center = 
+							new PointF (imvChoiceLeft.Center.X, 
+								UIScreen.MainScreen.Bounds.Right - imvChoiceLeft.Frame.Width / 2 );
+					}, 
+					() => {
+						imvChoiceLeft.Center = left_pt;
+					}
+				);
+			} else if (_sender == btnChoiceRight && FilterRotation == "portrait") {
+				UIView.Animate (_clickTimer /2, 0, UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.Autoreverse,
+					() => {
+						imvChoiceRight.Center = 
+							new PointF (imvChoiceLeft.Center.X, 
+								UIScreen.MainScreen.Bounds.Right - imvChoiceRight.Frame.Width / 2 
+								);
+					}, 
+					() => {
+						imvChoiceRight.Center = right_pt;
+					}
+				);
+			}
+		}
+
 
 		private void resetbtnForHighDifficulty()
 		{
@@ -439,9 +496,11 @@ namespace ZumaKeuzesContrast2
 	
 		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringSecond;
 		private string imageOne, imageTwo, soundOne, soundTwo, selectedProfile, selectedButtonSetting, clickTimer, darkTimer; 
-		private int count, _selectedProfile, _clickTimer, _darkTimer;
+		private int count, _selectedProfile, _darkTimer;
 		private bool pushed = true, playingLeft = true, playingRight = true;
 		private string[] menuSettings = new string[4], profile = new string[6];
+		private float _clickTimer;
+		private PointF right_pt, left_pt;
 
 	}
 }
