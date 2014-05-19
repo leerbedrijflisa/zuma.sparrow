@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using MonoTouch.AssetsLibrary;
 using MonoTouch.Foundation;
@@ -46,28 +47,27 @@ namespace ZumaKeuzesContrast2
 			vwHidden.Hidden = true;
 			btnSetLeftSnd.Hidden = true;
 			btnSetRightSnd.Hidden = true;
-			_row = Row + 1;
-			databaseRow = queryProfile.returnProfileRow(_row);
+			profileRow = queryProfile.returnProfileRow(Row);
 
-			if (databaseRow [6] == "0") 
+			if (profileRow [6] == "0") 
 			{
-				btnSaveProfile.Hidden = true;
-//				btnSaveProfile.SetTitle ("Verwijder Profiel", UIControlState.Normal);
-				leftAssetUrl = NSUrl.FromString(databaseRow[1]);
-				rightAssetUrl = NSUrl.FromString(databaseRow [2]);
+				btnSaveProfile.Hidden = false;
+				btnSaveProfile.SetTitle ("Profiel verwijderen", UIControlState.Normal);
+				leftAssetUrl = NSUrl.FromString(profileRow[1]);
+				rightAssetUrl = NSUrl.FromString(profileRow [2]);
 				library.AssetForUrl(leftAssetUrl, (asset)=>{imvLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
 				library.AssetForUrl(rightAssetUrl, (asset)=>{imvRight.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
 			} 
-			else if (databaseRow [6] == "1") 
+			else if (profileRow [6] == "1") 
 			{
 				btnSaveProfile.Hidden = true;
-				UIImage ImgLeft = UIImage.FromFile (databaseRow[1]);
-				UIImage ImgRight = UIImage.FromFile (databaseRow[2]);
+				UIImage ImgLeft = UIImage.FromFile (profileRow[1]);
+				UIImage ImgRight = UIImage.FromFile (profileRow[2]);
 				imvLeft.Image = ImgLeft;
 				imvRight.Image = ImgRight;
 			}
 
-			DatabaseRequests.StoreMenuSettings (0, 5, 5, databaseRow [5]);
+			DatabaseRequests.StoreMenuSettings (0, 5, 5, profileRow [7]);
 		}
 
 		public void CreateEmptyProfile()
@@ -88,6 +88,7 @@ namespace ZumaKeuzesContrast2
 			UIImage ImgRight = UIImage.FromFile ("images/empty.png");
 			imvLeft.Image = ImgLeft;
 			imvRight.Image = ImgRight;
+
 		}
 
 		public void SetBackCreateNewProfile ()
@@ -118,11 +119,11 @@ namespace ZumaKeuzesContrast2
 			{
 				if (sender == btnPlayLeftSnd) 
 				{
-					profileSnd.Play (databaseRow [3]);
+					profileSnd.Play (profileRow [3]);
 				} 
 				else if (sender == btnPlayRightSnd) 
 				{
-					profileSnd.Play (databaseRow [4]);
+					profileSnd.Play (profileRow [4]);
 				}
 			}
 
@@ -241,6 +242,7 @@ namespace ZumaKeuzesContrast2
 		private void Handle_Canceled(object sender, EventArgs e)
 		{
 			imagePicker.DismissModalViewControllerAnimated(true);
+			imagePicker.View.RemoveFromSuperview ();
 		}
 
 		private void RecordNewProfileSnd(object sender, EventArgs args)
@@ -277,24 +279,25 @@ namespace ZumaKeuzesContrast2
 
 		private void SaveOrRemoveProfile(object sender, EventArgs args)
 		{
-//			if (btnSetLeftSnd.Hidden == false) {
+			if (btnSetLeftSnd.Hidden == false) {
 				string storeName = txtProfileName.Text;
 				if (storeName.Length != 0 && leftAssetUrl != null && rightAssetUrl != null && leftSndPath != null && rightSndPath != null) {
-					DatabaseRequests.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath);
-					SetBackCreateNewProfile ();
-//					RefreshDetialView (1);
+					var ProfileNames = queryProfile.ReadProfilesNames ();
+					var rows = ProfileNames.Count;
+					databaseRequests.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath, rows);
 					masterViewController.ProfileSaved ();
-
+					SetBackCreateNewProfile ();
+					btnSaveProfile.Hidden = true;
 				} else {
 					lblNameRequired.Text = "Er zijn velden niet ingevuld.";
 				}
-//			} else {
-//				DatabaseRequests.RemoveProfile (_row);
-////				RefreshDetialView (1);
-//			}
+			} else {
+				databaseRequests.RemoveProfile (profileRow[7]);
+				RefreshDetialView (0);
+			}
 		}
 
-		private string[] databaseRow = new string[5];
+		private string[] profileRow = new string[6];
 		private int _row, isSide;
 		private bool isRecording = true, isNewProfile;
 		private string leftSndPath, rightSndPath;
@@ -304,9 +307,11 @@ namespace ZumaKeuzesContrast2
 		RecordSound recordSound = new RecordSound();
 		NSDictionary meta = new NSDictionary ();
 		ALAssetsLibrary library = new ALAssetsLibrary();
-		NSUrl leftAssetUrl, rightAssetUrl;
+		DatabaseRequests databaseRequests = new DatabaseRequests();
 
 		MasterViewController masterViewController = new MasterViewController();
+
+		NSUrl leftAssetUrl, rightAssetUrl;
 
 		enum side 
 		{

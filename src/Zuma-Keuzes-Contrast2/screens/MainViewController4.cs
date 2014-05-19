@@ -178,28 +178,22 @@ namespace ZumaKeuzesContrast2
 			{
 				btnChoiceRight.Enabled = false;
 				btnChoiceLeft.Enabled = false;
-//				blackout = "left";
 				profileSound.Play (soundOne);
-//				rightFilterDark ("On", FilterRotation);
 				imvChoiceRight.Image = empty;
 				blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_clickTimer), delegate {
 					blackOutLowDifficulty ();
 					resetbtnForHighDifficulty();
-//					NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_darkTimer), );
 				});
 			} 
 			else if (sender == btnChoiceRight) 
 			{
 				btnChoiceLeft.Enabled = false;
 				btnChoiceRight.Enabled = false;
-//				blackout = "right";
 				profileSound.Play(soundTwo);
-//				leftFilterDark ("On", FilterRotation);
 				imvChoiceLeft.Image = empty;
 				blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer), delegate {
 					blackOutLowDifficulty();
 					resetbtnForHighDifficulty();
-//					NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), );
 				});
 			}
 		}

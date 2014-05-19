@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Data;
+using System.Collections.Generic;
 using Mono.Data.Sqlite;
 
 namespace ZumaKeuzesContrast2
@@ -14,7 +15,6 @@ namespace ZumaKeuzesContrast2
 
 		public string[] returnProfileRow(int Row)
 		{
-
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
 
@@ -23,8 +23,8 @@ namespace ZumaKeuzesContrast2
 				conn.Open ();
 				using (var cmd = conn.CreateCommand ()) {
 
-					cmd.CommandText = "SELECT * FROM Profile WHERE ID = @ID";
-					cmd.Parameters.AddWithValue ("@ID", Row);
+					cmd.CommandText = "SELECT * FROM Profile WHERE storedInRow = @storedInRow";
+					cmd.Parameters.AddWithValue ("@storedInRow", Row);
 					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
 						while (rdr.Read ()) {
 							returnRow = rdr ["ID"];
@@ -34,6 +34,7 @@ namespace ZumaKeuzesContrast2
 							returnSoundOne = rdr ["soundOne"];
 							returnSoundTwo = rdr ["soundTwo"];
 							returnDefaultProfile = rdr ["defaultProfile"];
+							returnStoredInRow = rdr ["storedInRow"];
 						}
 					}
 				}
@@ -45,6 +46,7 @@ namespace ZumaKeuzesContrast2
 			soundOne = returnSoundOne.ToString ();
 			soundTwo = returnSoundTwo.ToString ();
 			defaultProfile = returnDefaultProfile.ToString ();
+			storedInRow = returnStoredInRow.ToString ();
 
 			Console.WriteLine ("default profile " + defaultProfile);
 
@@ -58,6 +60,7 @@ namespace ZumaKeuzesContrast2
 			databaseRow [4] = soundTwo;
 			databaseRow [5] = row;
 			databaseRow [6] = defaultProfile;
+			databaseRow [7] = storedInRow;
 
 			return databaseRow;
 		}
@@ -81,7 +84,6 @@ namespace ZumaKeuzesContrast2
 							returnClickTimer = rdr ["clickTimer"];
 							returnDarkTimer = rdr ["darkTimer"];
 							returnStoredProfile = rdr ["storedProfile"];
-
 						}
 					}
 				}
@@ -120,12 +122,65 @@ namespace ZumaKeuzesContrast2
 					cmd.ExecuteNonQuery ();
 				}
 			}
-
 		}
 
-		private object returnProfileName, returnRow, returnImageOne, returnImageTwo, returnSoundOne, returnSoundTwo, returnFirst, returnClickTimer, returnDarkTimer, returnStoredProfile, returnDefaultProfile;
-		private string profileName, imageOne, imageTwo, soundOne, soundTwo, row, first, clickTimer, darkTimer, storedProfile, defaultProfile;
-		private string[] databaseRow = new string[7], menuSettings = new string[4];
+		public List<string> ReadProfilesNames()
+		{
+			List<string> ProfileNames = new List<string> ();
+			List<object> ProfileID = new List<object> ();
+			var count = 1;
+
+			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			var pathToDatebase = Path.Combine (documents, "db_Zuma_Keuzes.db");
+
+			var connectionString = String.Format ("Data source={0};Version=3", pathToDatebase);
+			using (var conn = new SqliteConnection (connectionString)) {
+				conn.Open ();
+				string stm = "SELECT * FROM Profile";
+
+				using (SqliteCommand cmd = new SqliteCommand (stm, conn)) {
+					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
+						while (rdr.Read ()) {
+							returnFirst = rdr ["Name"];
+							var name = returnFirst.ToString ();
+							ProfileNames.Add (name);
+						}
+					}
+				}
+			}
+			return ProfileNames;
+		}
+
+		public void ReadStoredInRowTest()
+		{
+			var connectionString = ConnectionString ();
+			using (var conn = new SqliteConnection (connectionString)) {
+				conn.Open ();
+				string stm = "SELECT * FROM Profile";
+
+				using (SqliteCommand cmd = new SqliteCommand (stm, conn)) {
+					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
+						while (rdr.Read ()) {
+							var storedInRow = rdr ["storedInRow"];
+							Console.WriteLine (storedInRow.ToString () + " read storedInRow");
+						}
+					}
+				}
+			}
+		}
+
+		private string ConnectionString()
+		{
+			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			var pathToDatebase = Path.Combine (documents, "db_Zuma_Keuzes.db");
+			var connectionString = String.Format ("Data source={0};Version=3", pathToDatebase);
+
+			return connectionString;
+		}
+	
+		private object returnProfileName, returnRow, returnImageOne, returnImageTwo, returnSoundOne, returnSoundTwo, returnFirst, returnClickTimer, returnDarkTimer, returnStoredProfile, returnDefaultProfile, returnStoredInRow;
+		private string profileName, imageOne, imageTwo, soundOne, soundTwo, row, first, clickTimer, darkTimer, storedProfile, defaultProfile, storedInRow;
+		private string[] databaseRow = new string[8], menuSettings = new string[4];
 		private int rowReturned;
 	}
 }
