@@ -20,7 +20,7 @@ namespace ZumaKeuzesContrast2
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			profileNames = queryProfile.ReadProfilesNamesAndUpdateStoredInRow();
+			profileNames = queryProfile.ReadProfilesNames();
 			queryProfile.ReadStoredInRowTest ();
 			LoadItemsToTableSource ();
 

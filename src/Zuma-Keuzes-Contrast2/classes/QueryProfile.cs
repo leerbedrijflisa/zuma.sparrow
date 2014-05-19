@@ -15,7 +15,6 @@ namespace ZumaKeuzesContrast2
 
 		public string[] returnProfileRow(int Row)
 		{
-
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
 
@@ -24,8 +23,8 @@ namespace ZumaKeuzesContrast2
 				conn.Open ();
 				using (var cmd = conn.CreateCommand ()) {
 
-					cmd.CommandText = "SELECT * FROM Profile WHERE ID = @ID";
-					cmd.Parameters.AddWithValue ("@ID", Row);
+					cmd.CommandText = "SELECT * FROM Profile WHERE storedInRow = @storedInRow";
+					cmd.Parameters.AddWithValue ("@storedInRow", Row);
 					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
 						while (rdr.Read ()) {
 							returnRow = rdr ["ID"];
@@ -125,7 +124,7 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public List<string> ReadProfilesNamesAndUpdateStoredInRow()
+		public List<string> ReadProfilesNames()
 		{
 			List<string> ProfileNames = new List<string> ();
 			List<object> ProfileID = new List<object> ();
@@ -147,26 +146,6 @@ namespace ZumaKeuzesContrast2
 							ProfileNames.Add (name);
 						}
 					}
-					
-					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
-						while (rdr.Read ()) {
-							returnFirst = rdr ["ID"];
-							var name = returnFirst;
-							ProfileID.Add (name);
-						}
-					}
-				}
-
-				foreach(var ID in ProfileID)
-				{
-					using (var cmd = conn.CreateCommand()) {
-						cmd.CommandText = "UPDATE Profile SET storedInRow = @count WHERE ID = @ID";
-						cmd.Parameters.AddWithValue ("@ID", ID);
-						cmd.Parameters.AddWithValue ("@count", count);
-						cmd.ExecuteNonQuery ();
-					}
-					Console.WriteLine (count.ToString());
-					count++;
 				}
 			}
 			return ProfileNames;
