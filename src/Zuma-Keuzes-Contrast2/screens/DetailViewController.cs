@@ -236,14 +236,12 @@ namespace ZumaKeuzesContrast2
 					Console.WriteLine(mediaURL.ToString());
 				}
 			}
-
-			// dismiss the picker
-			imagePicker.DismissModalViewControllerAnimated (true);
 		}
 
 		private void Handle_Canceled(object sender, EventArgs e)
 		{
-			imagePicker.DismissModalViewControllerAnimated(true);
+			Console.WriteLine("dismiss");
+			imagePicker.DismissViewController(true, () => {});
 			imagePicker.View.RemoveFromSuperview ();
 		}
 

@@ -13,9 +13,7 @@ namespace ZumaKeuzesContrast2
 {
 	public partial class MainViewController4 : UIViewController
 	{
-		public MainViewController4 () : base ()
-		{
-		}
+		public MainViewController4 () : base () {}
 			
 		public override void ViewDidLoad ()
 		{
@@ -49,6 +47,8 @@ namespace ZumaKeuzesContrast2
 		/// When the device rotates, the OS calls this method to determine if it should try and rotate the
 		/// application and then call WillAnimateRotation
 		/// </summary>
+		#pragma warning disable 612,618
+		[Obsolete("Deprecated in iOS6. Replace it with both GetSupportedInterfaceOrientations and PreferredInterfaceOrientationForPresentation", false)]
 		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
 		{
 			// we're passed to orientation that it will rotate to. in our case, we could
@@ -175,31 +175,24 @@ namespace ZumaKeuzesContrast2
 
 		private void CreateDoubleButtonChoice(object sender, EventArgs args)
 		{
-			right_pt = imvChoiceRight.Center;
-			left_pt = imvChoiceLeft.Center;
-
-			if (sender == btnChoiceLeft) 
-			{
-				btnChoiceRight.Enabled = false;
-				btnChoiceLeft.Enabled = false;
+			if (sender == btnChoiceLeft) {
 				profileSound.Play (soundOne);
 				imvChoiceRight.Image = empty;
-				blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_clickTimer), delegate {
-					blackOutLowDifficulty ();
-					resetbtnForHighDifficulty();
-				});
-			} 
-			else if (sender == btnChoiceRight) 
-			{
-				btnChoiceLeft.Enabled = false;
-				btnChoiceRight.Enabled = false;
-				profileSound.Play(soundTwo);
+			} else if (sender == btnChoiceRight) {
+				profileSound.Play (soundTwo);
 				imvChoiceLeft.Image = empty;
-				blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer), delegate {
-					blackOutLowDifficulty();
-					resetbtnForHighDifficulty();
-				});
 			}
+
+			btnChoiceRight.Enabled = false;
+			btnChoiceLeft.Enabled = false;
+
+			blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_clickTimer), delegate {
+				blackOutLowDifficulty ();
+				resetbtnForHighDifficulty ();
+			});
+
+			right_pt = imvChoiceRight.Center;
+			left_pt = imvChoiceLeft.Center;
 			startAnimation (sender);
 		}
 
@@ -493,7 +486,6 @@ namespace ZumaKeuzesContrast2
 			imageTwo = profile [2];
 			soundOne = profile [3];
 			soundTwo = profile [4];
-			Console.WriteLine (imageOne + " " + imageTwo + " " + soundOne + " " + soundTwo);
 
 			selectedButtonSetting = menuSettings[0];
 			clickTimer = menuSettings [1];
@@ -518,6 +510,5 @@ namespace ZumaKeuzesContrast2
 		private string[] menuSettings = new string[4], profile = new string[6];
 		private float _clickTimer;
 		private PointF right_pt, left_pt;
-
 	}
 }
