@@ -67,7 +67,7 @@ namespace ZumaKeuzesContrast2
 				imvRight.Image = ImgRight;
 			}
 
-			DataHelper.StoreMenuSettings (0, 5, 5, profileRow [7]);
+			dataHelper.StoreMenuSettings (0, 5, 5, profileRow [7]);
 		}
 
 		public void CreateEmptyProfile()

@@ -11,7 +11,7 @@ namespace ZumaKeuzesContrast2
 	{
 		public DataHelper (){}
 
-		public static void CreateDatabase()
+		public void CreateDatabase()
 		{
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 			var pathToDatebase = Path.Combine (documents, "db_Zuma_Keuzes.db");
@@ -66,7 +66,7 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		public static void StoreMenuSettings(int scFirst, int clickTimer, int darkTimer, string storedProfile)
+		public void StoreMenuSettings(int scFirst, int clickTimer, int darkTimer, string storedProfile)
 		{
 			var varScFirst = scFirst;
 			var varClickTimer = clickTimer;

@@ -84,7 +84,7 @@ namespace ZumaKeuzesContrast2
 		{
 			int segmetDifficultyLevel = scChoice.SelectedSegment;
 
-			DataHelper.StoreMenuSettings(segmetDifficultyLevel, clickTimer, darkTimer, selectedProfileRow);
+			dataHelper.StoreMenuSettings(segmetDifficultyLevel, clickTimer, darkTimer, selectedProfileRow);
 			if(viewController == null)
 			{
 				viewController = new MainViewController4();

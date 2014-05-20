@@ -17,7 +17,7 @@ namespace ZumaKeuzesContrast2
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			DataHelper.CreateDatabase ();
+			dataHelper.CreateDatabase ();
 
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 
@@ -31,6 +31,8 @@ namespace ZumaKeuzesContrast2
 
 			return true;
 		}
+
+		DataHelper dataHelper = new DataHelper();
 	}
 }
 
