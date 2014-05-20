@@ -122,7 +122,6 @@
       <DependentUpon>ProfileMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="classes\RotationNavigationController.cs" />
-    <Compile Include="classes\DatabaseRequests.cs" />
     <Compile Include="classes\TableSource.cs" />
     <Compile Include="screens\MasterViewController.cs" />
     <Compile Include="screens\MasterViewController.designer.cs">
@@ -133,9 +132,9 @@
       <DependentUpon>DetailViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="classes\sendData.cs" />
-    <Compile Include="classes\QueryProfile.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="classes\RecordSound.cs" />
+    <Compile Include="classes\DataHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -51,10 +51,10 @@ namespace ZumaKeuzesContrast2
 
 		private void SetProfileSettings()
 		{
-			menuSetting = queryProfile.ReadMenuSettings();
+			menuSetting = dataHelper.ReadMenuSettings();
 			selectedProfileRow = menuSetting [3];
 			_selectedProfileRow = Convert.ToInt32 (selectedProfileRow);
-			selectedProfile = queryProfile.returnProfileRow(_selectedProfileRow);
+			selectedProfile = dataHelper.returnProfileRow(_selectedProfileRow);
 		}
 
 		private void InitializeUI()
@@ -84,7 +84,7 @@ namespace ZumaKeuzesContrast2
 		{
 			int segmetDifficultyLevel = scChoice.SelectedSegment;
 
-			DatabaseRequests.StoreMenuSettings(segmetDifficultyLevel, clickTimer, darkTimer, selectedProfileRow);
+			DataHelper.StoreMenuSettings(segmetDifficultyLevel, clickTimer, darkTimer, selectedProfileRow);
 			if(viewController == null)
 			{
 				viewController = new MainViewController4();
@@ -122,7 +122,8 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-		QueryProfile queryProfile = new QueryProfile();
+//		QueryProfile queryProfile = new QueryProfile();
+		DataHelper dataHelper = new DataHelper();
 		private MainViewController4 viewController;
 		private ProfileMenu profileMenu;
 		private int clickTimer = 5, darkTimer = 5, _selectedProfileRow;

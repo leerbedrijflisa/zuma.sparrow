@@ -17,7 +17,7 @@ namespace ZumaKeuzesContrast2
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			DatabaseRequests.CreateDatabase ();
+			DataHelper.CreateDatabase ();
 
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 

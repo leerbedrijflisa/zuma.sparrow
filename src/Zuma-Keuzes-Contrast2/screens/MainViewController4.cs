@@ -465,12 +465,12 @@ namespace ZumaKeuzesContrast2
 
 		private void SetProfile()
 		{
-			menuSettings = queryProfile.ReadMenuSettings ();
+			menuSettings = dataHelper.ReadMenuSettings ();
 
 			selectedProfile = menuSettings [3];
 			_selectedProfile = Convert.ToInt32 (selectedProfile);
 
-			profile = queryProfile.returnProfileRow (_selectedProfile);
+			profile = dataHelper.returnProfileRow (_selectedProfile);
 
 			imageOne = profile [1];
 			imageTwo = profile [2];
@@ -491,7 +491,8 @@ namespace ZumaKeuzesContrast2
 		NSTimer SwitchingChoices, blackOutTimer;
 		Sound profileSound = new Sound ();
 		MainMenu mainMenu;
-		QueryProfile queryProfile = new QueryProfile();
+//		QueryProfile queryProfile = new QueryProfile();
+		DataHelper dataHelper = new DataHelper ();
 		ALAssetsLibrary library = new ALAssetsLibrary();
 	
 		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringSecond;

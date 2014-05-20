@@ -20,8 +20,8 @@ namespace ZumaKeuzesContrast2
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			profileNames = queryProfile.ReadProfilesNames();
-			queryProfile.ReadStoredInRowTest ();
+			profileNames = datahelper.ReadProfilesNames();
+			datahelper.ReadStoredInRowTest ();
 			LoadItemsToTableSource ();
 
 			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
@@ -59,7 +59,8 @@ namespace ZumaKeuzesContrast2
 
 		List<int> profileID = new List<int>();
 		List<string> profileNames = new List<string> ();
-		QueryProfile queryProfile = new QueryProfile();
+//		QueryProfile queryProfile = new QueryProfile();
+		DataHelper datahelper = new DataHelper();
 
 	}
 }

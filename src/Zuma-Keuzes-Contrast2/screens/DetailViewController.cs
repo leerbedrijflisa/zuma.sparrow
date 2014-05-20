@@ -47,7 +47,7 @@ namespace ZumaKeuzesContrast2
 			vwHidden.Hidden = true;
 			btnSetLeftSnd.Hidden = true;
 			btnSetRightSnd.Hidden = true;
-			profileRow = queryProfile.returnProfileRow(Row);
+			profileRow = dataHelper.returnProfileRow(Row);
 
 			if (profileRow [6] == "0") 
 			{
@@ -67,7 +67,7 @@ namespace ZumaKeuzesContrast2
 				imvRight.Image = ImgRight;
 			}
 
-			DatabaseRequests.StoreMenuSettings (0, 5, 5, profileRow [7]);
+			DataHelper.StoreMenuSettings (0, 5, 5, profileRow [7]);
 		}
 
 		public void CreateEmptyProfile()
@@ -75,6 +75,8 @@ namespace ZumaKeuzesContrast2
 			vwHidden.Hidden = true;
 			isNewProfile = true;
 
+			btnPlayLeftSnd.Hidden = true;
+			btnPlayRightSnd.Hidden = true;
 			btnSetLeftImage.Hidden = false;
 			btnSetRightImage.Hidden = false;
 			btnSetLeftSnd.Hidden = false;
@@ -263,14 +265,16 @@ namespace ZumaKeuzesContrast2
 			} 
 			else if (!isRecording && sender == btnSetLeftSnd) 
 			{
-				btnSetLeftSnd.SetTitle ("Record", UIControlState.Normal);
+				btnPlayLeftSnd.Hidden = false;
+				btnSetLeftSnd.SetTitle ("record", UIControlState.Normal);
 				leftSndPath = recordSound.StopRecording (true);
 				isRecording = true;
 				Console.WriteLine (isRecording);
 			}
 			else if (!isRecording && sender == btnSetRightSnd) 
 			{
-				btnSetRightSnd.SetTitle ("Record", UIControlState.Normal);
+				btnPlayRightSnd.Hidden = false;
+				btnSetRightSnd.SetTitle ("record", UIControlState.Normal);
 				rightSndPath = recordSound.StopRecording (false);
 				isRecording = true;
 				Console.WriteLine (isRecording);
@@ -282,17 +286,18 @@ namespace ZumaKeuzesContrast2
 			if (btnSetLeftSnd.Hidden == false) {
 				string storeName = txtProfileName.Text;
 				if (storeName.Length != 0 && leftAssetUrl != null && rightAssetUrl != null && leftSndPath != null && rightSndPath != null) {
-					var ProfileNames = queryProfile.ReadProfilesNames ();
+					var ProfileNames = dataHelper.ReadProfilesNames ();
 					var rows = ProfileNames.Count;
-					databaseRequests.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath, rows);
+					dataHelper.StoreNewProfile (storeName, leftAssetUrl, rightAssetUrl, leftSndPath, rightSndPath, rows);
 					masterViewController.ProfileSaved ();
 					SetBackCreateNewProfile ();
 					btnSaveProfile.Hidden = true;
+					RefreshDetialView (rows);
 				} else {
 					lblNameRequired.Text = "Er zijn velden niet ingevuld.";
 				}
 			} else {
-				databaseRequests.RemoveProfile (profileRow[7]);
+				dataHelper.RemoveProfile (profileRow[7]);
 				RefreshDetialView (0);
 			}
 		}
@@ -301,13 +306,13 @@ namespace ZumaKeuzesContrast2
 		private int _row, isSide;
 		private bool isRecording = true, isNewProfile;
 		private string leftSndPath, rightSndPath;
+
 		Sound profileSnd = new Sound();
-		QueryProfile queryProfile = new QueryProfile();
 		UIImagePickerController imagePicker;
 		RecordSound recordSound = new RecordSound();
 		NSDictionary meta = new NSDictionary ();
 		ALAssetsLibrary library = new ALAssetsLibrary();
-		DatabaseRequests databaseRequests = new DatabaseRequests();
+		DataHelper dataHelper = new DataHelper ();
 
 		MasterViewController masterViewController = new MasterViewController();
 
