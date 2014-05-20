@@ -91,6 +91,7 @@ namespace ZumaKeuzesContrast2
 			imvLeft.Image = ImgLeft;
 			imvRight.Image = ImgRight;
 
+			this.View.ExclusiveTouch = true;
 		}
 
 		public void SetBackCreateNewProfile ()

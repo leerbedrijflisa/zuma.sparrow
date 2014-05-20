@@ -69,6 +69,11 @@ namespace ZumaKeuzesContrast2
 				btnPlayRightSnd = null;
 			}
 
+			if (btnReloadTable != null) {
+				btnReloadTable.Dispose ();
+				btnReloadTable = null;
+			}
+
 			if (btnRight != null) {
 				btnRight.Dispose ();
 				btnRight = null;
@@ -122,11 +127,6 @@ namespace ZumaKeuzesContrast2
 			if (txtProfileName != null) {
 				txtProfileName.Dispose ();
 				txtProfileName = null;
-			}
-
-			if (btnReloadTable != null) {
-				btnReloadTable.Dispose ();
-				btnReloadTable = null;
 			}
 
 			if (vwHidden != null) {

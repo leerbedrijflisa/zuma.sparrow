@@ -19,6 +19,9 @@ namespace ZumaKeuzesContrast2
 		{
 			base.ViewDidLoad ();
 
+			this.View.ExclusiveTouch = true;
+			this.View.MultipleTouchEnabled = false;
+
 			NavigationController.SetNavigationBarHidden(true, true);
 			UIApplication.SharedApplication.SetStatusBarHidden (true, true);
 
@@ -462,9 +465,10 @@ namespace ZumaKeuzesContrast2
 			case "1":
 				btnChoiceLeft = UIButton.FromType (UIButtonType.RoundedRect);
 				btnChoiceRight = UIButton.FromType (UIButtonType.RoundedRect);
-
 				View.AddSubview (btnChoiceLeft);
 				View.AddSubview (btnChoiceRight);
+				btnChoiceRight.ExclusiveTouch = true;
+				btnChoiceLeft.ExclusiveTouch = true;
 				break;
 			}
 
