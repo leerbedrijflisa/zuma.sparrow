@@ -131,7 +131,6 @@
     <Compile Include="screens\DetailViewController.designer.cs">
       <DependentUpon>DetailViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="classes\sendData.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="classes\RecordSound.cs" />
     <Compile Include="classes\DataHelper.cs" />

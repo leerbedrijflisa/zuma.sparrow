@@ -303,7 +303,7 @@ namespace ZumaKeuzesContrast2
 		}
 
 		private string[] profileRow = new string[6];
-		private int _row, isSide;
+		private int isSide;
 		private bool isRecording = true, isNewProfile;
 		private string leftSndPath, rightSndPath;
 

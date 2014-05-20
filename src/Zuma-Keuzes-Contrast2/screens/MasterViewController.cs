@@ -38,7 +38,7 @@ namespace ZumaKeuzesContrast2
 		private void LoadItemsToTableSource()
 		{
 			items = profileNames.ToArray ();
-			var itemsTable = new TableSource (items, detailProfileMenu, this);
+			var itemsTable = new TableSource (items, detailProfileMenu);
 			tblProfileList.Source = itemsTable;
 			tblProfileList.ReloadData ();
 		}
@@ -57,9 +57,7 @@ namespace ZumaKeuzesContrast2
 		private string[] items;
 		private bool profileIsUnsaved;
 
-		List<int> profileID = new List<int>();
 		List<string> profileNames = new List<string> ();
-//		QueryProfile queryProfile = new QueryProfile();
 		DataHelper datahelper = new DataHelper();
 
 	}

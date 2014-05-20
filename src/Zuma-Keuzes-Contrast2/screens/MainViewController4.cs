@@ -218,6 +218,9 @@ namespace ZumaKeuzesContrast2
 						imvChoiceLeft.Center = 
 							new PointF (UIScreen.MainScreen.Bounds.Right - imvChoiceLeft.Frame.Width / 2, 
 							imvChoiceLeft.Center.Y);
+						NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer-0.1), delegate {
+							TimerSetImage(_sender);
+						});
 					}, 
 					() => {
 						imvChoiceLeft.Center = left_pt;
@@ -229,6 +232,9 @@ namespace ZumaKeuzesContrast2
 						imvChoiceRight.Center = 
 							new PointF (UIScreen.MainScreen.Bounds.Right - imvChoiceRight.Frame.Width / 2, 
 								imvChoiceLeft.Center.Y);
+						NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer-0.1), delegate {
+							TimerSetImage(_sender);
+						});
 					}, 
 					() => {
 						imvChoiceRight.Center = right_pt;
@@ -240,6 +246,9 @@ namespace ZumaKeuzesContrast2
 						imvChoiceLeft.Center = 
 							new PointF (imvChoiceLeft.Center.X, 
 								UIScreen.MainScreen.Bounds.Right - imvChoiceLeft.Frame.Width / 2 );
+						NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer-0.1), delegate {
+							TimerSetImage(_sender);
+						});
 					}, 
 					() => {
 						imvChoiceLeft.Center = left_pt;
@@ -250,8 +259,10 @@ namespace ZumaKeuzesContrast2
 					() => {
 						imvChoiceRight.Center = 
 							new PointF (imvChoiceLeft.Center.X, 
-								UIScreen.MainScreen.Bounds.Right - imvChoiceRight.Frame.Width / 2 
-								);
+								UIScreen.MainScreen.Bounds.Right - imvChoiceRight.Frame.Width / 2 );
+						NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer-0.1), delegate { 
+							TimerSetImage(_sender);
+						});
 					}, 
 					() => {
 						imvChoiceRight.Center = right_pt;
@@ -260,6 +271,14 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
+		private void TimerSetImage(object sender)
+		{
+			if (sender == btnChoiceLeft) {
+				imvChoiceLeft.Center = left_pt;
+			} else if (sender == btnChoiceRight) {
+				imvChoiceRight.Center = right_pt;
+			}
+		}
 
 		private void resetbtnForHighDifficulty()
 		{
@@ -293,8 +312,6 @@ namespace ZumaKeuzesContrast2
 
 			blackout = "right";
 			soundSelect = "right";
-
-			int count = 0;
 
 			SwitchingChoices = NSTimer.CreateRepeatingScheduledTimer (TimeSpan.FromSeconds(5), delegate {
 				switch (count)
@@ -491,14 +508,13 @@ namespace ZumaKeuzesContrast2
 		NSTimer SwitchingChoices, blackOutTimer;
 		Sound profileSound = new Sound ();
 		MainMenu mainMenu;
-//		QueryProfile queryProfile = new QueryProfile();
 		DataHelper dataHelper = new DataHelper ();
 		ALAssetsLibrary library = new ALAssetsLibrary();
 	
-		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringSecond;
+		private string blackout, soundSelect, FilterRotation;
 		private string imageOne, imageTwo, soundOne, soundTwo, selectedProfile, selectedButtonSetting, clickTimer, darkTimer; 
 		private int count, _selectedProfile, _darkTimer;
-		private bool pushed = true, playingLeft = true, playingRight = true;
+		private bool pushed = true;
 		private string[] menuSettings = new string[4], profile = new string[6];
 		private float _clickTimer;
 		private PointF right_pt, left_pt;
