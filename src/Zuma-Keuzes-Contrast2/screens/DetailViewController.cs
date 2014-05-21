@@ -196,7 +196,7 @@ namespace ZumaKeuzesContrast2
 					} 
 					else if (isSide == 1) 
 					{
-						library.WriteImageToSavedPhotosAlbum (originalImage.CGImage,meta, (assetUrl, error) =>
+						library.WriteImageToSavedPhotosAlbum(originalImage.CGImage,meta, (assetUrl, error) =>
 							{
 								Console.WriteLine ("assetUrl:"+assetUrl);
 								rightAssetUrl = assetUrl;
