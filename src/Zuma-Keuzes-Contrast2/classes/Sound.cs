@@ -9,7 +9,6 @@ namespace Lisa.Zuma
 	public class Sound
 	{
 		AVAudioPlayer player;
-		NSObject observer;
 		NSError error;
 
 

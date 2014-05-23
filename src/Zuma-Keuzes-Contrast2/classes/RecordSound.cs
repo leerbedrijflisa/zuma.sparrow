@@ -88,9 +88,7 @@ namespace ZumaKeuzesContrast2
 		}
 			
 		public AVAudioRecorder recorder;
-		NSError error = null;
 		NSUrl audioFilePath;
-		NSDictionary settings;
 		string audioLeft, audioRight;
 	}
 }
