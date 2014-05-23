@@ -29,8 +29,6 @@ namespace ZumaKeuzesContrast2
 		{
 			base.ViewDidLoad ();
 
-			btnRefresh.Hidden = true;
-
 			detailProfileMenu = new DetailViewController();
 			masterProfileMenu = new MasterViewController (detailProfileMenu);
 
@@ -38,7 +36,6 @@ namespace ZumaKeuzesContrast2
 			vwMaster.Add (masterProfileMenu.View);
 
 			btnPushMainMenu.TouchUpInside += PushMainMenu;
-			btnRefresh.TouchUpInside += RefreshView;
 
 		}
 
@@ -66,12 +63,5 @@ namespace ZumaKeuzesContrast2
 
 			NavigationController.PushViewController (mainMenu, false);
 		}
-
-		private void RefreshView(object sender, EventArgs args)
-		{
-//			vwDetail.Add (detailProfileMenu.View);
-//			vwMaster.Add (masterProfileMenu.View);
-		}
-
 	}
 }

@@ -20,35 +20,13 @@ namespace ZumaKeuzesContrast2
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			ReadMenuSettings ();
+			profileNames = datahelper.ReadProfilesNames();
+			datahelper.ReadStoredInRowTest ();
 			LoadItemsToTableSource ();
 
 			NSIndexPath currentRow = tblProfileList.IndexPathForSelectedRow;
 
 			btnCreateNewProfile.TouchUpInside += CreateNewProfile;
-		}
-			
-		public void ReadMenuSettings()
-		{
-			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-			var pathToDatebase = Path.Combine (documents, "db_Zuma_Keuzes.db");
-
-			var connectionString = String.Format ("Data source={0};Version=3", pathToDatebase);
-			using (var conn = new SqliteConnection (connectionString)) {
-
-				conn.Open ();
-				string stm = "SELECT * FROM Profile";
-
-				using (SqliteCommand cmd = new SqliteCommand (stm, conn)) {
-					using (SqliteDataReader rdr = cmd.ExecuteReader ()) {
-						while (rdr.Read ()) {
-							returnFirst = rdr ["Name"];
-							name = returnFirst.ToString ();
-							ProfileNames.Add (name);
-						}
-					}
-				}
-			}
 		}
 
 		public void ProfileSaved()
@@ -59,8 +37,8 @@ namespace ZumaKeuzesContrast2
 
 		private void LoadItemsToTableSource()
 		{
-			items = ProfileNames.ToArray ();
-			var itemsTable = new TableSource (items, detailProfileMenu, this);
+			items = profileNames.ToArray ();
+			var itemsTable = new TableSource (items, detailProfileMenu);
 			tblProfileList.Source = itemsTable;
 			tblProfileList.ReloadData ();
 		}
@@ -69,17 +47,18 @@ namespace ZumaKeuzesContrast2
 		{
 			if (!profileIsUnsaved) {
 				profileIsUnsaved = true;
-				ProfileNames.Add ("Untiteld Profile");
+				profileNames.Add ("Untiteld Profile");
 				LoadItemsToTableSource ();
 				detailProfileMenu.CreateEmptyProfile ();
 			}
 		}
 
 		private DetailViewController detailProfileMenu;
-		private string name; 
-		object returnFirst;
-		List<string> ProfileNames = new List<string> ();
-		string[] items;
-		bool profileIsUnsaved;
+		private string[] items;
+		private bool profileIsUnsaved;
+
+		List<string> profileNames = new List<string> ();
+		DataHelper datahelper = new DataHelper();
+
 	}
 }

@@ -7,18 +7,20 @@ using MonoTouch.CoreImage;
 using MonoTouch.CoreGraphics;
 using MonoTouch.CoreMotion;
 using Lisa.Zuma;
+using MonoTouch.ObjCRuntime;
 
 namespace ZumaKeuzesContrast2
 {
 	public partial class MainViewController4 : UIViewController
 	{
-		public MainViewController4 () : base ()
-		{
-		}
+		public MainViewController4 () : base () {}
 			
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+
+			this.View.ExclusiveTouch = true;
+			this.View.MultipleTouchEnabled = false;
 
 			NavigationController.SetNavigationBarHidden(true, true);
 			UIApplication.SharedApplication.SetStatusBarHidden (true, true);
@@ -48,6 +50,8 @@ namespace ZumaKeuzesContrast2
 		/// When the device rotates, the OS calls this method to determine if it should try and rotate the
 		/// application and then call WillAnimateRotation
 		/// </summary>
+		#pragma warning disable 612,618
+		[Obsolete("Deprecated in iOS6. Replace it with both GetSupportedInterfaceOrientations and PreferredInterfaceOrientationForPresentation", false)]
 		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
 		{
 			// we're passed to orientation that it will rotate to. in our case, we could
@@ -174,33 +178,101 @@ namespace ZumaKeuzesContrast2
 
 		private void CreateDoubleButtonChoice(object sender, EventArgs args)
 		{
-			if (sender == btnChoiceLeft) 
-			{
-				btnChoiceRight.Enabled = false;
-				btnChoiceLeft.Enabled = false;
-//				blackout = "left";
+			if (sender == btnChoiceLeft) {
 				profileSound.Play (soundOne);
-//				rightFilterDark ("On", FilterRotation);
 				imvChoiceRight.Image = empty;
-				blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_clickTimer), delegate {
-					blackOutLowDifficulty ();
-					resetbtnForHighDifficulty();
-//					NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_darkTimer), );
-				});
-			} 
-			else if (sender == btnChoiceRight) 
-			{
-				btnChoiceLeft.Enabled = false;
-				btnChoiceRight.Enabled = false;
-//				blackout = "right";
-				profileSound.Play(soundTwo);
-//				leftFilterDark ("On", FilterRotation);
+			} else if (sender == btnChoiceRight) {
+				profileSound.Play (soundTwo);
 				imvChoiceLeft.Image = empty;
-				blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer), delegate {
-					blackOutLowDifficulty();
-					resetbtnForHighDifficulty();
-//					NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), );
-				});
+			}
+
+			btnChoiceRight.Enabled = false;
+			btnChoiceLeft.Enabled = false;
+
+			blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_clickTimer), delegate {
+				blackOutLowDifficulty ();
+				resetbtnForHighDifficulty ();
+			});
+
+			right_pt = imvChoiceRight.Center;
+			left_pt = imvChoiceLeft.Center;
+			startAnimation (sender);
+		}
+
+		[Export("slideAnimationFinished:")]
+		public void SlideStopped (NSObject obj)
+		{
+			imvChoiceRight.Center = right_pt;
+			imvChoiceLeft.Center = left_pt;
+		}
+
+		private void startAnimation(object _sender)
+		{
+			if (_sender == btnChoiceLeft && FilterRotation == "landscape") {
+				UIView.Animate (_clickTimer /2, 0, UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.Autoreverse,
+					() => {
+						imvChoiceLeft.Center = 
+							new PointF (UIScreen.MainScreen.Bounds.Right - imvChoiceLeft.Frame.Width / 2, 
+							imvChoiceLeft.Center.Y);
+						NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer-0.1), delegate {
+							TimerSetImage(_sender);
+						});
+					}, 
+					() => {
+						imvChoiceLeft.Center = left_pt;
+					}
+				);
+			} else if (_sender == btnChoiceRight && FilterRotation == "landscape") {
+				UIView.Animate (_clickTimer /2, 0, UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.Autoreverse,
+					() => {
+						imvChoiceRight.Center = 
+							new PointF (UIScreen.MainScreen.Bounds.Right - imvChoiceRight.Frame.Width / 2, 
+								imvChoiceLeft.Center.Y);
+						NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer-0.1), delegate {
+							TimerSetImage(_sender);
+						});
+					}, 
+					() => {
+						imvChoiceRight.Center = right_pt;
+					}
+				);
+			} else if (_sender == btnChoiceLeft && FilterRotation == "portrait") {
+				UIView.Animate (_clickTimer /2, 0, UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.Autoreverse,
+					() => {
+						imvChoiceLeft.Center = 
+							new PointF (imvChoiceLeft.Center.X, 
+								UIScreen.MainScreen.Bounds.Right - imvChoiceLeft.Frame.Width / 2 );
+						NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer-0.1), delegate {
+							TimerSetImage(_sender);
+						});
+					}, 
+					() => {
+						imvChoiceLeft.Center = left_pt;
+					}
+				);
+			} else if (_sender == btnChoiceRight && FilterRotation == "portrait") {
+				UIView.Animate (_clickTimer /2, 0, UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.Autoreverse,
+					() => {
+						imvChoiceRight.Center = 
+							new PointF (imvChoiceLeft.Center.X, 
+								UIScreen.MainScreen.Bounds.Right - imvChoiceRight.Frame.Width / 2 );
+						NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer-0.1), delegate { 
+							TimerSetImage(_sender);
+						});
+					}, 
+					() => {
+						imvChoiceRight.Center = right_pt;
+					}
+				);
+			}
+		}
+
+		private void TimerSetImage(object sender)
+		{
+			if (sender == btnChoiceLeft) {
+				imvChoiceLeft.Center = left_pt;
+			} else if (sender == btnChoiceRight) {
+				imvChoiceRight.Center = right_pt;
 			}
 		}
 
@@ -209,8 +281,15 @@ namespace ZumaKeuzesContrast2
 			blackOutTimer.Dispose();
 			btnChoiceLeft.Enabled = true;
 			btnChoiceRight.Enabled = true;
-			imvChoiceLeft.Image = UIimageOne;
-			imvChoiceRight.Image = UIimageTwo;
+			if (profile [6] == "0") {
+				var leftAssetUrl = NSUrl.FromString(profile[1]);
+				var rightAssetUrl = NSUrl.FromString(profile [2]);
+				library.AssetForUrl(leftAssetUrl, (asset)=>{imvChoiceLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+				library.AssetForUrl(rightAssetUrl, (asset)=>{imvChoiceRight.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
+			} else if (profile [6] == "1") {
+				imvChoiceLeft.Image = UIimageOne;
+				imvChoiceRight.Image = UIimageTwo;
+			}
 		}
 
 		private void resetbtnForLowDifficulty()
@@ -229,8 +308,6 @@ namespace ZumaKeuzesContrast2
 
 			blackout = "right";
 			soundSelect = "right";
-
-			int count = 0;
 
 			SwitchingChoices = NSTimer.CreateRepeatingScheduledTimer (TimeSpan.FromSeconds(5), delegate {
 				switch (count)
@@ -388,9 +465,10 @@ namespace ZumaKeuzesContrast2
 			case "1":
 				btnChoiceLeft = UIButton.FromType (UIButtonType.RoundedRect);
 				btnChoiceRight = UIButton.FromType (UIButtonType.RoundedRect);
-
 				View.AddSubview (btnChoiceLeft);
 				View.AddSubview (btnChoiceRight);
+				btnChoiceRight.ExclusiveTouch = true;
+				btnChoiceLeft.ExclusiveTouch = true;
 				break;
 			}
 
@@ -401,18 +479,17 @@ namespace ZumaKeuzesContrast2
 
 		private void SetProfile()
 		{
-			menuSettings = queryProfile.ReadMenuSettings ();
+			menuSettings = dataHelper.ReadMenuSettings ();
 
 			selectedProfile = menuSettings [3];
 			_selectedProfile = Convert.ToInt32 (selectedProfile);
 
-			profile = queryProfile.returnProfileRow (_selectedProfile);
+			profile = dataHelper.returnProfileRow (_selectedProfile);
 
 			imageOne = profile [1];
 			imageTwo = profile [2];
 			soundOne = profile [3];
 			soundTwo = profile [4];
-			Console.WriteLine (imageOne + " " + imageTwo + " " + soundOne + " " + soundTwo);
 
 			selectedButtonSetting = menuSettings[0];
 			clickTimer = menuSettings [1];
@@ -427,14 +504,15 @@ namespace ZumaKeuzesContrast2
 		NSTimer SwitchingChoices, blackOutTimer;
 		Sound profileSound = new Sound ();
 		MainMenu mainMenu;
-		QueryProfile queryProfile = new QueryProfile();
+		DataHelper dataHelper = new DataHelper ();
 		ALAssetsLibrary library = new ALAssetsLibrary();
 	
-		private string blackout, soundSelect, screenPositionHighDifficulty, FilterRotation, stringSecond;
+		private string blackout, soundSelect, FilterRotation;
 		private string imageOne, imageTwo, soundOne, soundTwo, selectedProfile, selectedButtonSetting, clickTimer, darkTimer; 
-		private int count, _selectedProfile, _clickTimer, _darkTimer;
-		private bool pushed = true, playingLeft = true, playingRight = true;
+		private int count, _selectedProfile, _darkTimer;
+		private bool pushed = true;
 		private string[] menuSettings = new string[4], profile = new string[6];
-
+		private float _clickTimer;
+		private PointF right_pt, left_pt;
 	}
 }
