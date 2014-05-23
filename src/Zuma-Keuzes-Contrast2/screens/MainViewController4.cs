@@ -199,12 +199,12 @@ namespace ZumaKeuzesContrast2
 			startAnimation (sender);
 		}
 
-		[Export("slideAnimationFinished:")]
-		public void SlideStopped (NSObject obj)
-		{
-			imvChoiceRight.Center = right_pt;
-			imvChoiceLeft.Center = left_pt;
-		}
+//		[Export("slideAnimationFinished:")]
+//		public void SlideStopped (NSObject obj)
+//		{
+//			imvChoiceRight.Center = right_pt;
+//			imvChoiceLeft.Center = left_pt;
+//		}
 
 		private void startAnimation(object _sender)
 		{
@@ -219,7 +219,13 @@ namespace ZumaKeuzesContrast2
 						});
 					}, 
 					() => {
-						imvChoiceLeft.Center = left_pt;
+						if(FilterRotation == "landscape")
+						{
+							imvChoiceLeft.Center = left_pt;
+						} else if (FilterRotation == "portrait")
+						{
+							imvChoiceLeft.Center = new PointF(381, 237);
+						}
 					}
 				);
 			} else if (_sender == btnChoiceRight && FilterRotation == "landscape") {
@@ -233,7 +239,13 @@ namespace ZumaKeuzesContrast2
 						});
 					}, 
 					() => {
-						imvChoiceRight.Center = right_pt;
+						if(FilterRotation == "landscape")
+						{
+							imvChoiceRight.Center = right_pt;
+						} else if (FilterRotation == "portrait")
+						{
+							imvChoiceRight.Center = new PointF (381, 749);
+						}
 					}
 				);
 			} else if (_sender == btnChoiceLeft && FilterRotation == "portrait") {
@@ -247,7 +259,13 @@ namespace ZumaKeuzesContrast2
 						});
 					}, 
 					() => {
-						imvChoiceLeft.Center = left_pt;
+						if(FilterRotation == "portrait")
+						{
+							imvChoiceLeft.Center = left_pt;
+						} else if (FilterRotation == "landscape")
+						{
+							imvChoiceLeft.Center = new PointF (256, 387);
+						}
 					}
 				);
 			} else if (_sender == btnChoiceRight && FilterRotation == "portrait") {
@@ -261,7 +279,13 @@ namespace ZumaKeuzesContrast2
 						});
 					}, 
 					() => {
-						imvChoiceRight.Center = right_pt;
+						if(FilterRotation == "portrait")
+						{
+							imvChoiceRight.Center = right_pt;
+						} else if (FilterRotation == "landscape")
+						{
+							imvChoiceRight.Center = new PointF (768, 387);
+						}
 					}
 				);
 			}

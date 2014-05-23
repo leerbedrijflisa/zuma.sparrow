@@ -7,6 +7,7 @@ using System.IO;
 using System.Text;
 using System.Data;
 using System.Collections.Generic;
+using MonoTouch.CoreMotion;
 
 namespace ZumaKeuzesContrast2
 {
@@ -37,6 +38,8 @@ namespace ZumaKeuzesContrast2
 
 			btnPushMainMenu.TouchUpInside += PushMainMenu;
 
+			ScreenReturnToMenu ();
+
 		}
 
 		public override void ViewWillAppear (bool animated) {
@@ -63,5 +66,32 @@ namespace ZumaKeuzesContrast2
 
 			NavigationController.PushViewController (mainMenu, false);
 		}
+
+		private void PushMainMenuWhenRotating()
+		{
+			if(mainMenu == null)
+			{
+				mainMenu = new MainMenu();
+			}
+
+			if (pushed == false) {
+				NavigationController.PushViewController (mainMenu, false);
+				pushed = true;
+			}
+		}
+
+		private CMMotionManager _motionManager;
+
+		private void ScreenReturnToMenu()
+		{
+			_motionManager = new CMMotionManager ();
+			_motionManager.StartAccelerometerUpdates (NSOperationQueue.CurrentQueue, (data, error) => {
+				if (data.Acceleration.Z > 0.890) {
+					PushMainMenuWhenRotating ();
+				}
+			});
+		}
+
+		bool pushed;
 	}
 }
