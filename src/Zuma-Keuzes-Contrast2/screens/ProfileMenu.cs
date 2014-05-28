@@ -63,8 +63,10 @@ namespace ZumaKeuzesContrast2
 			{
 				mainMenu = new MainMenu ();
 			}
-
-			NavigationController.PushViewController (mainMenu, false);
+			if (!pushed) {
+				NavigationController.PushViewController (mainMenu, false);
+				pushed = true;
+			}
 		}
 
 		private void PushMainMenuWhenRotating()
@@ -74,7 +76,7 @@ namespace ZumaKeuzesContrast2
 				mainMenu = new MainMenu();
 			}
 
-			if (pushed == false) {
+			if (!pushed) {
 				NavigationController.PushViewController (mainMenu, false);
 				pushed = true;
 			}
