@@ -163,7 +163,7 @@ namespace ZumaKeuzesContrast2
 			switch (count) {
 			case 0:
 				blackOutTimer = NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer), delegate {
-//					blackOutLowDifficulty();
+//					BlackOutHighDifficulty();
 					blackOutPart();
 					NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_darkTimer), resetbtnForLowDifficulty);
 				});
@@ -191,8 +191,7 @@ namespace ZumaKeuzesContrast2
 			btnChoiceLeft.Enabled = false;
 
 			blackOutTimer = NSTimer.CreateScheduledTimer (TimeSpan.FromSeconds (_clickTimer), delegate {
-//				blackOutLowDifficulty ();
-				blackOutPart();
+				BlackOutHighDifficulty ();
 				resetbtnForHighDifficulty ();
 			});
 
@@ -435,17 +434,17 @@ namespace ZumaKeuzesContrast2
 			}
 		}
 
-//		private void blackOutLowDifficulty()
-//		{
-//			switch (blackout){
-//			case "left":
-//				leftFilterDark ("On", FilterRotation);
-//				break;
-//			case "right":
-//				rightFilterDark ("On", FilterRotation);
-//				break;
-//			}
-//		}
+		private void BlackOutHighDifficulty()
+		{
+			switch (blackout){
+			case "left":
+				leftFilterDark ("On", FilterRotation);
+				break;
+			case "right":
+				rightFilterDark ("On", FilterRotation);
+				break;
+			}
+		}
 
 		private void PushMainMenu()
 		{
