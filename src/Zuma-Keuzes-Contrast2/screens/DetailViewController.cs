@@ -22,7 +22,7 @@ namespace ZumaKeuzesContrast2
 		{
 			base.ViewDidLoad ();
 
-			RefreshDetialView (0);
+			RefreshDetailView (0);
 
 			btnSaveProfile.Hidden = true;
 			btnSetLeftSnd.Hidden = true;
@@ -42,7 +42,7 @@ namespace ZumaKeuzesContrast2
 			btnSaveProfile.TouchUpInside += SaveOrRemoveProfile;
 		}
 
-		public void RefreshDetialView(int Row)
+		public void RefreshDetailView(int Row)
 		{
 			vwHidden.Hidden = true;
 			btnSetLeftSnd.Hidden = true;
@@ -91,7 +91,7 @@ namespace ZumaKeuzesContrast2
 			imvLeft.Image = ImgLeft;
 			imvRight.Image = ImgRight;
 
-			this.View.ExclusiveTouch = true;
+			View.ExclusiveTouch = true;
 		}
 
 		public void SetBackCreateNewProfile ()
@@ -246,6 +246,7 @@ namespace ZumaKeuzesContrast2
 			imagePicker.View.RemoveFromSuperview ();
 		}
 
+		//twee functies van maken
 		private void RecordNewProfileSnd(object sender, EventArgs args)
 		{
 			if (isRecording && sender == btnSetLeftSnd) 
@@ -282,6 +283,7 @@ namespace ZumaKeuzesContrast2
 
 		private void SaveOrRemoveProfile(object sender, EventArgs args)
 		{
+			//maak er twee methodes van! save / remove
 			if (btnSetLeftSnd.Hidden == false) {
 				string storeName = txtProfileName.Text;
 				if (storeName.Length != 0 && leftAssetUrl != null && rightAssetUrl != null && leftSndPath != null && rightSndPath != null) {
@@ -291,13 +293,13 @@ namespace ZumaKeuzesContrast2
 					masterViewController.ProfileSaved ();
 					SetBackCreateNewProfile ();
 					btnSaveProfile.Hidden = true;
-					RefreshDetialView (rows);
+					RefreshDetailView (rows);
 				} else {
 					lblNameRequired.Text = "Er zijn velden niet ingevuld.";
 				}
 			} else {
 				dataHelper.RemoveProfile (profileRow[7]);
-				RefreshDetialView (0);
+				RefreshDetailView (0);
 			}
 		}
 

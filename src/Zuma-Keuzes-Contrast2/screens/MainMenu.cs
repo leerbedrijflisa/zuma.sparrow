@@ -87,7 +87,7 @@ namespace ZumaKeuzesContrast2
 			dataHelper.StoreMenuSettings(segmetDifficultyLevel, clickTimer, darkTimer, selectedProfileRow);
 			if(viewController == null)
 			{
-				viewController = new MainViewController4();
+				viewController = new MainViewController();
 			}
 
 			NavigationController.PushViewController(viewController, false);
@@ -124,7 +124,7 @@ namespace ZumaKeuzesContrast2
 
 //		QueryProfile queryProfile = new QueryProfile();
 		DataHelper dataHelper = new DataHelper();
-		private MainViewController4 viewController;
+		private MainViewController viewController;
 		private ProfileMenu profileMenu;
 		private int clickTimer = 5, darkTimer = 5, _selectedProfileRow;
 		private string[] menuSetting = new string[4], selectedProfile = new string[6];

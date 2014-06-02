@@ -8,7 +8,7 @@ using MonoTouch.Foundation;
 
 namespace ZumaKeuzesContrast2
 {
-	[Register ("MainViewController")]
+	[Register ("MainViewController4")]
 	partial class MainViewController
 	{
 		void ReleaseDesignerOutlets ()

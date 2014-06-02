@@ -57,16 +57,18 @@ namespace ZumaKeuzesContrast2
 			return true;
 		}
 
+		//netjes maken
 		private void PushMainMenu(object sender, EventArgs e)
 		{
-			if (mainMenu == null) 
-			{
-				mainMenu = new MainMenu ();
-			}
-			if (!pushed) {
-				NavigationController.PushViewController (mainMenu, false);
-				pushed = true;
-			}
+//			if (mainMenu == null) 
+//			{
+//				mainMenu = new MainMenu ();
+//			}
+//			if (!pushed) {
+//				NavigationController.PushViewController (mainMenu, false);
+//				pushed = true;
+//			}
+			PushMainMenuWhenRotating ();
 		}
 
 		private void PushMainMenuWhenRotating()

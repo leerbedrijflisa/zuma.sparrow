@@ -9,7 +9,6 @@ namespace ZumaKeuzesContrast2
 		{
 			return this.VisibleViewController.GetSupportedInterfaceOrientations ();
 		}
-
 	}
 }
 

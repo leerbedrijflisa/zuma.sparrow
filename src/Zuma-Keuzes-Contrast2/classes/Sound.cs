@@ -9,13 +9,12 @@ namespace Lisa.Zuma
 	public class Sound
 	{
 		AVAudioPlayer player;
-		NSError error;
-
 
 		public void Play (string sound,int repeat = 0)
 		{
 			var session = AVAudioSession.SharedInstance();
-			session.SetCategory (AVAudioSession.CategoryPlayback, out error);
+			session.SetCategory (AVAudioSession.CategoryPlayback);
+
 
 			NSUrl assets = NSUrl.FromString (sound);			
 			player = AVAudioPlayer.FromUrl(assets);

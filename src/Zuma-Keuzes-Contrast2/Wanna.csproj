@@ -8,8 +8,9 @@
     <ProjectGuid>{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}</ProjectGuid>
     <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ZumaKeuzesContrast2</RootNamespace>
+    <RootNamespace>Lisa.Zuma.Sparrow</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>Wanna</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,7 +24,8 @@
     <MtouchLink>None</MtouchLink>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>true</MtouchDebug>
-    <AssemblyName>ZumaKeuzesContrast2</AssemblyName>
+    <MtouchI18n />
+    <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -34,7 +36,6 @@
     <MtouchLink>None</MtouchLink>
     <ConsolePause>false</ConsolePause>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <AssemblyName>ZumaKeuzesContrast2</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,7 +53,6 @@
     <MtouchI18n>
     </MtouchI18n>
     <MtouchArch>ARMv7</MtouchArch>
-    <AssemblyName>ZumaSparrow</AssemblyName>
     <IpaPackageName>
     </IpaPackageName>
   </PropertyGroup>
@@ -65,7 +65,6 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <AssemblyName>ZumaSparrow</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>full</DebugType>
@@ -78,7 +77,6 @@
     <BuildIpa>true</BuildIpa>
     <CodesignProvision>Automatic:AdHoc</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
-    <AssemblyName>ZumaSparrow</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>full</DebugType>
@@ -90,7 +88,6 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <ConsolePause>false</ConsolePause>
     <CodesignProvision>Automatic:AppStore</CodesignProvision>
-    <AssemblyName>ZumaSparrow</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -115,10 +112,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="classes\Sound.cs" />
-    <Compile Include="screens\MainViewController4.cs" />
-    <Compile Include="screens\MainViewController4.designer.cs">
-      <DependentUpon>MainViewController4.cs</DependentUpon>
-    </Compile>
     <Compile Include="screens\MainMenu.designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
@@ -141,15 +134,19 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="classes\RecordSound.cs" />
     <Compile Include="classes\DataHelper.cs" />
+    <Compile Include="screens\MainViewController.cs" />
+    <Compile Include="screens\MainViewController.designer.cs">
+      <DependentUpon>MainViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <InterfaceDefinition Include="screens\MainViewController4.xib" />
     <InterfaceDefinition Include="screens\MainMenu.xib" />
     <InterfaceDefinition Include="screens\ProfileMenu.xib" />
     <InterfaceDefinition Include="screens\MasterViewController.xib" />
     <InterfaceDefinition Include="screens\DetailViewController.xib" />
     <InterfaceDefinition Include="TestViewController.xib" />
+    <InterfaceDefinition Include="screens\MainViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\images\AddBTN2.png" />

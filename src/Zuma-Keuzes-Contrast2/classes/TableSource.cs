@@ -38,7 +38,7 @@ namespace ZumaKeuzesContrast2
 
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{
-			detailProfileMenu.RefreshDetialView (indexPath.Row);
+			detailProfileMenu.RefreshDetailView (indexPath.Row);
 			detailProfileMenu.SetBackCreateNewProfile ();
 		}
 
