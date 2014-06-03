@@ -107,9 +107,14 @@
     <Compile Include="UI\MainMenuViewController.designer.cs">
       <DependentUpon>MainMenuViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\OneButtonViewController.cs" />
+    <Compile Include="UI\OneButtonViewController.designer.cs">
+      <DependentUpon>OneButtonViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <InterfaceDefinition Include="UI\MainMenuViewController.xib" />
+    <InterfaceDefinition Include="UI\OneButtonViewController.xib" />
   </ItemGroup>
 </Project>

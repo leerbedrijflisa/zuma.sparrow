@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Drawing;
 
 using MonoTouch.Foundation;
@@ -29,9 +28,14 @@ namespace Zuma.Sparrow
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			
-			// Perform any additional setup after loading the view, typically from a nib.
+
+			btnStart.TouchUpInside += OnStartTouch;
+		}
+
+		private void OnStartTouch(object sender, EventArgs e)
+		{
+			var choiceViewController = new OneButtonViewController();
+			NavigationController.PushViewController(choiceViewController, true);
 		}
 	}
 }
-
