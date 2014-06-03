@@ -110,11 +110,10 @@
     <Compile Include="Models\ChoiceProfile.cs" />
     <Compile Include="Models\Option.cs" />
     <Compile Include="NavigationController.cs" />
-    <Compile Include="OneButtonViewController.cs" />
-    <Compile Include="OneButtonViewController.designer.cs">
+    <Compile Include="UI\OneButtonViewController.cs" />
+    <Compile Include="UI\OneButtonViewController.designer.cs">
       <DependentUpon>OneButtonViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\OneButtonViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
