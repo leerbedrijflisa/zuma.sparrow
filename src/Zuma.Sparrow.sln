@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zuma.Sparrow", "Zuma.Sparrow\Zuma.Sparrow.csproj", "{A19D70BD-B3BB-433C-B8E2-771C76360472}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wanna", "Zuma-Keuzes-Contrast2\Wanna.csproj", "{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+		Release|iPhone = Release|iPhone
+		Ad-Hoc|iPhone = Ad-Hoc|iPhone
+		AppStore|iPhone = AppStore|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Debug|iPhone.Build.0 = Debug|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Release|iPhone.ActiveCfg = Release|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Release|iPhone.Build.0 = Release|iPhone
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{9C75B10A-AF77-4498-ACE5-BEC2D7D9E42C}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{A19D70BD-B3BB-433C-B8E2-771C76360472}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{A19D70BD-B3BB-433C-B8E2-771C76360472}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{A19D70BD-B3BB-433C-B8E2-771C76360472}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{A19D70BD-B3BB-433C-B8E2-771C76360472}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{A19D70BD-B3BB-433C-B8E2-771C76360472}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{A19D70BD-B3BB-433C-B8E2-771C76360472}.Debug|iPhone.Build.0 = Debug|iPhone
+		{A19D70BD-B3BB-433C-B8E2-771C76360472}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{A19D70BD-B3BB-433C-B8E2-771C76360472}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{A19D70BD-B3BB-433C-B8E2-771C76360472}.Release|iPhone.ActiveCfg = Release|iPhone
+		{A19D70BD-B3BB-433C-B8E2-771C76360472}.Release|iPhone.Build.0 = Release|iPhone
+		{A19D70BD-B3BB-433C-B8E2-771C76360472}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{A19D70BD-B3BB-433C-B8E2-771C76360472}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Zuma.Sparrow\Zuma.Sparrow.csproj
+	EndGlobalSection
+EndGlobal
