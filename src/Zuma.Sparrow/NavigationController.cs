@@ -9,8 +9,14 @@ namespace Zuma.Sparrow
 	/// 	you wish to support. For example, <c>return UIInterfaceOrientationMask.LandscapeLeft |
 	/// 	UIInterfaceOrientationMask.LandscapeRight;</c>.
 	/// </summary>
-	public class RotationNavigationController : UINavigationController
+	public class NavigationController : UINavigationController
 	{
+		public ChoiceProfile CurrentProfile
+		{
+			get;
+			set;
+		}
+
 		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
 		{
 			return this.VisibleViewController.GetSupportedInterfaceOrientations();

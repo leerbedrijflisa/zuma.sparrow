@@ -94,6 +94,7 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="UI\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -102,19 +103,29 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="RotationNavigationController.cs" />
     <Compile Include="UI\MainMenuViewController.cs" />
     <Compile Include="UI\MainMenuViewController.designer.cs">
       <DependentUpon>MainMenuViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\OneButtonViewController.cs" />
-    <Compile Include="UI\OneButtonViewController.designer.cs">
+    <Compile Include="Models\ChoiceProfile.cs" />
+    <Compile Include="Models\Option.cs" />
+    <Compile Include="NavigationController.cs" />
+    <Compile Include="OneButtonViewController.cs" />
+    <Compile Include="OneButtonViewController.designer.cs">
       <DependentUpon>OneButtonViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\OneButtonViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <InterfaceDefinition Include="UI\MainMenuViewController.xib" />
+    <InterfaceDefinition Include="Resources\UI\OneButtonViewController.xib" />
     <InterfaceDefinition Include="UI\OneButtonViewController.xib" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\no.jpg" />
+    <BundleResource Include="Resources\no.mp3" />
+    <BundleResource Include="Resources\yes.jpg" />
+    <BundleResource Include="Resources\yes.mp3" />
   </ItemGroup>
 </Project>

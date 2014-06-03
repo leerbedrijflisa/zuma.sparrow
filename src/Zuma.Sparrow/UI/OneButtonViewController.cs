@@ -24,7 +24,9 @@ namespace Zuma.Sparrow
 		{
 			base.ViewDidLoad();
 			
-			// Perform any additional setup after loading the view, typically from a nib.
+			var navigationController = (NavigationController) NavigationController;
+			imgLeft.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
+			imgRight.Image = UIImage.FromFile(navigationController.CurrentProfile.SecondOption.ImageUrl);
 		}
 	}
 }

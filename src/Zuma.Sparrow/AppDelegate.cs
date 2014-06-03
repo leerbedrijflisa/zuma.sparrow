@@ -29,7 +29,7 @@ namespace Zuma.Sparrow
 			window = new UIWindow(UIScreen.MainScreen.Bounds);
 			
 			// If you have defined a root view controller, set it here:
-			var navigationController = new RotationNavigationController();
+			var navigationController = new NavigationController();
 			var startupViewController = new MainMenuViewController();
 
 			navigationController.PushViewController (startupViewController, true);
