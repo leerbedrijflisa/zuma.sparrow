@@ -23,18 +23,20 @@ namespace Zuma.Sparrow
 		//
 		// You have 17 seconds to return from this method, or iOS will terminate your application.
 		//
-		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
+		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			// create a new window instance based on the screen size
-			window = new UIWindow (UIScreen.MainScreen.Bounds);
+			window = new UIWindow(UIScreen.MainScreen.Bounds);
 			
 			// If you have defined a root view controller, set it here:
-			var navigationController = new RotationNavigationController ();
-			navigationController.PushViewController (new MainMenuViewController (), true);
+			var navigationController = new RotationNavigationController();
+			var startupViewController = new MainMenuViewController();
+
+			navigationController.PushViewController (startupViewController, true);
 			window.RootViewController = navigationController;
 			
 			// make the window visible
-			window.MakeKeyAndVisible ();
+			window.MakeKeyAndVisible();
 			
 			return true;
 		}

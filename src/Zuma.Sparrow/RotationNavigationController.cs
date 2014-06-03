@@ -8,10 +8,9 @@ namespace Zuma.Sparrow
 	/// </summary>
 	public class RotationNavigationController : UINavigationController
 	{
-		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
+		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
 		{
-			return this.VisibleViewController.GetSupportedInterfaceOrientations ();
+			return this.VisibleViewController.GetSupportedInterfaceOrientations();
 		}
 	}
 }
-
