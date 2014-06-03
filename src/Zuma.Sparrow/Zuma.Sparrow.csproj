@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="UI\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -101,14 +102,14 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="MainMenuViewController.cs" />
-    <Compile Include="MainMenuViewController.designer.cs">
+    <Compile Include="RotationNavigationController.cs" />
+    <Compile Include="UI\MainMenuViewController.cs" />
+    <Compile Include="UI\MainMenuViewController.designer.cs">
       <DependentUpon>MainMenuViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="RotationNavigationController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <InterfaceDefinition Include="MainMenuViewController.xib" />
+    <InterfaceDefinition Include="UI\MainMenuViewController.xib" />
   </ItemGroup>
 </Project>

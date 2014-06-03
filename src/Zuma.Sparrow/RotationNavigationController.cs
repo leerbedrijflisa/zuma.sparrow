@@ -4,7 +4,10 @@ using MonoTouch.UIKit;
 namespace Zuma.Sparrow
 {
 	/// <summary>
-	/// Use this navigation controller to force the app to start in landscape mode.
+	/// 	Allows you to lock a view controller in a specific orientation. To do this, you should override
+	/// 	the GetSupportedInterfaceOrientations-method in your ViewController and return the orientations
+	/// 	you wish to support. For example, <c>return UIInterfaceOrientationMask.LandscapeLeft |
+	/// 	UIInterfaceOrientationMask.LandscapeRight;</c>.
 	/// </summary>
 	public class RotationNavigationController : UINavigationController
 	{

@@ -13,6 +13,11 @@ namespace Zuma.Sparrow
 		{
 		}
 
+		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
+		{
+			return UIInterfaceOrientationMask.LandscapeLeft | UIInterfaceOrientationMask.LandscapeRight;
+		}
+
 		public override void DidReceiveMemoryWarning()
 		{
 			// Releases the view if it doesn't have a superview.
