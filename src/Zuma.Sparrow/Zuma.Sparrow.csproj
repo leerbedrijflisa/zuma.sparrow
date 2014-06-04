@@ -118,7 +118,6 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <InterfaceDefinition Include="UI\MainMenuViewController.xib" />
-    <InterfaceDefinition Include="Resources\UI\OneButtonViewController.xib" />
     <InterfaceDefinition Include="UI\OneButtonViewController.xib" />
   </ItemGroup>
   <ItemGroup>

@@ -27,7 +27,8 @@ namespace Zuma.Sparrow
 			var navigationController = (NavigationController) NavigationController;
 			imgPortraitUp.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
 			imgPortraitDown.Image = UIImage.FromFile(navigationController.CurrentProfile.SecondOption.ImageUrl);
-
+			imgLandscapeLeft.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
+			imgLandscapeRight.Image = UIImage.FromFile(navigationController.CurrentProfile.SecondOption.ImageUrl);
 		}
 			
 		/// <summary>
@@ -53,44 +54,19 @@ namespace Zuma.Sparrow
 		{
 			// depending one what orientation we start in, we want to position our controls
 			// appropriately
-//			clearImageIMV (imvChoiceLeft);
-//			clearImageIMV (imvChoiceRight);
 			switch (toInterfaceOrientation) {
-				// if we're switchign to landscape
 				case UIInterfaceOrientation.LandscapeLeft:
 				case UIInterfaceOrientation.LandscapeRight:
-
-//					imvChoiceLeft = new UIImageView (new RectangleF (50, 250, 412, 274));
-//					imvChoiceRight = new UIImageView (new RectangleF (562, 250, 412, 274));
-//					FilterRotation = "landscape";
 					viewPortrait.Hidden = true;
-					Console.WriteLine("landscape");
-
+					viewLandscape.Hidden = false;
 					break;
 
-					// we're switch back to portrait
 				case UIInterfaceOrientation.Portrait:
 				case UIInterfaceOrientation.PortraitUpsideDown:
 					viewPortrait.Hidden = false;
-
+					viewLandscape.Hidden = true;
 					break;
 			}
-//			if (profile [6] == "0") {
-//				var leftAssetUrl = NSUrl.FromString(profile[1]);
-//				var rightAssetUrl = NSUrl.FromString(profile [2]);
-//				library.AssetForUrl(leftAssetUrl, (asset)=>{imvChoiceLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
-//				library.AssetForUrl(rightAssetUrl, (asset)=>{imvChoiceRight.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure)=>{});
-//			} else if (profile [6] == "1") {
-//				imvChoiceLeft.Image = UIimageOne;
-//				imvChoiceRight.Image = UIimageTwo;
-//			}
-//
-//			View.AddSubview (imvChoiceLeft);
-//
-//
-//			View.AddSubview (imvChoiceRight);
-//
-//			SelectBtnDifficulty ();
 		}
 	}
 }

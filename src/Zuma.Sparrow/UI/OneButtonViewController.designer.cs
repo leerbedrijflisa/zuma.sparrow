@@ -13,19 +13,28 @@ namespace Zuma.Sparrow
 	partial class OneButtonViewController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIImageView imgLandscapeLeft { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView imgLandscapeRight { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIImageView imgPortraitDown { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIImageView imgPortraitUp { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIView viewLandscape { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIView viewPortrait { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (viewPortrait != null) {
-				viewPortrait.Dispose ();
-				viewPortrait = null;
+			if (imgPortraitDown != null) {
+				imgPortraitDown.Dispose ();
+				imgPortraitDown = null;
 			}
 
 			if (imgPortraitUp != null) {
@@ -33,9 +42,24 @@ namespace Zuma.Sparrow
 				imgPortraitUp = null;
 			}
 
-			if (imgPortraitDown != null) {
-				imgPortraitDown.Dispose ();
-				imgPortraitDown = null;
+			if (viewPortrait != null) {
+				viewPortrait.Dispose ();
+				viewPortrait = null;
+			}
+
+			if (imgLandscapeLeft != null) {
+				imgLandscapeLeft.Dispose ();
+				imgLandscapeLeft = null;
+			}
+
+			if (imgLandscapeRight != null) {
+				imgLandscapeRight.Dispose ();
+				imgLandscapeRight = null;
+			}
+
+			if (viewLandscape != null) {
+				viewLandscape.Dispose ();
+				viewLandscape = null;
 			}
 		}
 	}
