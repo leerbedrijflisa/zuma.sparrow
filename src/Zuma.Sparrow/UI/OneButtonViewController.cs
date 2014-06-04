@@ -23,12 +23,8 @@ namespace Zuma.Sparrow
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			
-			var navigationController = (NavigationController) NavigationController;
-			imgPortraitUp.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
-			imgPortraitDown.Image = UIImage.FromFile(navigationController.CurrentProfile.SecondOption.ImageUrl);
-			imgLandscapeLeft.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
-			imgLandscapeRight.Image = UIImage.FromFile(navigationController.CurrentProfile.SecondOption.ImageUrl);
+			CreateControls();
+			PositionControls(this.InterfaceOrientation);
 		}
 			
 		/// <summary>
@@ -41,32 +37,72 @@ namespace Zuma.Sparrow
 		public override void WillAnimateRotation (UIInterfaceOrientation toInterfaceOrientation, double duration)
 		{
 			base.WillAnimateRotation (toInterfaceOrientation, duration);
+			PositionControls(toInterfaceOrientation);
+		}
 
-			// call our helper method to position the controls
-			PositionControls (toInterfaceOrientation);
+		private void CreateControls()
+		{
+			var navigationController = (NavigationController) NavigationController;
+
+			imgLeft = new UIImageView(new RectangleF(0, 0, 368, 368));
+			imgLeft.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
+
+			imgRight = new UIImageView(new RectangleF(0, 0, 368, 368));
+			imgRight.Image = UIImage.FromFile(navigationController.CurrentProfile.SecondOption.ImageUrl);
+
+			View.AddSubviews(imgLeft, imgRight);
 		}
 
 		/// <summary>
 		/// A helper method to position the controls appropriately, based on the 
 		/// orientation
 		/// </summary>
-		protected void PositionControls (UIInterfaceOrientation toInterfaceOrientation)
+		private void PositionControls(UIInterfaceOrientation toInterfaceOrientation)
 		{
 			// depending one what orientation we start in, we want to position our controls
 			// appropriately
 			switch (toInterfaceOrientation) {
 				case UIInterfaceOrientation.LandscapeLeft:
 				case UIInterfaceOrientation.LandscapeRight:
-					viewPortrait.Hidden = true;
-					viewLandscape.Hidden = false;
+					PositionControlsForLandscape();
 					break;
 
 				case UIInterfaceOrientation.Portrait:
 				case UIInterfaceOrientation.PortraitUpsideDown:
-					viewPortrait.Hidden = false;
-					viewLandscape.Hidden = true;
+					PositionControlsForPortrait();
 					break;
 			}
+		}
+
+		private void PositionControlsForLandscape()
+		{
+			imgLeft.Frame = new RectangleF(
+				1024 / 4 - imgLeft.Frame.Width / 2,
+				768 / 2 - imgLeft.Frame.Height / 2,
+				imgLeft.Frame.Width,
+				imgLeft.Frame.Height);
+
+			imgRight.Frame = new RectangleF(
+				3 * 1024 / 4 - imgRight.Frame.Width / 2,
+				768 / 2 - imgRight.Frame.Height / 2,
+				imgRight.Frame.Width,
+				imgRight.Frame.Height
+			);
+		}
+
+		private void PositionControlsForPortrait()
+		{
+			imgLeft.Frame = new RectangleF(
+				768 / 2 - imgLeft.Frame.Width / 2,
+				1024 / 4 - imgLeft.Frame.Height / 2,
+				imgLeft.Frame.Width,
+				imgLeft.Frame.Height);
+
+			imgRight.Frame = new RectangleF(
+				768 / 2 - imgRight.Frame.Width / 2,
+				3 * 1024 / 4 - imgRight.Frame.Height / 2,
+				imgRight.Frame.Width,
+				imgRight.Frame.Height);
 		}
 	}
 }
