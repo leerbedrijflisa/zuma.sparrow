@@ -32,7 +32,7 @@ namespace Zuma.Sparrow
 			var navigationController = new NavigationController();
 			var startupViewController = new MainMenuViewController();
 
-			navigationController.PushViewController (startupViewController, true);
+			navigationController.PushViewController(startupViewController, true);
 			window.RootViewController = navigationController;
 			
 			// make the window visible
