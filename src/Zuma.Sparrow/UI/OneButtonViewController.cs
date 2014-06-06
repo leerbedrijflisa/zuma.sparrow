@@ -12,12 +12,19 @@ namespace Zuma.Sparrow
 		{
 		}
 
-		public override void DidReceiveMemoryWarning()
+		public override void ViewWillAppear (bool animated) {
+			base.ViewWillAppear (animated);
+			this.NavigationController.SetNavigationBarHidden (true, animated);
+		}
+
+		public override void ViewWillDisappear (bool animated) {
+			base.ViewWillDisappear (animated);
+			this.NavigationController.SetNavigationBarHidden (false, animated);
+		}
+
+		public override bool PrefersStatusBarHidden ()
 		{
-			// Releases the view if it doesn't have a superview.
-			base.DidReceiveMemoryWarning();
-			
-			// Release any cached data, images, etc that aren't in use.
+			return true;
 		}
 
 		public override void ViewDidLoad()
