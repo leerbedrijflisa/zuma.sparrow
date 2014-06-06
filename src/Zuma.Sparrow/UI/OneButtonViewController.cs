@@ -31,7 +31,7 @@ namespace Zuma.Sparrow
 		{
 			base.ViewDidLoad();
 			CreateControls();
-			CreateButton ();
+			CreateButtonChoice ();
 			PositionControls(this.InterfaceOrientation);
 			btnChoice.TouchUpInside += setChoice;
 		}
@@ -86,42 +86,42 @@ namespace Zuma.Sparrow
 		private void PositionControlsForLandscape()
 		{
 			imgLeft.Frame = new RectangleF(
-				1024 / 4 - imgLeft.Frame.Width / 2,
-				768 / 2 - imgLeft.Frame.Height / 2,
+				UIScreen.MainScreen.Bounds.Height / 4 - imgLeft.Frame.Width / 2,
+				UIScreen.MainScreen.Bounds.Width / 2 - imgLeft.Frame.Height / 2,
 				imgLeft.Frame.Width,
 				imgLeft.Frame.Height
 			);
 
 			imgRight.Frame = new RectangleF(
-				3 * 1024 / 4 - imgRight.Frame.Width / 2,
-				768 / 2 - imgRight.Frame.Height / 2,
+				3 * UIScreen.MainScreen.Bounds.Height / 4 - imgRight.Frame.Width / 2,
+				UIScreen.MainScreen.Bounds.Width / 2 - imgRight.Frame.Height / 2,
 				imgRight.Frame.Width,
 				imgRight.Frame.Height
 			);
 
-			btnChoice.Frame = new RectangleF (0, 0, 1024, 768);
+			btnChoice.Frame = new RectangleF (0, 0, UIScreen.MainScreen.Bounds.Height, UIScreen.MainScreen.Bounds.Width);
 		}
 
 		private void PositionControlsForPortrait()
 		{
 			imgLeft.Frame = new RectangleF(
-				768 / 2 - imgLeft.Frame.Width / 2,
-				1024 / 4 - imgLeft.Frame.Height / 2,
+				UIScreen.MainScreen.Bounds.Width / 2 - imgLeft.Frame.Width / 2,
+				UIScreen.MainScreen.Bounds.Height / 4 - imgLeft.Frame.Height / 2,
 				imgLeft.Frame.Width,
 				imgLeft.Frame.Height
 			);
 
 			imgRight.Frame = new RectangleF(
-				768 / 2 - imgRight.Frame.Width / 2,
-				3 * 1024 / 4 - imgRight.Frame.Height / 2,
+				UIScreen.MainScreen.Bounds.Width / 2 - imgRight.Frame.Width / 2,
+				3 * UIScreen.MainScreen.Bounds.Height / 4 - imgRight.Frame.Height / 2,
 				imgRight.Frame.Width,
 				imgRight.Frame.Height
 			);
 
-			btnChoice.Frame = new RectangleF (0, 0, 768, 1024);
+			btnChoice.Frame = new RectangleF (0, 0, UIScreen.MainScreen.Bounds.Width, UIScreen.MainScreen.Bounds.Height);
 		}
 
-		private void CreateButton()
+		private void CreateButtonChoice()
 		{
 			btnChoice = UIButton.FromType (UIButtonType.RoundedRect);
 			View.AddSubview (btnChoice);
