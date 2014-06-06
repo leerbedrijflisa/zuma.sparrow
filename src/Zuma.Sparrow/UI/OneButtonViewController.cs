@@ -31,7 +31,9 @@ namespace Zuma.Sparrow
 		{
 			base.ViewDidLoad();
 			CreateControls();
+			CreateButton ();
 			PositionControls(this.InterfaceOrientation);
+			btnChoice.TouchUpInside += setChoice;
 		}
 			
 		/// <summary>
@@ -87,7 +89,8 @@ namespace Zuma.Sparrow
 				1024 / 4 - imgLeft.Frame.Width / 2,
 				768 / 2 - imgLeft.Frame.Height / 2,
 				imgLeft.Frame.Width,
-				imgLeft.Frame.Height);
+				imgLeft.Frame.Height
+			);
 
 			imgRight.Frame = new RectangleF(
 				3 * 1024 / 4 - imgRight.Frame.Width / 2,
@@ -95,6 +98,8 @@ namespace Zuma.Sparrow
 				imgRight.Frame.Width,
 				imgRight.Frame.Height
 			);
+
+			btnChoice.Frame = new RectangleF (0, 0, 1024, 768);
 		}
 
 		private void PositionControlsForPortrait()
@@ -103,13 +108,30 @@ namespace Zuma.Sparrow
 				768 / 2 - imgLeft.Frame.Width / 2,
 				1024 / 4 - imgLeft.Frame.Height / 2,
 				imgLeft.Frame.Width,
-				imgLeft.Frame.Height);
+				imgLeft.Frame.Height
+			);
 
 			imgRight.Frame = new RectangleF(
 				768 / 2 - imgRight.Frame.Width / 2,
 				3 * 1024 / 4 - imgRight.Frame.Height / 2,
 				imgRight.Frame.Width,
-				imgRight.Frame.Height);
+				imgRight.Frame.Height
+			);
+
+			btnChoice.Frame = new RectangleF (0, 0, 768, 1024);
 		}
+
+		private void CreateButton()
+		{
+			btnChoice = UIButton.FromType (UIButtonType.RoundedRect);
+			View.AddSubview (btnChoice);
+		}
+
+		private void setChoice(object sender, EventArgs args)
+		{
+			Console.WriteLine ("klik");
+		}
+
+		UIButton btnChoice;
 	}
 }
