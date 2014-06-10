@@ -39,17 +39,19 @@ namespace Zuma.Sparrow
 			choiceSwitcher = new ChoiceSwitcher(imgLeft, imgRight);
 			SwitchToLeft();
 
-			btnChoice.TouchUpInside += setChoice;
+			btnChoice.TouchUpInside += OnChoice;
 		}
 
 		private void SwitchToRight()
 		{
+			currentChoice = Choice.Right;
 			choiceSwitcher.SelectRight();
 			currentTimer = NSTimer.CreateScheduledTimer(3, SwitchToLeft);
 		}
 
 		private void SwitchToLeft()
 		{
+			currentChoice = Choice.Left;
 			choiceSwitcher.SelectLeft();
 			currentTimer = NSTimer.CreateScheduledTimer(3, SwitchToRight);
 		}
@@ -145,11 +147,13 @@ namespace Zuma.Sparrow
 			View.AddSubview (btnChoice);
 		}
 
-		private void setChoice(object sender, EventArgs args)
+		private void OnChoice(object sender, EventArgs args)
 		{
 			currentTimer.Dispose();
+			Console.WriteLine(currentChoice);
 		}
 
+		private Choice currentChoice;
 		private NSTimer currentTimer;
 		private UIButton btnChoice;
 		private ChoiceSwitcher choiceSwitcher;

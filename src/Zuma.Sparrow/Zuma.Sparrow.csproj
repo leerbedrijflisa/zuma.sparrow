@@ -115,6 +115,7 @@
       <DependentUpon>OneButtonViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ChoiceSwitcher.cs" />
+    <Compile Include="UI\Choice.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
