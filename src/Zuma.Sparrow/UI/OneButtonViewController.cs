@@ -150,9 +150,9 @@ namespace Zuma.Sparrow
 		private void OnChoice(object sender, EventArgs args)
 		{
 			currentTimer.Dispose();
-			Console.WriteLine(currentChoice);
-
 			var navigationController = (NavigationController) NavigationController;
+			currentTimer = NSTimer.CreateScheduledTimer(8, ResetSwitchAndButton);
+			btnChoice.Hidden = true;
 
 			if (currentChoice == Choice.Left)
 			{
@@ -161,6 +161,20 @@ namespace Zuma.Sparrow
 			else if (currentChoice == Choice.Right)
 			{
 				currentSound.Play(navigationController.CurrentProfile.SecondOption.AudioUrl);
+			}
+		}
+
+		private void ResetSwitchAndButton()
+		{
+			btnChoice.Hidden = false;
+
+			if (currentChoice == Choice.Left)
+			{
+				SwitchToLeft();
+			}
+			else if (currentChoice == Choice.Right)
+			{
+				SwitchToRight();
 			}
 		}
 
