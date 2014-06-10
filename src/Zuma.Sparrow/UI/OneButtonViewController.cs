@@ -37,7 +37,7 @@ namespace Zuma.Sparrow
 			PositionControls(this.InterfaceOrientation);
 
 			choiceSwitcher = new ChoiceSwitcher(imgLeft, imgRight);
-			choiceSwitcher.SelectRight();
+			choiceSwitcher.SelectLeft();
 
 			btnChoice.TouchUpInside += setChoice;
 		}

@@ -32,25 +32,21 @@ namespace Zuma.Sparrow
 
 		private void CreateBrightImages()
 		{
+			brightLeft = CreateBrightImage(normalLeft);
+			brightRight = CreateBrightImage(normalRight);
+		}
+
+		private UIImage CreateBrightImage(UIImage original)
+		{
 			var controls = new CIColorControls () {
-				Image = CIImage.FromCGImage(normalLeft.CGImage)
+				Image = CIImage.FromCGImage(original.CGImage)
 			};
 
 			controls.Brightness = 0.9f;
 			var output = controls.OutputImage;
 			var context = CIContext.FromOptions (null);
 			var result = context.CreateCGImage (output, output.Extent);
-			brightLeft = UIImage.FromImage(result);
-
-			controls = new CIColorControls () {
-				Image = CIImage.FromCGImage(normalRight.CGImage)
-			};
-
-			controls.Brightness = 0.9f;
-			output = controls.OutputImage;
-			context = CIContext.FromOptions (null);
-			result = context.CreateCGImage (output, output.Extent);
-			brightRight = UIImage.FromImage(result);
+			return UIImage.FromImage(result);
 		}
 
 		private UIImageView imgLeft;
