@@ -116,6 +116,7 @@
     </Compile>
     <Compile Include="UI\ChoiceSwitcher.cs" />
     <Compile Include="UI\Choice.cs" />
+    <Compile Include="Models\Sound.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

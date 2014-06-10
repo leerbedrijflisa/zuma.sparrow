@@ -151,8 +151,20 @@ namespace Zuma.Sparrow
 		{
 			currentTimer.Dispose();
 			Console.WriteLine(currentChoice);
+
+			var navigationController = (NavigationController) NavigationController;
+
+			if (currentChoice == Choice.Left)
+			{
+				currentSound.Play(navigationController.CurrentProfile.FirstOption.AudioUrl);
+			}
+			else if (currentChoice == Choice.Right)
+			{
+				currentSound.Play(navigationController.CurrentProfile.SecondOption.AudioUrl);
+			}
 		}
 
+		private Sound currentSound = new Sound();
 		private Choice currentChoice;
 		private NSTimer currentTimer;
 		private UIButton btnChoice;
