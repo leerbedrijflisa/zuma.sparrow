@@ -45,13 +45,13 @@ namespace Zuma.Sparrow
 		private void SwitchToRight()
 		{
 			choiceSwitcher.SelectRight();
-			NSTimer.CreateScheduledTimer(3, SwitchToLeft);
+			currentTimer = NSTimer.CreateScheduledTimer(3, SwitchToLeft);
 		}
 
 		private void SwitchToLeft()
 		{
 			choiceSwitcher.SelectLeft();
-			NSTimer.CreateScheduledTimer(3, SwitchToRight);
+			currentTimer = NSTimer.CreateScheduledTimer(3, SwitchToRight);
 		}
 			
 		/// <summary>
@@ -147,9 +147,10 @@ namespace Zuma.Sparrow
 
 		private void setChoice(object sender, EventArgs args)
 		{
-			Console.WriteLine ("klik");
+			currentTimer.Dispose();
 		}
 
+		private NSTimer currentTimer;
 		private UIButton btnChoice;
 		private ChoiceSwitcher choiceSwitcher;
 	}
