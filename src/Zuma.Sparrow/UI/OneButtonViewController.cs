@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 
+using MonoTouch.CoreImage;
+using MonoTouch.CoreGraphics;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
@@ -33,6 +35,10 @@ namespace Zuma.Sparrow
 			CreateControls();
 			CreateButtonChoice ();
 			PositionControls(this.InterfaceOrientation);
+
+			choiceSwitcher = new ChoiceSwitcher(imgLeft, imgRight);
+			choiceSwitcher.SelectRight();
+
 			btnChoice.TouchUpInside += setChoice;
 		}
 			
@@ -132,6 +138,7 @@ namespace Zuma.Sparrow
 			Console.WriteLine ("klik");
 		}
 
-		UIButton btnChoice;
+		private UIButton btnChoice;
+		private ChoiceSwitcher choiceSwitcher;
 	}
 }
