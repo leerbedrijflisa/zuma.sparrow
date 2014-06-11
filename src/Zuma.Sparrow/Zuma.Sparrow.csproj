@@ -117,11 +117,17 @@
     <Compile Include="UI\ChoiceSwitcher.cs" />
     <Compile Include="UI\Choice.cs" />
     <Compile Include="Models\Sound.cs" />
+    <Compile Include="UI\ProfileMenuViewController.cs" />
+    <Compile Include="UI\ProfileMenuViewController.designer.cs">
+      <DependentUpon>ProfileMenuViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ProfileTableSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <InterfaceDefinition Include="UI\MainMenuViewController.xib" />
     <InterfaceDefinition Include="UI\OneButtonViewController.xib" />
+    <InterfaceDefinition Include="UI\ProfileMenuViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\no.jpg" />

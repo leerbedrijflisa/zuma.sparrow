@@ -13,6 +13,9 @@ namespace Zuma.Sparrow
 	partial class MainMenuViewController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIButton btnProfileMenu { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton btnStart { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -20,6 +23,11 @@ namespace Zuma.Sparrow
 			if (btnStart != null) {
 				btnStart.Dispose ();
 				btnStart = null;
+			}
+
+			if (btnProfileMenu != null) {
+				btnProfileMenu.Dispose ();
+				btnProfileMenu = null;
 			}
 		}
 	}

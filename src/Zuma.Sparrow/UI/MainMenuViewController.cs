@@ -37,6 +37,7 @@ namespace Zuma.Sparrow
 			base.ViewDidLoad();
 
 			btnStart.TouchUpInside += OnStartTouch;
+			btnProfileMenu.TouchUpInside += OnProfileMenu;
 		}
 
 		private void OnStartTouch(object sender, EventArgs e)
@@ -61,6 +62,12 @@ namespace Zuma.Sparrow
 
 			var choiceViewController = new OneButtonViewController();
 			NavigationController.PushViewController(choiceViewController, true);
+		}
+
+		private void OnProfileMenu(object sender, EventArgs e)
+		{
+			var profileMenu = new ProfileMenuViewController();
+			NavigationController.PushViewController(profileMenu, true);
 		}
 	}
 }
