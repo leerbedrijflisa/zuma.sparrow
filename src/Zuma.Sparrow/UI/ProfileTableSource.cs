@@ -7,9 +7,8 @@ namespace Zuma.Sparrow
 {
 	public class ProfileTableSource : UITableViewSource
 	{
-		public ProfileTableSource(ProfileMenuViewController profileMenu)
+		public ProfileTableSource()
 		{
-			this.profileMenu = profileMenu; 
 			profiles.Add("Joost");
 			profiles.Add("Stephan");
 			profiles.Add("Josja");
@@ -29,11 +28,31 @@ namespace Zuma.Sparrow
 
 		public override void RowSelected(UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
 		{
-			profileMenu.OnTabelRowSelected (profiles[indexPath.Row]);
+			var eventArgs = new ProfileEventArgs();
+			eventArgs.Profile = profiles[indexPath.Row];
+			OnProfileSelected(tableView, eventArgs);
+		}
+
+		public event EventHandler<ProfileEventArgs> ProfileSelected;
+
+		protected void OnProfileSelected(UITableView tableView, ProfileEventArgs eventArgs)
+		{
+			if (ProfileSelected != null)
+			{
+				ProfileSelected(tableView, eventArgs);
+			}
 		}
 
 		private List<string> profiles = new List<string>();
-		private ProfileMenuViewController profileMenu = new ProfileMenuViewController();
+	}
+
+	public class ProfileEventArgs : EventArgs
+	{
+		public string Profile
+		{
+			get;
+			set; 
+		}
 	}
 }
 

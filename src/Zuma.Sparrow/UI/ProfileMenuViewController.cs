@@ -17,13 +17,14 @@ namespace Zuma.Sparrow
 		{
 			base.ViewDidLoad();
 
-			tblProfiles.Source = new ProfileTableSource(this);
-
+			var tableSource = new ProfileTableSource();
+			tblProfiles.Source = tableSource;
+			tableSource.ProfileSelected += OnProfileSelected;
 		}
 
-		public void OnTabelRowSelected(string selectedProfile)
+		private void OnProfileSelected(object sender, ProfileEventArgs e)
 		{
-			lblProfileName.Text = selectedProfile;
+			lblProfileName.Text = e.Profile;
 		}
 	}
 }
