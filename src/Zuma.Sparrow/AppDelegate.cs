@@ -1,9 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using SQLite;
 
 namespace Zuma.Sparrow
 {
@@ -25,6 +27,8 @@ namespace Zuma.Sparrow
 		//
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
+			CreateDatabase();
+
 			// create a new window instance based on the screen size
 			window = new UIWindow(UIScreen.MainScreen.Bounds);
 			
@@ -39,6 +43,40 @@ namespace Zuma.Sparrow
 			window.MakeKeyAndVisible();
 			
 			return true;
+		}
+
+		private void CreateDatabase()
+		{
+			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
+
+			using (var db = new SQLiteConnection(pathToDatabase))
+			{
+				db.CreateTable<ChoiceProfile>();
+				db.CreateTable<Option>();
+
+				var firstOption = new Option();
+
+				firstOption.ImageUrl = "yes.jpg";
+				firstOption.AudioUrl = "yes.mp3";
+
+				var secondOption = new Option();
+				secondOption.ImageUrl = "No.jpg";
+				secondOption.AudioUrl = "No.mp3";
+
+				db.Insert(firstOption);
+				db.Insert(secondOption);
+
+				var profile = new ChoiceProfile();
+
+				profile.Name = "Ja/Nee";
+				profile.FirstOption = firstOption;
+				profile.SecondOption = secondOption;
+				profile.FirstOptionId = firstOption.Id;
+				profile.SecondOptionId = secondOption.Id;
+
+				db.Insert(profile);
+			}
 		}
 	}
 }

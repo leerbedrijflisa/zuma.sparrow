@@ -90,11 +90,14 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
+    <Reference Include="System.Data" />
+    <Reference Include="Mono.Data.Sqlite" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="UI\" />
     <Folder Include="Models\" />
+    <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -122,6 +125,7 @@
       <DependentUpon>ProfileMenuViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ProfileTableSource.cs" />
+    <Compile Include="Data\SQLite.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
