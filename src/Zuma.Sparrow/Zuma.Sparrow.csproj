@@ -127,6 +127,7 @@
     <Compile Include="UI\ProfileTableSource.cs" />
     <Compile Include="Data\SQLite.cs" />
     <Compile Include="Data\ChoiceProfileData.cs" />
+    <Compile Include="Data\ChoiceProfileCatalog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

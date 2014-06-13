@@ -48,7 +48,7 @@ namespace Zuma.Sparrow
 		private void CreateDatabase()
 		{
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-			var pathToDatabase = Path.Combine (documents, "db_Zuma_Keuzes.db");
+			var pathToDatabase = Path.Combine (documents, "db_Zuma_Sparrow.db");
 
 			using (var db = new SQLiteConnection(pathToDatabase))
 			{

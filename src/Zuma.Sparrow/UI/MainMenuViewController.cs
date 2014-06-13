@@ -45,20 +45,9 @@ namespace Zuma.Sparrow
 			// NOTE: we're setting the profile here for the moment, but later, this will be done by
 			// the user in a seperate view.
 			var navigationController = (NavigationController) NavigationController;
-			navigationController.CurrentProfile = new ChoiceProfile()
-			{
-				Name = "Default",
-				FirstOption = new Option()
-				{
-					ImageUrl = "yes.jpg",
-					AudioUrl = "yes.mp3"
-				},
-				SecondOption = new Option()
-				{
-					ImageUrl = "no.jpg",
-					AudioUrl = "no.mp3"
-				}
-			};
+			var catalog = new ChoiceProfileCatalog();
+
+			navigationController.CurrentProfile = catalog.Find("Ja/Nee");
 
 			var choiceViewController = new OneButtonViewController();
 			NavigationController.PushViewController(choiceViewController, true);
