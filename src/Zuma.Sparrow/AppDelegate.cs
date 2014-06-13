@@ -52,28 +52,15 @@ namespace Zuma.Sparrow
 
 			using (var db = new SQLiteConnection(pathToDatabase))
 			{
-				db.CreateTable<ChoiceProfile>();
-				db.CreateTable<Option>();
+				db.CreateTable<ChoiceProfileData>();
 
-				var firstOption = new Option();
-
-				firstOption.ImageUrl = "yes.jpg";
-				firstOption.AudioUrl = "yes.mp3";
-
-				var secondOption = new Option();
-				secondOption.ImageUrl = "No.jpg";
-				secondOption.AudioUrl = "No.mp3";
-
-				db.Insert(firstOption);
-				db.Insert(secondOption);
-
-				var profile = new ChoiceProfile();
+				var profile = new ChoiceProfileData();
 
 				profile.Name = "Ja/Nee";
-				profile.FirstOption = firstOption;
-				profile.SecondOption = secondOption;
-				profile.FirstOptionId = firstOption.Id;
-				profile.SecondOptionId = secondOption.Id;
+				profile.FirstOptionImageUrl = "yes.jpg";
+				profile.FirstOptionAudioUrl = "yes.mp3";
+				profile.SecondOptionImageUrl = "no.jpg";
+				profile.SecondOptionAudioUrl = "no.mp3";
 
 				db.Insert(profile);
 			}
