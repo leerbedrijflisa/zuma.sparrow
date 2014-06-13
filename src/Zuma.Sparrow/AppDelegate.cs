@@ -54,15 +54,19 @@ namespace Zuma.Sparrow
 			{
 				db.CreateTable<ChoiceProfileData>();
 
-				var profile = new ChoiceProfileData();
+				var profileYesNo = new ChoiceProfileData();
 
-				profile.Name = "Ja/Nee";
-				profile.FirstOptionImageUrl = "yes.jpg";
-				profile.FirstOptionAudioUrl = "yes.mp3";
-				profile.SecondOptionImageUrl = "no.jpg";
-				profile.SecondOptionAudioUrl = "no.mp3";
+				profileYesNo.Name = "Ja/Nee";
+				profileYesNo.FirstOptionImageUrl = "yes.jpg";
+				profileYesNo.FirstOptionAudioUrl = "yes.mp3";
+				profileYesNo.SecondOptionImageUrl = "no.jpg";
+				profileYesNo.SecondOptionAudioUrl = "no.mp3";
 
-				db.Insert(profile);
+				var choiceProfileData = db.Table<ChoiceProfileData>().Where(profile => profile.Name == profileYesNo.Name).FirstOrDefault();
+				if (choiceProfileData == null)
+				{
+					db.Insert(profileYesNo);
+				}
 			}
 		}
 	}
