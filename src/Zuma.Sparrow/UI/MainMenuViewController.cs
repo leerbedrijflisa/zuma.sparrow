@@ -47,7 +47,10 @@ namespace Zuma.Sparrow
 			var navigationController = (NavigationController) NavigationController;
 			var catalog = new ChoiceProfileCatalog();
 
-			navigationController.CurrentProfile = catalog.Find("Ja/Nee");
+			if (navigationController.CurrentProfile == null)
+			{
+				navigationController.CurrentProfile = catalog.Find("Ja/Nee");
+			}
 
 			var choiceViewController = new OneButtonViewController();
 			NavigationController.PushViewController(choiceViewController, true);
