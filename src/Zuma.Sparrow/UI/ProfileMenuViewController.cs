@@ -36,6 +36,9 @@ namespace Zuma.Sparrow
 			currentProfile = navigationController.CurrentProfile;
 
 			lblProfileName.Text = currentProfile.Name;
+			imvLeft.Image = UIImage.FromFile(currentProfile.FirstOption.ImageUrl);
+			imvRight.Image = UIImage.FromFile(currentProfile.SecondOption.ImageUrl);
+
 		}
 
 		private void OnSndLeft(object sender, EventArgs e)

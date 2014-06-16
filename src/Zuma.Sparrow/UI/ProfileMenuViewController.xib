@@ -8,6 +8,8 @@
             <connections>
                 <outlet property="btnPlaySndLeft" destination="QAa-C9-DBa" id="gxH-GA-uiJ"/>
                 <outlet property="btnPlaySndRight" destination="IIK-qv-cnh" id="FeK-um-jyw"/>
+                <outlet property="imvLeft" destination="KQW-mA-XwO" id="aKC-FB-Blx"/>
+                <outlet property="imvRight" destination="wNF-e5-2aY" id="SmQ-gc-TWx"/>
                 <outlet property="lblProfileName" destination="ygX-gT-GOC" id="k5j-he-a7m"/>
                 <outlet property="tblProfiles" destination="ugf-ub-1Bh" id="vlD-VP-BXe"/>
                 <outlet property="view" destination="iN0-l3-epB" id="kCW-yf-GMq"/>
@@ -49,6 +51,14 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KQW-mA-XwO">
+                            <rect key="frame" x="37" y="187" width="300" height="300"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wNF-e5-2aY">
+                            <rect key="frame" x="357" y="187" width="300" height="300"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>

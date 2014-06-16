@@ -1,4 +1,4 @@
-﻿// WARNING
+// WARNING
 //
 // This file has been generated automatically by Xamarin Studio to store outlets and
 // actions made in the UI designer. If it is removed, they will be lost.
@@ -19,6 +19,12 @@ namespace Zuma.Sparrow
 		MonoTouch.UIKit.UIButton btnPlaySndRight { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIImageView imvLeft { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView imvRight { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel lblProfileName { get; set; }
 
 		[Outlet]
@@ -29,6 +35,16 @@ namespace Zuma.Sparrow
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (btnPlaySndLeft != null) {
+				btnPlaySndLeft.Dispose ();
+				btnPlaySndLeft = null;
+			}
+
+			if (btnPlaySndRight != null) {
+				btnPlaySndRight.Dispose ();
+				btnPlaySndRight = null;
+			}
+
 			if (lblProfileName != null) {
 				lblProfileName.Dispose ();
 				lblProfileName = null;
@@ -44,14 +60,14 @@ namespace Zuma.Sparrow
 				viewDetail = null;
 			}
 
-			if (btnPlaySndLeft != null) {
-				btnPlaySndLeft.Dispose ();
-				btnPlaySndLeft = null;
+			if (imvLeft != null) {
+				imvLeft.Dispose ();
+				imvLeft = null;
 			}
 
-			if (btnPlaySndRight != null) {
-				btnPlaySndRight.Dispose ();
-				btnPlaySndRight = null;
+			if (imvRight != null) {
+				imvRight.Dispose ();
+				imvRight = null;
 			}
 		}
 	}
