@@ -20,12 +20,35 @@ namespace Zuma.Sparrow
 			var tableSource = new ProfileTableSource();
 			tblProfiles.Source = tableSource;
 			tableSource.ProfileSelected += OnProfileSelected;
+
+			btnPlaySndLeft.TouchUpInside += OnSndLeft;
+			btnPlaySndRight.TouchUpInside += OnSndRight;
+
 		}
 
 		private void OnProfileSelected(object sender, ProfileEventArgs e)
 		{
-			lblProfileName.Text = e.Profile;
+
+			var profileCatalog = new ChoiceProfileCatalog();
+			var navigationController = (NavigationController) NavigationController;
+
+			navigationController.CurrentProfile = profileCatalog.Find(e.Profile);
+			currentProfile = navigationController.CurrentProfile;
+
+			lblProfileName.Text = currentProfile.Name;
 		}
+
+		private void OnSndLeft(object sender, EventArgs e)
+		{
+			sound.Play(currentProfile.FirstOption.AudioUrl);
+		}
+
+		void OnSndRight(object sender, EventArgs e)
+		{
+			sound.Play(currentProfile.SecondOption.AudioUrl);
+		}
+
+		private Sound sound = new Sound();
+		private ChoiceProfile currentProfile = new ChoiceProfile();
 	}
 }
-

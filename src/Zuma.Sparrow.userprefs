@@ -1,17 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Zuma.Sparrow/UI/ProfileTableSource.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Zuma.Sparrow/UI/MainMenuViewController.cs">
     <Files>
-      <File FileName="Zuma.Sparrow/UI/MainMenuViewController.cs" Line="28" Column="4" />
-      <File FileName="Zuma.Sparrow/Data/ChoiceProfileCatalog.cs" Line="46" Column="30" />
-      <File FileName="Zuma.Sparrow/UI/OneButtonViewController.cs" Line="41" Column="4" />
-      <File FileName="Zuma.Sparrow/UI/ProfileMenuViewController.cs" Line="27" Column="31" />
+      <File FileName="Zuma.Sparrow/UI/MainMenuViewController.cs" Line="1" Column="1" />
+      <File FileName="Zuma.Sparrow/UI/ProfileMenuViewController.cs" Line="41" Column="39" />
+      <File FileName="Zuma.Sparrow/Models/Sound.cs" Line="1" Column="1" />
+      <File FileName="Zuma-Keuzes-Contrast2/screens/DetailViewController.cs" Line="108" Column="1" />
+      <File FileName="Zuma.Sparrow/UI/OneButtonViewController.cs" Line="1" Column="1" />
+      <File FileName="Zuma.Sparrow/UI/ProfileTableSource.cs" Line="1" Column="1" />
+      <File FileName="Zuma.Sparrow/Data/ChoiceProfileCatalog.cs" Line="8" Column="35" />
       <File FileName="Zuma.Sparrow/Data/ChoiceProfileData.cs" Line="1" Column="1" />
-      <File FileName="Zuma.Sparrow/UI/ProfileTableSource.cs" Line="12" Column="4" />
-      <File FileName="../../../../../../Developer/MonoTouch/Source/mono/mcs/class/corlib/System/Activator.cs" Line="326" Column="1" />
-      <File FileName="../../../../../../Developer/MonoTouch/Source/mono/mcs/class/corlib/System.Collections.Generic/List.cs" Line="69" Column="1" />
-      <File FileName="Zuma.Sparrow/Data/SQLite.cs" Line="2098" Column="1" />
-      <File FileName="Zuma.Sparrow/Models/ChoiceProfile.cs" Line="1" Column="1" />
+      <File FileName="Zuma.Sparrow/Models/Option.cs" Line="1" Column="1" />
+      <File FileName="Zuma.Sparrow/NavigationController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

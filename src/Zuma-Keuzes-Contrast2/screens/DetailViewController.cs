@@ -129,7 +129,6 @@ namespace ZumaKeuzesContrast2
 					profileSnd.Play (profileRow [4]);
 				}
 			}
-
 		}
 
 		private void SetNewProfileImage(object sender, EventArgs args)
