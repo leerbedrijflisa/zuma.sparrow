@@ -9,9 +9,7 @@ namespace Zuma.Sparrow
 	{
 		public ProfileTableSource()
 		{
-			profiles.Add("Joost");
-			profiles.Add("Stephan");
-			profiles.Add("Josja");
+			profiles = choiceProfileCatalog.ReturnProfileNames();
 		}
 
 		public override int RowsInSection(UITableView tableview, int section)
@@ -44,6 +42,7 @@ namespace Zuma.Sparrow
 		}
 
 		private List<string> profiles = new List<string>();
+		private ChoiceProfileCatalog choiceProfileCatalog = new ChoiceProfileCatalog(); 
 	}
 
 	public class ProfileEventArgs : EventArgs

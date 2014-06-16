@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 using SQLite;
 
 namespace Zuma.Sparrow
@@ -10,10 +11,7 @@ namespace Zuma.Sparrow
 		{
 			ChoiceProfileData choiceProfileData;
 
-			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-			var pathToDatabase = Path.Combine (documents, "db_Zuma_Sparrow.db");
-
-			using (var db = new SQLiteConnection(pathToDatabase))
+			using (var db = new SQLiteConnection(PathToDatabase()))
 			{
 				choiceProfileData = db.Table<ChoiceProfileData>().Where(profile => profile.Name == name).FirstOrDefault();
 			}
@@ -34,6 +32,29 @@ namespace Zuma.Sparrow
 			choiceProfile.SecondOption = secondOption;
 
 			return choiceProfile;
+		}
+
+		public List<string> ReturnProfileNames()
+		{
+			var names = new List<string>();
+
+			using (var db = new SQLiteConnection(PathToDatabase()))
+			{
+				var choiceProfiles = db.Table<ChoiceProfileData>();
+				foreach (var profile in choiceProfiles)
+				{
+					names.Add(profile.Name);
+				}
+			}
+
+			return names;
+		}
+
+		private string PathToDatabase()
+		{
+			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			var pathToDatabase = Path.Combine (documents, "db_Zuma_Sparrow.db");
+			return pathToDatabase;
 		}
 	}
 
