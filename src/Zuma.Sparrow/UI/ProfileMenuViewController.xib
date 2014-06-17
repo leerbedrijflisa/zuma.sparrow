@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileMenuViewController">
             <connections>
                 <outlet property="btnChoiceProfile" destination="xEB-6E-rmc" id="WOm-sq-l4q"/>
+                <outlet property="btnCreateProfile" destination="kax-BY-joq" id="ZRz-Ik-svn"/>
                 <outlet property="btnPlaySndLeft" destination="QAa-C9-DBa" id="gxH-GA-uiJ"/>
                 <outlet property="btnPlaySndRight" destination="IIK-qv-cnh" id="FeK-um-jyw"/>
                 <outlet property="imvLeft" destination="KQW-mA-XwO" id="aKC-FB-Blx"/>
@@ -23,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ugf-ub-1Bh">
-                    <rect key="frame" x="0.0" y="0.0" width="350" height="768"/>
+                    <rect key="frame" x="0.0" y="44" width="350" height="724"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
@@ -70,6 +71,13 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kax-BY-joq">
+                    <rect key="frame" x="241" y="6" width="104" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Nieuw Profiel">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

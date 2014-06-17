@@ -29,6 +29,7 @@ namespace Zuma.Sparrow
 			btnPlaySndLeft.TouchUpInside += OnSndLeft;
 			btnPlaySndRight.TouchUpInside += OnSndRight;
 			btnChoiceProfile.TouchUpInside += OnChoiceProfile;
+			btnCreateProfile.TouchUpInside += OnCreateProfile;
 			rotationHelper.ScreenRotated += OnScreenRotated;
 
 		}
@@ -102,6 +103,23 @@ namespace Zuma.Sparrow
 			lblProfileName.Text = navigationController.CurrentProfile.Name;
 			imvLeft.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
 			imvRight.Image = UIImage.FromFile(navigationController.CurrentProfile.SecondOption.ImageUrl);
+
+			btnPlaySndLeft.Hidden = false;
+			btnPlaySndRight.Hidden = false;
+			btnChoiceProfile.Hidden = false;
+			btnCreateProfile.Hidden = false;
+		}
+
+		void OnCreateProfile(object sender, EventArgs e)
+		{
+			btnPlaySndLeft.Hidden = true;
+			btnPlaySndRight.Hidden = true;
+			btnChoiceProfile.Hidden = true;
+			btnCreateProfile.Hidden = true;
+
+			lblProfileName.Text = "Untitled Profile";
+			imvLeft.Image = UIImage.FromFile("empty.png");
+			imvRight.Image = UIImage.FromFile("empty.png");
 		}
 		
 		private Sound sound = new Sound();

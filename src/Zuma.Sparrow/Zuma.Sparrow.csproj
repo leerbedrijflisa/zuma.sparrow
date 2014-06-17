@@ -145,5 +145,6 @@
     <BundleResource Include="Resources\Right.mp3" />
     <BundleResource Include="Resources\Left.png" />
     <BundleResource Include="Resources\Right.png" />
+    <BundleResource Include="Resources\empty.png" />
   </ItemGroup>
 </Project>
