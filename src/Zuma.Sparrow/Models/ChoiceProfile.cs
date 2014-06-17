@@ -4,6 +4,12 @@ namespace Zuma.Sparrow
 {
 	public class ChoiceProfile
 	{
+		public ChoiceProfile ()
+		{
+			FirstOption = new Option();
+			SecondOption = new Option();
+		}
+
 		public int Id
 		{
 			get;

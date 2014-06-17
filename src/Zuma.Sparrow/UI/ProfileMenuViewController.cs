@@ -19,12 +19,9 @@ namespace Zuma.Sparrow
 
 			pushed = false;
 
-			var tableSource = new ProfileTableSource();
-			tblProfiles.Source = tableSource;
-
 			UIInitializer();
+			TableViewInitializer();
 
-			tableSource.ProfileSelected += OnProfileSelected;
 
 			btnPlaySndLeft.TouchUpInside += OnSndLeft;
 			btnPlaySndRight.TouchUpInside += OnSndRight;
@@ -51,7 +48,6 @@ namespace Zuma.Sparrow
 
 		private void OnProfileSelected(object sender, ProfileEventArgs e)
 		{
-			var profileCatalog = new ChoiceProfileCatalog();
 			var navigationController = (NavigationController) NavigationController;
 
 			navigationController.CurrentProfile = profileCatalog.Find(e.Profile);
@@ -82,7 +78,7 @@ namespace Zuma.Sparrow
 			}
 		}
 
-		void OnChoiceProfile(object sender, EventArgs e)
+		private void OnChoiceProfile(object sender, EventArgs e)
 		{
 			if (mainMenu == null)
 			{
@@ -94,6 +90,30 @@ namespace Zuma.Sparrow
 				pushed = true;
 				NavigationController.PushViewController(mainMenu, false);
 			}
+		}
+
+		private void OnCreateProfile(object sender, EventArgs e)
+		{
+			var untitled = "Untitled Profile";
+
+			btnPlaySndLeft.Hidden = true;
+			btnPlaySndRight.Hidden = true;
+			btnChoiceProfile.Hidden = true;
+			btnCreateProfile.Hidden = true;
+
+			lblProfileName.Text = untitled;
+			imvLeft.Image = UIImage.FromFile("empty.png");
+			imvRight.Image = UIImage.FromFile("empty.png");
+
+			var newChoiceProfile = new ChoiceProfile();
+			newChoiceProfile.Name = untitled;
+			newChoiceProfile.FirstOption.ImageUrl = "empty.png";
+			newChoiceProfile.FirstOption.AudioUrl = "";
+			newChoiceProfile.SecondOption.ImageUrl = "empty.png";
+			newChoiceProfile.SecondOption.AudioUrl = "";
+
+			profileCatalog.Create(newChoiceProfile);
+			TableViewInitializer();
 		}
 
 		private void UIInitializer()
@@ -108,23 +128,23 @@ namespace Zuma.Sparrow
 			btnPlaySndRight.Hidden = false;
 			btnChoiceProfile.Hidden = false;
 			btnCreateProfile.Hidden = false;
+
 		}
 
-		void OnCreateProfile(object sender, EventArgs e)
+		private void TableViewInitializer()
 		{
-			btnPlaySndLeft.Hidden = true;
-			btnPlaySndRight.Hidden = true;
-			btnChoiceProfile.Hidden = true;
-			btnCreateProfile.Hidden = true;
+			tableSource = new ProfileTableSource();
+			tblProfiles.Source = tableSource;
+			tblProfiles.ReloadData();
 
-			lblProfileName.Text = "Untitled Profile";
-			imvLeft.Image = UIImage.FromFile("empty.png");
-			imvRight.Image = UIImage.FromFile("empty.png");
+			tableSource.ProfileSelected += OnProfileSelected;
 		}
-		
+
 		private Sound sound = new Sound();
 		private ChoiceProfile currentProfile = new ChoiceProfile();
 		private RotationHelper rotationHelper = new RotationHelper();
+		private ChoiceProfileCatalog profileCatalog = new ChoiceProfileCatalog();
+		private ProfileTableSource tableSource = new ProfileTableSource();
 		private MainMenuViewController mainMenu;
 		private bool pushed;
 	}

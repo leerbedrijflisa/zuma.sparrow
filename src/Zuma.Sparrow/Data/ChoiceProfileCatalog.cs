@@ -50,6 +50,21 @@ namespace Zuma.Sparrow
 			return names;
 		}
 
+		public void Create(ChoiceProfile newChoiceProfile)
+		{
+			var newChoiceProfileData = new ChoiceProfileData();
+			newChoiceProfileData.Name = newChoiceProfile.Name;
+			newChoiceProfileData.FirstOptionImageUrl = newChoiceProfile.FirstOption.ImageUrl;
+			newChoiceProfileData.FirstOptionAudioUrl = newChoiceProfile.FirstOption.AudioUrl;
+			newChoiceProfileData.SecondOptionImageUrl = newChoiceProfile.SecondOption.ImageUrl;
+			newChoiceProfileData.SecondOptionAudioUrl = newChoiceProfile.SecondOption.AudioUrl;
+
+			using (var db = new SQLiteConnection(PathToDatabase()))
+			{
+				db.Insert(newChoiceProfileData);
+			}
+		}
+
 		private string PathToDatabase()
 		{
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
