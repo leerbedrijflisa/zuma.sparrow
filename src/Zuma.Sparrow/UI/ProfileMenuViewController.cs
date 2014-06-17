@@ -28,7 +28,6 @@ namespace Zuma.Sparrow
 
 		private void OnProfileSelected(object sender, ProfileEventArgs e)
 		{
-
 			var profileCatalog = new ChoiceProfileCatalog();
 			var navigationController = (NavigationController) NavigationController;
 
@@ -38,7 +37,6 @@ namespace Zuma.Sparrow
 			lblProfileName.Text = currentProfile.Name;
 			imvLeft.Image = UIImage.FromFile(currentProfile.FirstOption.ImageUrl);
 			imvRight.Image = UIImage.FromFile(currentProfile.SecondOption.ImageUrl);
-
 		}
 
 		private void OnSndLeft(object sender, EventArgs e)

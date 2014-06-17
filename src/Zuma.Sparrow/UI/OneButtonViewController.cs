@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
+using MonoTouch.CoreMotion;
 using MonoTouch.CoreImage;
 using MonoTouch.CoreGraphics;
 using MonoTouch.Foundation;
@@ -35,11 +36,13 @@ namespace Zuma.Sparrow
 			CreateControls();
 			CreateButtonChoice ();
 			PositionControls(this.InterfaceOrientation);
+			pushed = false;
 
 			choiceSwitcher = new ChoiceSwitcher(imgLeft, imgRight);
 			SwitchToLeft();
 
 			btnChoice.TouchUpInside += OnChoice;
+			rotationHelper.ScreenRotated += OnScreenRotated;
 		}
 
 		private void SwitchToRight()
@@ -178,10 +181,29 @@ namespace Zuma.Sparrow
 			}
 		}
 
+		private void OnScreenRotated(object sender, RotationEventArgs e)
+		{
+//			Console.WriteLine("Screen Rotate trigger");
+
+			if(mainMenu == null)
+			{
+				mainMenu = new MainMenuViewController();
+			}
+
+			if (!pushed) {
+				NavigationController.PushViewController (mainMenu, false);
+				pushed = true;
+			}
+		}
+			
 		private Sound currentSound = new Sound();
+		private RotationHelper rotationHelper = new RotationHelper();
 		private Choice currentChoice;
 		private NSTimer currentTimer;
 		private UIButton btnChoice;
 		private ChoiceSwitcher choiceSwitcher;
+		private MainMenuViewController mainMenu;
+		private bool pushed;
+
 	}
 }

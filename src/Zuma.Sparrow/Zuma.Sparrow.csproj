@@ -128,6 +128,7 @@
     <Compile Include="Data\SQLite.cs" />
     <Compile Include="Data\ChoiceProfileData.cs" />
     <Compile Include="Data\ChoiceProfileCatalog.cs" />
+    <Compile Include="UI\RotationHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
