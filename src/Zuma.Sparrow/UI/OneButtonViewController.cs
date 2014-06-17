@@ -188,7 +188,8 @@ namespace Zuma.Sparrow
 				mainMenu = new MainMenuViewController();
 			}
 
-			if (!pushed) {
+			if (!pushed) 
+			{
 				NavigationController.PushViewController (mainMenu, false);
 				pushed = true;
 			}

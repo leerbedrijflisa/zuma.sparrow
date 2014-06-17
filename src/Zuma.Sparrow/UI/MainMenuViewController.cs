@@ -36,11 +36,25 @@ namespace Zuma.Sparrow
 		{
 			base.ViewDidLoad();
 
+			SetCurrentProfile();
+
 			btnStart.TouchUpInside += OnStartTouch;
 			btnProfileMenu.TouchUpInside += OnProfileMenu;
 		}
 
 		private void OnStartTouch(object sender, EventArgs e)
+		{
+			var choiceViewController = new OneButtonViewController();
+			NavigationController.PushViewController(choiceViewController, true);
+		}
+
+		private void OnProfileMenu(object sender, EventArgs e)
+		{
+			var profileMenu = new ProfileMenuViewController();
+			NavigationController.PushViewController(profileMenu, true);
+		}
+
+		private void SetCurrentProfile()
 		{
 			// NOTE: we're setting the profile here for the moment, but later, this will be done by
 			// the user in a seperate view.
@@ -51,15 +65,6 @@ namespace Zuma.Sparrow
 			{
 				navigationController.CurrentProfile = catalog.Find("Ja/Nee");
 			}
-
-			var choiceViewController = new OneButtonViewController();
-			NavigationController.PushViewController(choiceViewController, true);
-		}
-
-		private void OnProfileMenu(object sender, EventArgs e)
-		{
-			var profileMenu = new ProfileMenuViewController();
-			NavigationController.PushViewController(profileMenu, true);
 		}
 	}
 }

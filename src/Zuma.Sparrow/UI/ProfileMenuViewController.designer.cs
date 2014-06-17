@@ -13,6 +13,9 @@ namespace Zuma.Sparrow
 	partial class ProfileMenuViewController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIButton btnChoiceProfile { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton btnPlaySndLeft { get; set; }
 
 		[Outlet]
@@ -45,6 +48,16 @@ namespace Zuma.Sparrow
 				btnPlaySndRight = null;
 			}
 
+			if (imvLeft != null) {
+				imvLeft.Dispose ();
+				imvLeft = null;
+			}
+
+			if (imvRight != null) {
+				imvRight.Dispose ();
+				imvRight = null;
+			}
+
 			if (lblProfileName != null) {
 				lblProfileName.Dispose ();
 				lblProfileName = null;
@@ -60,14 +73,9 @@ namespace Zuma.Sparrow
 				viewDetail = null;
 			}
 
-			if (imvLeft != null) {
-				imvLeft.Dispose ();
-				imvLeft = null;
-			}
-
-			if (imvRight != null) {
-				imvRight.Dispose ();
-				imvRight = null;
+			if (btnChoiceProfile != null) {
+				btnChoiceProfile.Dispose ();
+				btnChoiceProfile = null;
 			}
 		}
 	}
