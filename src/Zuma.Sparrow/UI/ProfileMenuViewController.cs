@@ -17,12 +17,15 @@ namespace Zuma.Sparrow
 		{
 			base.ViewDidLoad();
 
+			pushed = false;
+
 			var tableSource = new ProfileTableSource();
 			tblProfiles.Source = tableSource;
 			tableSource.ProfileSelected += OnProfileSelected;
 
 			btnPlaySndLeft.TouchUpInside += OnSndLeft;
 			btnPlaySndRight.TouchUpInside += OnSndRight;
+			rotationHelper.ScreenRotated += OnScreenRotated;
 
 		}
 
@@ -44,12 +47,29 @@ namespace Zuma.Sparrow
 			sound.Play(currentProfile.FirstOption.AudioUrl);
 		}
 
-		void OnSndRight(object sender, EventArgs e)
+		private void OnSndRight(object sender, EventArgs e)
 		{
 			sound.Play(currentProfile.SecondOption.AudioUrl);
 		}
 
+		private void OnScreenRotated(object sender, RotationEventArgs e)
+		{
+			if (mainMenu == null)
+			{
+				mainMenu = new MainMenuViewController();
+			}
+
+			if (!pushed)
+			{
+				pushed = true;
+				NavigationController.PushViewController(mainMenu, false);
+			}
+		}
+
 		private Sound sound = new Sound();
 		private ChoiceProfile currentProfile = new ChoiceProfile();
+		private RotationHelper rotationHelper = new RotationHelper();
+		private MainMenuViewController mainMenu;
+		private bool pushed;
 	}
 }

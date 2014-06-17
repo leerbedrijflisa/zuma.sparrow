@@ -183,8 +183,6 @@ namespace Zuma.Sparrow
 
 		private void OnScreenRotated(object sender, RotationEventArgs e)
 		{
-//			Console.WriteLine("Screen Rotate trigger");
-
 			if(mainMenu == null)
 			{
 				mainMenu = new MainMenuViewController();
