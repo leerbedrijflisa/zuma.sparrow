@@ -29,6 +29,9 @@ namespace Zuma.Sparrow
 			btnCreateProfile.TouchUpInside += OnCreateProfile;
 			rotationHelper.ScreenRotated += OnScreenRotated;
 
+			btnImageLeft.TouchUpInside += OnImageLeft;
+			btnImageRight.TouchUpInside += OnImageRight;
+
 		}
 
 		public override void ViewWillAppear (bool animated) {
@@ -116,6 +119,55 @@ namespace Zuma.Sparrow
 			TableViewInitializer();
 		}
 
+		private void OnImageLeft(object sender, EventArgs e)
+		{
+			imagePicker = new UIImagePickerController ();
+
+			imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+
+			imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes (UIImagePickerControllerSourceType.PhotoLibrary);
+
+			imagePicker.FinishedPickingMedia += HandleFinnishedPickingMediaLeft;
+			imagePicker.Canceled += HandleCanceled;
+
+			View.AddSubview (imagePicker.View);
+		}
+
+		private void OnImageRight(object sender, EventArgs e)
+		{
+			imagePicker = new UIImagePickerController ();
+
+			imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+
+			imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes (UIImagePickerControllerSourceType.PhotoLibrary);
+
+			imagePicker.FinishedPickingMedia += Handle_FinnishedPickingMediaRight;
+			imagePicker.Canceled += HandleCanceled;
+
+			View.AddSubview (imagePicker.View);
+		}
+
+		private void HandleFinnishedPickingMediaLeft(object sender, UIImagePickerMediaPickedEventArgs e)
+		{
+			originalImage = e.Info[UIImagePickerController.OriginalImage] as UIImage;
+			imvLeft.Image = originalImage;
+			imagePicker.View.RemoveFromSuperview ();
+		}
+
+		private void Handle_FinnishedPickingMediaRight(object sender, UIImagePickerMediaPickedEventArgs e)
+		{
+			originalImage = e.Info[UIImagePickerController.OriginalImage] as UIImage;
+			imvRight.Image = originalImage;
+			imagePicker.View.RemoveFromSuperview ();
+		}
+
+		private void HandleCanceled(object sender, EventArgs e)
+		{
+			Console.WriteLine("dismiss");
+			imagePicker.DismissViewController(true, () => {});
+			imagePicker.View.RemoveFromSuperview ();
+		}
+
 		private void UIInitializer()
 		{
 			var navigationController = (NavigationController) NavigationController;
@@ -146,6 +198,8 @@ namespace Zuma.Sparrow
 		private ChoiceProfileCatalog profileCatalog = new ChoiceProfileCatalog();
 		private ProfileTableSource tableSource = new ProfileTableSource();
 		private MainMenuViewController mainMenu;
+		private UIImagePickerController imagePicker;
+		private UIImage originalImage;
 		private bool pushed;
 	}
 }

@@ -8,6 +8,8 @@
             <connections>
                 <outlet property="btnChoiceProfile" destination="xEB-6E-rmc" id="WOm-sq-l4q"/>
                 <outlet property="btnCreateProfile" destination="kax-BY-joq" id="ZRz-Ik-svn"/>
+                <outlet property="btnImageLeft" destination="o3N-q4-N2p" id="ELE-pC-5VU"/>
+                <outlet property="btnImageRight" destination="jFa-na-xBp" id="nFr-fQ-rN3"/>
                 <outlet property="btnPlaySndLeft" destination="QAa-C9-DBa" id="gxH-GA-uiJ"/>
                 <outlet property="btnPlaySndRight" destination="IIK-qv-cnh" id="FeK-um-jyw"/>
                 <outlet property="imvLeft" destination="KQW-mA-XwO" id="aKC-FB-Blx"/>
@@ -65,6 +67,20 @@
                             <rect key="frame" x="277" y="649" width="116" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Kies Profiel">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3N-q4-N2p" userLabel="Button Left">
+                            <rect key="frame" x="37" y="132" width="300" height="300"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFa-na-xBp" userLabel="button right">
+                            <rect key="frame" x="351" y="132" width="300" height="300"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
