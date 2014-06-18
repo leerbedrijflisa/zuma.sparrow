@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 
+using MonoTouch.AssetsLibrary;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
@@ -152,6 +153,11 @@ namespace Zuma.Sparrow
 			originalImage = e.Info[UIImagePickerController.OriginalImage] as UIImage;
 			imvLeft.Image = originalImage;
 			imagePicker.View.RemoveFromSuperview ();
+
+			library.WriteImageToSavedPhotosAlbum (originalImage.CGImage,meta, (assetUrl, error) =>
+			{
+				Console.WriteLine ("assetUrl:"+assetUrl);
+			});
 		}
 
 		private void Handle_FinnishedPickingMediaRight(object sender, UIImagePickerMediaPickedEventArgs e)
@@ -159,6 +165,12 @@ namespace Zuma.Sparrow
 			originalImage = e.Info[UIImagePickerController.OriginalImage] as UIImage;
 			imvRight.Image = originalImage;
 			imagePicker.View.RemoveFromSuperview ();
+
+			library.WriteImageToSavedPhotosAlbum (originalImage.CGImage,meta, (assetUrl, error) =>
+			{
+				Console.WriteLine ("assetUrl:"+assetUrl);
+			});
+
 		}
 
 		private void HandleCanceled(object sender, EventArgs e)
@@ -197,9 +209,11 @@ namespace Zuma.Sparrow
 		private RotationHelper rotationHelper = new RotationHelper();
 		private ChoiceProfileCatalog profileCatalog = new ChoiceProfileCatalog();
 		private ProfileTableSource tableSource = new ProfileTableSource();
+		private ALAssetsLibrary library = new ALAssetsLibrary();
 		private MainMenuViewController mainMenu;
 		private UIImagePickerController imagePicker;
 		private UIImage originalImage;
+		private NSDictionary meta = new NSDictionary();
 		private bool pushed;
 	}
 }
