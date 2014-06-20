@@ -14,6 +14,7 @@
                 <outlet property="btnPlaySndRight" destination="IIK-qv-cnh" id="FeK-um-jyw"/>
                 <outlet property="imvLeft" destination="KQW-mA-XwO" id="aKC-FB-Blx"/>
                 <outlet property="imvRight" destination="wNF-e5-2aY" id="SmQ-gc-TWx"/>
+                <outlet property="inputProfileName" destination="2T4-9f-kdg" id="fB2-m6-Smj"/>
                 <outlet property="lblProfileName" destination="ygX-gT-GOC" id="k5j-he-a7m"/>
                 <outlet property="tblProfiles" destination="ugf-ub-1Bh" id="vlD-VP-BXe"/>
                 <outlet property="view" destination="iN0-l3-epB" id="kCW-yf-GMq"/>
@@ -84,6 +85,12 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" placeholder="Profiel zonder naam" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="2T4-9f-kdg">
+                            <rect key="frame" x="264" y="42" width="150" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <attributedString key="attributedText"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>

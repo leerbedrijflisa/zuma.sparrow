@@ -60,10 +60,12 @@ namespace Zuma.Sparrow
 			// the user in a seperate view.
 			var navigationController = (NavigationController) NavigationController;
 			var catalog = new ChoiceProfileCatalog();
+			var profiles = catalog.ReturnProfiles();
+			var profile = profiles[0];
 
 			if (navigationController.CurrentProfile == null)
 			{
-				navigationController.CurrentProfile = catalog.Find("Ja/Nee");
+				navigationController.CurrentProfile = catalog.Find(profile.Id);
 			}
 		}
 	}

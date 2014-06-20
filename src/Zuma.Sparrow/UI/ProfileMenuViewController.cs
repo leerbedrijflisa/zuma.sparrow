@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Drawing;
 
 using MonoTouch.AssetsLibrary;
@@ -23,13 +22,13 @@ namespace Zuma.Sparrow
 			UIInitializer();
 			TableViewInitializer();
 
-
 			btnPlaySndLeft.TouchUpInside += OnSndLeft;
 			btnPlaySndRight.TouchUpInside += OnSndRight;
 			btnChoiceProfile.TouchUpInside += OnChoiceProfile;
 			btnCreateProfile.TouchUpInside += OnCreateProfile;
 			rotationHelper.ScreenRotated += OnScreenRotated;
 
+			inputProfileName.EditingDidEndOnExit += OnInputProfileName;
 			btnImageLeft.TouchUpInside += OnImageLeft;
 			btnImageRight.TouchUpInside += OnImageRight;
 
@@ -54,7 +53,7 @@ namespace Zuma.Sparrow
 		{
 			var navigationController = (NavigationController) NavigationController;
 
-			navigationController.CurrentProfile = profileCatalog.Find(e.Profile);
+			navigationController.CurrentProfile = catalog.Find(e.Profile.Id);
 			UIInitializer();
 		}
 
@@ -104,19 +103,31 @@ namespace Zuma.Sparrow
 			btnPlaySndRight.Hidden = true;
 			btnChoiceProfile.Hidden = true;
 			btnCreateProfile.Hidden = true;
+			inputProfileName.Hidden = false;
+			inputProfileName.BecomeFirstResponder();
 
 			lblProfileName.Text = untitled;
 			imvLeft.Image = UIImage.FromFile("empty.png");
 			imvRight.Image = UIImage.FromFile("empty.png");
 
-			var newChoiceProfile = new ChoiceProfile();
-			newChoiceProfile.Name = untitled;
-			newChoiceProfile.FirstOption.ImageUrl = "empty.png";
-			newChoiceProfile.FirstOption.AudioUrl = "";
-			newChoiceProfile.SecondOption.ImageUrl = "empty.png";
-			newChoiceProfile.SecondOption.AudioUrl = "";
 
-			profileCatalog.Create(newChoiceProfile);
+			newProfile.Name = untitled;
+			newProfile.FirstOption.ImageUrl = "empty.png";
+			newProfile.FirstOption.AudioUrl = "";
+			newProfile.SecondOption.ImageUrl = "empty.png";
+			newProfile.SecondOption.AudioUrl = "";
+
+			newProfile.Id = catalog.Create(newProfile);
+			TableViewInitializer();
+		}
+
+		void OnInputProfileName(object sender, EventArgs e)
+		{
+			newProfile.Name = inputProfileName.Text;
+			lblProfileName.Text = newProfile.Name;
+			inputProfileName.Hidden = true;
+			lblProfileName.Hidden = false;
+			catalog.Update(newProfile);
 			TableViewInitializer();
 		}
 
@@ -170,7 +181,6 @@ namespace Zuma.Sparrow
 			{
 				Console.WriteLine ("assetUrl:"+assetUrl);
 			});
-
 		}
 
 		private void HandleCanceled(object sender, EventArgs e)
@@ -192,7 +202,7 @@ namespace Zuma.Sparrow
 			btnPlaySndRight.Hidden = false;
 			btnChoiceProfile.Hidden = false;
 			btnCreateProfile.Hidden = false;
-
+			inputProfileName.Hidden = true;
 		}
 
 		private void TableViewInitializer()
@@ -206,8 +216,9 @@ namespace Zuma.Sparrow
 
 		private Sound sound = new Sound();
 		private ChoiceProfile currentProfile = new ChoiceProfile();
+		private ChoiceProfile newProfile = new ChoiceProfile();
 		private RotationHelper rotationHelper = new RotationHelper();
-		private ChoiceProfileCatalog profileCatalog = new ChoiceProfileCatalog();
+		private ChoiceProfileCatalog catalog = new ChoiceProfileCatalog();
 		private ProfileTableSource tableSource = new ProfileTableSource();
 		private ALAssetsLibrary library = new ALAssetsLibrary();
 		private MainMenuViewController mainMenu;
@@ -215,5 +226,6 @@ namespace Zuma.Sparrow
 		private UIImage originalImage;
 		private NSDictionary meta = new NSDictionary();
 		private bool pushed;
+
 	}
 }

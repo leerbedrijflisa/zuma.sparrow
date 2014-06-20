@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using MonoTouch.UIKit;
+using MonoTouch.Foundation;
 
 
 namespace Zuma.Sparrow
@@ -9,7 +11,7 @@ namespace Zuma.Sparrow
 	{
 		public ProfileTableSource()
 		{
-			profiles = choiceProfileCatalog.ReturnProfileNames();
+			profiles = choiceProfileCatalog.ReturnProfiles();
 		}
 
 		public override int RowsInSection(UITableView tableview, int section)
@@ -17,10 +19,12 @@ namespace Zuma.Sparrow
 			return profiles.Count;
 		}
 
-		public override UITableViewCell GetCell(UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
+		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
 			var cell = new UITableViewCell();
-			cell.TextLabel.Text = profiles[indexPath.Row];
+			var profile = new ChoiceProfile();
+			profile = profiles[indexPath.Row];
+			cell.TextLabel.Text = profile.Name;
 			return cell;
 		}
 
@@ -41,13 +45,13 @@ namespace Zuma.Sparrow
 			}
 		}
 
-		private List<string> profiles = new List<string>();
+		private List<ChoiceProfile> profiles = new List<ChoiceProfile>();
 		private ChoiceProfileCatalog choiceProfileCatalog = new ChoiceProfileCatalog(); 
 	}
 
 	public class ProfileEventArgs : EventArgs
 	{
-		public string Profile
+		public ChoiceProfile Profile
 		{
 			get;
 			set; 

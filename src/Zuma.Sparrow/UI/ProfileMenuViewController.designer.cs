@@ -37,6 +37,9 @@ namespace Zuma.Sparrow
 		MonoTouch.UIKit.UIImageView imvRight { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UITextField inputProfileName { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel lblProfileName { get; set; }
 
 		[Outlet]
@@ -55,6 +58,16 @@ namespace Zuma.Sparrow
 			if (btnCreateProfile != null) {
 				btnCreateProfile.Dispose ();
 				btnCreateProfile = null;
+			}
+
+			if (btnImageLeft != null) {
+				btnImageLeft.Dispose ();
+				btnImageLeft = null;
+			}
+
+			if (btnImageRight != null) {
+				btnImageRight.Dispose ();
+				btnImageRight = null;
 			}
 
 			if (btnPlaySndLeft != null) {
@@ -92,14 +105,9 @@ namespace Zuma.Sparrow
 				viewDetail = null;
 			}
 
-			if (btnImageLeft != null) {
-				btnImageLeft.Dispose ();
-				btnImageLeft = null;
-			}
-
-			if (btnImageRight != null) {
-				btnImageRight.Dispose ();
-				btnImageRight = null;
+			if (inputProfileName != null) {
+				inputProfileName.Dispose ();
+				inputProfileName = null;
 			}
 		}
 	}
