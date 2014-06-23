@@ -28,10 +28,9 @@ namespace Zuma.Sparrow
 			btnCreateProfile.TouchUpInside += OnCreateProfile;
 			rotationHelper.ScreenRotated += OnScreenRotated;
 
-			inputProfileName.EditingDidEndOnExit += OnInputProfileName;
+			inputProfileName.EditingDidEnd += OnInputProfileName;
 			btnImageLeft.TouchUpInside += OnImageLeft;
 			btnImageRight.TouchUpInside += OnImageRight;
-
 		}
 
 		public override void ViewWillAppear (bool animated) {
@@ -127,6 +126,7 @@ namespace Zuma.Sparrow
 		{
 			newProfile.Name = inputProfileName.Text;
 			lblProfileName.Text = newProfile.Name;
+			inputProfileName.ResignFirstResponder();
 			inputProfileName.Hidden = true;
 			lblProfileName.Hidden = false;
 			catalog.Update(newProfile);
@@ -138,7 +138,7 @@ namespace Zuma.Sparrow
 			if (imagePickerLeft == null) {
 				imagePickerLeft = new UIImagePickerController ();
 			}
-
+			inputProfileName.ResignFirstResponder();
 			imagePickerLeft.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
 
 			imagePickerLeft.MediaTypes = UIImagePickerController.AvailableMediaTypes (UIImagePickerControllerSourceType.PhotoLibrary);
@@ -155,7 +155,7 @@ namespace Zuma.Sparrow
 			if (imagePickerRight == null) {
 				imagePickerRight = new UIImagePickerController ();
 			}
-
+			inputProfileName.ResignFirstResponder();
 			imagePickerRight.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
 
 			imagePickerRight.MediaTypes = UIImagePickerController.AvailableMediaTypes (UIImagePickerControllerSourceType.PhotoLibrary);
