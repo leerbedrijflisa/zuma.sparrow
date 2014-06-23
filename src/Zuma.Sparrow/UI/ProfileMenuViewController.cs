@@ -99,6 +99,8 @@ namespace Zuma.Sparrow
 		{
 			var untitled = "Untitled Profile";
 
+			btnImageLeft.Hidden = false;
+			btnImageRight.Hidden = false;
 			btnPlaySndLeft.Hidden = true;
 			btnPlaySndRight.Hidden = true;
 			btnChoiceProfile.Hidden = true;
@@ -133,37 +135,41 @@ namespace Zuma.Sparrow
 
 		private void OnImageLeft(object sender, EventArgs e)
 		{
-			imagePicker = new UIImagePickerController ();
+			if (imagePickerLeft == null) {
+				imagePickerLeft = new UIImagePickerController ();
+			}
 
-			imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+			imagePickerLeft.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
 
-			imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes (UIImagePickerControllerSourceType.PhotoLibrary);
+			imagePickerLeft.MediaTypes = UIImagePickerController.AvailableMediaTypes (UIImagePickerControllerSourceType.PhotoLibrary);
 
-			imagePicker.FinishedPickingMedia += HandleFinnishedPickingMediaLeft;
-			imagePicker.Canceled += HandleCanceled;
+			imagePickerLeft.FinishedPickingMedia += HandleFinnishedPickingMediaLeft;
+			imagePickerLeft.Canceled += HandleCanceled;
 
-			View.AddSubview (imagePicker.View);
+			View.AddSubview (imagePickerLeft.View);
 		}
 
 		private void OnImageRight(object sender, EventArgs e)
 		{
-			imagePicker = new UIImagePickerController ();
+			if (imagePickerRight == null) {
+				imagePickerRight = new UIImagePickerController ();
+			}
 
-			imagePicker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+			imagePickerRight.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
 
-			imagePicker.MediaTypes = UIImagePickerController.AvailableMediaTypes (UIImagePickerControllerSourceType.PhotoLibrary);
+			imagePickerRight.MediaTypes = UIImagePickerController.AvailableMediaTypes (UIImagePickerControllerSourceType.PhotoLibrary);
 
-			imagePicker.FinishedPickingMedia += Handle_FinnishedPickingMediaRight;
-			imagePicker.Canceled += HandleCanceled;
+			imagePickerRight.FinishedPickingMedia += Handle_FinnishedPickingMediaRight;
+			imagePickerRight.Canceled += HandleCanceled;
 
-			View.AddSubview (imagePicker.View);
+			View.AddSubview (imagePickerRight.View);
 		}
 
 		private void HandleFinnishedPickingMediaLeft(object sender, UIImagePickerMediaPickedEventArgs e)
 		{
 			originalImage = e.Info[UIImagePickerController.OriginalImage] as UIImage;
 			imvLeft.Image = originalImage;
-			imagePicker.View.RemoveFromSuperview ();
+			imagePickerLeft.View.RemoveFromSuperview ();
 
 			library.WriteImageToSavedPhotosAlbum (originalImage.CGImage,meta, (assetUrl, error) =>
 			{
@@ -175,7 +181,7 @@ namespace Zuma.Sparrow
 		{
 			originalImage = e.Info[UIImagePickerController.OriginalImage] as UIImage;
 			imvRight.Image = originalImage;
-			imagePicker.View.RemoveFromSuperview ();
+			imagePickerRight.View.RemoveFromSuperview ();
 
 			library.WriteImageToSavedPhotosAlbum (originalImage.CGImage,meta, (assetUrl, error) =>
 			{
@@ -185,9 +191,10 @@ namespace Zuma.Sparrow
 
 		private void HandleCanceled(object sender, EventArgs e)
 		{
-			Console.WriteLine("dismiss");
-			imagePicker.DismissViewController(true, () => {});
-			imagePicker.View.RemoveFromSuperview ();
+			imagePickerLeft.DismissViewController(true, () => {});
+			imagePickerLeft.View.RemoveFromSuperview ();
+			imagePickerRight.DismissViewController(true, () => {});
+			imagePickerRight.View.RemoveFromSuperview ();
 		}
 
 		private void UIInitializer()
@@ -198,6 +205,8 @@ namespace Zuma.Sparrow
 			imvLeft.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
 			imvRight.Image = UIImage.FromFile(navigationController.CurrentProfile.SecondOption.ImageUrl);
 
+			btnImageLeft.Hidden = true;
+			btnImageRight.Hidden = true;
 			btnPlaySndLeft.Hidden = false;
 			btnPlaySndRight.Hidden = false;
 			btnChoiceProfile.Hidden = false;
@@ -222,7 +231,8 @@ namespace Zuma.Sparrow
 		private ProfileTableSource tableSource = new ProfileTableSource();
 		private ALAssetsLibrary library = new ALAssetsLibrary();
 		private MainMenuViewController mainMenu;
-		private UIImagePickerController imagePicker;
+		private UIImagePickerController imagePickerLeft;
+		private UIImagePickerController imagePickerRight;
 		private UIImage originalImage;
 		private NSDictionary meta = new NSDictionary();
 		private bool pushed;
