@@ -12,16 +12,18 @@ namespace Zuma.Sparrow
 
 		public void Play (string sound,int repeat = 0)
 		{
-			var session = AVAudioSession.SharedInstance();
-			session.SetCategory (AVAudioSession.CategoryPlayback);
+			if (sound != null && sound != "") {
+				var session = AVAudioSession.SharedInstance();
+				session.SetCategory (AVAudioSession.CategoryPlayback);
 
 
-			NSUrl assets = NSUrl.FromString (sound);			
-			player = AVAudioPlayer.FromUrl(assets);
+				NSUrl assets = NSUrl.FromString (sound);			
+				player = AVAudioPlayer.FromUrl (assets);
 
-			player.NumberOfLoops = repeat;
-			player.PrepareToPlay ();
-			player.Play();
+				player.NumberOfLoops = repeat;
+				player.PrepareToPlay ();
+				player.Play ();
+			}
 		}
 
 		public void Play(string sound, Action onSoundEnd)
