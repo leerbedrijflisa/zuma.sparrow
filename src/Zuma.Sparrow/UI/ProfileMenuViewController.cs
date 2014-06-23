@@ -146,6 +146,7 @@ namespace Zuma.Sparrow
 			imagePickerLeft.FinishedPickingMedia += HandleFinnishedPickingMediaLeft;
 			imagePickerLeft.Canceled += HandleCanceled;
 
+			imagePickerLeft.View.Frame = new RectangleF (0, 0, UIScreen.MainScreen.Bounds.Height, UIScreen.MainScreen.Bounds.Width);
 			View.AddSubview (imagePickerLeft.View);
 		}
 
@@ -162,6 +163,7 @@ namespace Zuma.Sparrow
 			imagePickerRight.FinishedPickingMedia += Handle_FinnishedPickingMediaRight;
 			imagePickerRight.Canceled += HandleCanceled;
 
+			imagePickerRight.View.Frame = new RectangleF (0, 0, UIScreen.MainScreen.Bounds.Height, UIScreen.MainScreen.Bounds.Width);
 			View.AddSubview (imagePickerRight.View);
 		}
 
@@ -191,10 +193,14 @@ namespace Zuma.Sparrow
 
 		private void HandleCanceled(object sender, EventArgs e)
 		{
-			imagePickerLeft.DismissViewController(true, () => {});
-			imagePickerLeft.View.RemoveFromSuperview ();
-			imagePickerRight.DismissViewController(true, () => {});
-			imagePickerRight.View.RemoveFromSuperview ();
+			if(imagePickerLeft != null){
+				imagePickerLeft.DismissViewController(true, () => {});
+				imagePickerLeft.View.RemoveFromSuperview ();
+			}
+			if (imagePickerRight != null) {
+				imagePickerRight.DismissViewController (true, () => {});
+				imagePickerRight.View.RemoveFromSuperview ();
+			}
 		}
 
 		private void UIInitializer()
