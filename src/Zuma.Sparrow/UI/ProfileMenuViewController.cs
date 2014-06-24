@@ -58,12 +58,14 @@ namespace Zuma.Sparrow
 
 		private void OnSndLeft(object sender, EventArgs e)
 		{
-			sound.Play(currentProfile.FirstOption.AudioUrl);
+			var navigationController = (NavigationController) NavigationController;
+			sound.Play(navigationController.CurrentProfile.FirstOption.AudioUrl);
 		}
 
 		private void OnSndRight(object sender, EventArgs e)
 		{
-			sound.Play(currentProfile.SecondOption.AudioUrl);
+			var navigationController = (NavigationController) NavigationController;
+			sound.Play(navigationController.CurrentProfile.SecondOption.AudioUrl);
 		}
 
 		private void OnScreenRotated(object sender, RotationEventArgs e)
