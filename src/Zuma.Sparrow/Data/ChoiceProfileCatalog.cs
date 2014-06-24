@@ -9,28 +9,19 @@ namespace Zuma.Sparrow
 	{
 		public ChoiceProfile Find(int id)
 		{
-			ChoiceProfileData choiceProfileData;
-
 			using (var db = new SQLiteConnection(PathToDatabase()))
 			{
-				choiceProfileData = db.Table<ChoiceProfileData>().Where(profile => profile.Id == id).FirstOrDefault();
+				profileData = db.Table<ChoiceProfileData>().Where(dbProfile => dbProfile.Id == id).FirstOrDefault();
 			}
 
-			var firstOption = new Option();
-			firstOption.ImageUrl = choiceProfileData.FirstOptionImageUrl;
-			firstOption.AudioUrl = choiceProfileData.FirstOptionAudioUrl;
+			profile.Id = profileData.Id;
+			profile.Name = profileData.Name;
+			profile.FirstOption.ImageUrl = profileData.FirstOptionImageUrl;
+			profile.FirstOption.AudioUrl = profileData.FirstOptionAudioUrl;
+			profile.SecondOption.ImageUrl = profileData.SecondOptionImageUrl;
+			profile.SecondOption.AudioUrl = profileData.SecondOptionAudioUrl;
 
-			var secondOption = new Option();
-			secondOption.ImageUrl = choiceProfileData.SecondOptionImageUrl;
-			secondOption.AudioUrl = choiceProfileData.SecondOptionAudioUrl;
-
-			var choiceProfile = new ChoiceProfile();
-			choiceProfile.Id = choiceProfileData.Id;
-			choiceProfile.Name = choiceProfileData.Name;
-			choiceProfile.FirstOption = firstOption;
-			choiceProfile.SecondOption = secondOption;
-
-			return choiceProfile;
+			return profile;
 		}
 
 		public List<ChoiceProfile> ReturnProfiles()
@@ -59,16 +50,15 @@ namespace Zuma.Sparrow
 
 		public int Create(ChoiceProfile newChoiceProfile)
 		{
-			var newChoiceProfileData = new ChoiceProfileData();
-			newChoiceProfileData.Name = newChoiceProfile.Name;
-			newChoiceProfileData.FirstOptionImageUrl = newChoiceProfile.FirstOption.ImageUrl;
-			newChoiceProfileData.FirstOptionAudioUrl = newChoiceProfile.FirstOption.AudioUrl;
-			newChoiceProfileData.SecondOptionImageUrl = newChoiceProfile.SecondOption.ImageUrl;
-			newChoiceProfileData.SecondOptionAudioUrl = newChoiceProfile.SecondOption.AudioUrl;
+			profileData.Name = newChoiceProfile.Name;
+			profileData.FirstOptionImageUrl = newChoiceProfile.FirstOption.ImageUrl;
+			profileData.FirstOptionAudioUrl = newChoiceProfile.FirstOption.AudioUrl;
+			profileData.SecondOptionImageUrl = newChoiceProfile.SecondOption.ImageUrl;
+			profileData.SecondOptionAudioUrl = newChoiceProfile.SecondOption.AudioUrl;
 
 			using (var db = new SQLiteConnection(PathToDatabase()))
 			{
-				db.Insert(newChoiceProfileData);
+				db.Insert(profileData);
 			}
 
 			var profiles = ReturnProfiles();
@@ -80,17 +70,16 @@ namespace Zuma.Sparrow
 
 		public void Update(ChoiceProfile choiceProfile)
 		{
-			var choiceProfileData = new ChoiceProfileData();
-			choiceProfileData.Id = choiceProfile.Id;
-			choiceProfileData.Name = choiceProfile.Name;
-			choiceProfileData.FirstOptionImageUrl = choiceProfile.FirstOption.ImageUrl;
-			choiceProfileData.FirstOptionAudioUrl = choiceProfile.FirstOption.AudioUrl;
-			choiceProfileData.SecondOptionImageUrl = choiceProfile.SecondOption.ImageUrl;
-			choiceProfileData.SecondOptionAudioUrl = choiceProfile.SecondOption.AudioUrl;
+			profileData.Id = choiceProfile.Id;
+			profileData.Name = choiceProfile.Name;
+			profileData.FirstOptionImageUrl = choiceProfile.FirstOption.ImageUrl;
+			profileData.FirstOptionAudioUrl = choiceProfile.FirstOption.AudioUrl;
+			profileData.SecondOptionImageUrl = choiceProfile.SecondOption.ImageUrl;
+			profileData.SecondOptionAudioUrl = choiceProfile.SecondOption.AudioUrl;
 
 			using (var db = new SQLiteConnection(PathToDatabase()))
 			{
-				db.Update(choiceProfileData);
+				db.Update(profileData);
 			}
 		}
 
@@ -100,8 +89,9 @@ namespace Zuma.Sparrow
 			var pathToDatabase = Path.Combine (documents, "db_Zuma_Sparrow.db");
 			return pathToDatabase;
 		}
+
+		private ChoiceProfile profile = new ChoiceProfile();
+		private ChoiceProfileData profileData = new ChoiceProfileData();
 	}
-
-
 }
 

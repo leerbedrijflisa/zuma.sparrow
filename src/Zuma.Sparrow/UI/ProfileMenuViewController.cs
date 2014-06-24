@@ -29,6 +29,7 @@ namespace Zuma.Sparrow
 			rotationHelper.ScreenRotated += OnScreenRotated;
 
 			inputProfileName.EditingDidEnd += OnInputProfileName;
+			inputProfileName.EditingDidEndOnExit += OnInputProfileName;
 			btnImageLeft.TouchUpInside += OnImageLeft;
 			btnImageRight.TouchUpInside += OnImageRight;
 		}
@@ -232,7 +233,6 @@ namespace Zuma.Sparrow
 		}
 
 		private Sound sound = new Sound();
-		private ChoiceProfile currentProfile = new ChoiceProfile();
 		private ChoiceProfile newProfile = new ChoiceProfile();
 		private RotationHelper rotationHelper = new RotationHelper();
 		private ChoiceProfileCatalog catalog = new ChoiceProfileCatalog();
