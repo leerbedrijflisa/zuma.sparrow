@@ -33,5 +33,12 @@ namespace Zuma.Sparrow
 			get;
 			set;
 		}
+
+		public ProfileType CurrentProfileType
+		{
+			get;
+			set;
+		}
+
 	}
 }

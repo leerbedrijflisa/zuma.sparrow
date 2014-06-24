@@ -114,12 +114,12 @@ namespace Zuma.Sparrow
 			imvLeft.Image = UIImage.FromFile("empty.png");
 			imvRight.Image = UIImage.FromFile("empty.png");
 
-
 			newProfile.Name = untitled;
 			newProfile.FirstOption.ImageUrl = "empty.png";
 			newProfile.FirstOption.AudioUrl = "";
 			newProfile.SecondOption.ImageUrl = "empty.png";
 			newProfile.SecondOption.AudioUrl = "";
+			newProfile.CurrentProfileType = ProfileType.Custom;
 
 			newProfile.Id = catalog.Create(newProfile);
 			TableViewInitializer();
@@ -179,6 +179,8 @@ namespace Zuma.Sparrow
 			library.WriteImageToSavedPhotosAlbum (originalImage.CGImage,meta, (assetUrl, error) =>
 			{
 				Console.WriteLine ("assetUrl:"+assetUrl);
+				newProfile.FirstOption.ImageUrl = assetUrl.ToString();
+				catalog.Update(newProfile);
 			});
 		}
 
@@ -191,6 +193,8 @@ namespace Zuma.Sparrow
 			library.WriteImageToSavedPhotosAlbum (originalImage.CGImage,meta, (assetUrl, error) =>
 			{
 				Console.WriteLine ("assetUrl:"+assetUrl);
+				newProfile.SecondOption.ImageUrl = assetUrl.ToString();
+				catalog.Update(newProfile);
 			});
 		}
 
@@ -211,8 +215,38 @@ namespace Zuma.Sparrow
 			var navigationController = (NavigationController) NavigationController;
 
 			lblProfileName.Text = navigationController.CurrentProfile.Name;
-			imvLeft.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
-			imvRight.Image = UIImage.FromFile(navigationController.CurrentProfile.SecondOption.ImageUrl);
+			if (navigationController.CurrentProfile.CurrentProfileType == ProfileType.Default)
+			{
+				imvLeft.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
+				imvRight.Image = UIImage.FromFile(navigationController.CurrentProfile.SecondOption.ImageUrl);
+			}
+			else if(navigationController.CurrentProfile.CurrentProfileType == ProfileType.Custom)
+			{
+			Console.WriteLine("Custom");
+				if (navigationController.CurrentProfile.FirstOption.ImageUrl != "empty.png")
+				{
+					library.AssetForUrl(NSUrl.FromString(navigationController.CurrentProfile.FirstOption.ImageUrl), (asset) =>
+					{
+						imvLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());
+					}, (failure) =>
+					{
+						imvLeft.Image = UIImage.FromFile("empty.png");
+					});
+				}
+				else
+				{
+					imvLeft.Image = UIImage.FromFile("empty.png");
+				}
+
+				if (navigationController.CurrentProfile.SecondOption.ImageUrl != "empty.png")
+				{
+					library.AssetForUrl(NSUrl.FromString(navigationController.CurrentProfile.SecondOption.ImageUrl), (asset) =>{ imvRight.Image = new UIImage(asset.DefaultRepresentation.GetImage());}, (failure) =>{});
+				}
+				else
+				{
+					imvRight.Image = UIImage.FromFile("empty.png");
+				}
+			}
 
 			btnImageLeft.Hidden = true;
 			btnImageRight.Hidden = true;

@@ -20,6 +20,14 @@ namespace Zuma.Sparrow
 			profile.FirstOption.AudioUrl = profileData.FirstOptionAudioUrl;
 			profile.SecondOption.ImageUrl = profileData.SecondOptionImageUrl;
 			profile.SecondOption.AudioUrl = profileData.SecondOptionAudioUrl;
+			if (profileData.ProfileType == 0)
+			{
+				profile.CurrentProfileType = ProfileType.Custom;
+			}
+			else if(profileData.ProfileType == 1)
+			{
+				profile.CurrentProfileType = ProfileType.Default;
+			}
 
 			return profile;
 		}
@@ -40,6 +48,14 @@ namespace Zuma.Sparrow
 					profile.FirstOption.AudioUrl = profileData.FirstOptionAudioUrl;
 					profile.SecondOption.ImageUrl = profileData.SecondOptionImageUrl;
 					profile.SecondOption.AudioUrl = profileData.SecondOptionAudioUrl;
+					if (profileData.ProfileType == 0)
+					{
+						profile.CurrentProfileType = ProfileType.Custom;
+					}
+					else if(profileData.ProfileType == 1)
+					{
+						profile.CurrentProfileType = ProfileType.Default;
+					}
 
 					profiles.Add(profile);
 				}
@@ -48,13 +64,21 @@ namespace Zuma.Sparrow
 			return profiles;
 		}
 
-		public int Create(ChoiceProfile newChoiceProfile)
+		public int Create(ChoiceProfile choiceProfile)
 		{
-			profileData.Name = newChoiceProfile.Name;
-			profileData.FirstOptionImageUrl = newChoiceProfile.FirstOption.ImageUrl;
-			profileData.FirstOptionAudioUrl = newChoiceProfile.FirstOption.AudioUrl;
-			profileData.SecondOptionImageUrl = newChoiceProfile.SecondOption.ImageUrl;
-			profileData.SecondOptionAudioUrl = newChoiceProfile.SecondOption.AudioUrl;
+			profileData.Name = choiceProfile.Name;
+			profileData.FirstOptionImageUrl = choiceProfile.FirstOption.ImageUrl;
+			profileData.FirstOptionAudioUrl = choiceProfile.FirstOption.AudioUrl;
+			profileData.SecondOptionImageUrl = choiceProfile.SecondOption.ImageUrl;
+			profileData.SecondOptionAudioUrl = choiceProfile.SecondOption.AudioUrl;
+			if (choiceProfile.CurrentProfileType == ProfileType.Default)
+			{
+				profileData.ProfileType = 1;
+			}
+			else if (choiceProfile.CurrentProfileType == ProfileType.Custom)
+			{
+				profileData.ProfileType = 0;
+			}
 
 			using (var db = new SQLiteConnection(PathToDatabase()))
 			{
@@ -76,6 +100,14 @@ namespace Zuma.Sparrow
 			profileData.FirstOptionAudioUrl = choiceProfile.FirstOption.AudioUrl;
 			profileData.SecondOptionImageUrl = choiceProfile.SecondOption.ImageUrl;
 			profileData.SecondOptionAudioUrl = choiceProfile.SecondOption.AudioUrl;
+			if (choiceProfile.CurrentProfileType == ProfileType.Default)
+			{
+				profileData.ProfileType = 1;
+			}
+			else if (choiceProfile.CurrentProfileType == ProfileType.Custom)
+			{
+				profileData.ProfileType = 0;
+			}
 
 			using (var db = new SQLiteConnection(PathToDatabase()))
 			{

@@ -203,6 +203,5 @@ namespace Zuma.Sparrow
 		private ChoiceSwitcher choiceSwitcher;
 		private MainMenuViewController mainMenu;
 		private bool pushed;
-
 	}
 }

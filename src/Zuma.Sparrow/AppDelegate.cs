@@ -61,6 +61,7 @@ namespace Zuma.Sparrow
 				profileYesNo.FirstOptionAudioUrl = "yes.mp3";
 				profileYesNo.SecondOptionImageUrl = "no.jpg";
 				profileYesNo.SecondOptionAudioUrl = "no.mp3";
+				profileYesNo.ProfileType = 1;
 
 				var choiceProfileDataYesNo = db.Table<ChoiceProfileData>().Where(profile => profile.Name == profileYesNo.Name).FirstOrDefault();
 				if (choiceProfileDataYesNo == null)
@@ -75,6 +76,7 @@ namespace Zuma.Sparrow
 				profileLeftRight.FirstOptionAudioUrl = "Left.mp3";
 				profileLeftRight.SecondOptionImageUrl = "Right.png";
 				profileLeftRight.SecondOptionAudioUrl = "Right.mp3";
+				profileLeftRight.ProfileType = 1;
 
 				var choiceProfileDataLeftRight = db.Table<ChoiceProfileData>().Where(profile => profile.Name == profileLeftRight.Name).FirstOrDefault();
 				if (choiceProfileDataLeftRight == null)
