@@ -230,7 +230,6 @@ namespace Zuma.Sparrow
 						imvLeft.Image = new UIImage(asset.DefaultRepresentation.GetImage());
 					}, (failure) =>
 					{
-						imvLeft.Image = UIImage.FromFile("empty.png");
 					});
 				}
 				else

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Drawing;
+using System.Collections.Generic;
 
 using MonoTouch.CoreMotion;
 using MonoTouch.CoreImage;
 using MonoTouch.CoreGraphics;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using MonoTouch.AssetsLibrary;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Zuma.Sparrow
 {
@@ -77,12 +81,73 @@ namespace Zuma.Sparrow
 			var navigationController = (NavigationController) NavigationController;
 
 			imgLeft = new UIImageView(new RectangleF(0, 0, 368, 368));
-			imgLeft.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
-
 			imgRight = new UIImageView(new RectangleF(0, 0, 368, 368));
-			imgRight.Image = UIImage.FromFile(navigationController.CurrentProfile.SecondOption.ImageUrl);
+
+			if (navigationController.CurrentProfile.CurrentProfileType == ProfileType.Default)
+			{
+				imgLeft.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
+				imgRight.Image = UIImage.FromFile(navigationController.CurrentProfile.SecondOption.ImageUrl);
+			}
+			else if(navigationController.CurrentProfile.CurrentProfileType == ProfileType.Custom)
+			{
+					if (navigationController.CurrentProfile.FirstOption.ImageUrl != "empty.png")
+					{
+						imgLeft.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
+						var LeftAssetUrl = NSUrl.FromString(navigationController.CurrentProfile.FirstOption.ImageUrl);
+
+						imgLeft.Image = LoadImageFromGallery(LeftAssetUrl).Result;
+					}
+					else
+					{
+						imgLeft.Image = UIImage.FromFile(navigationController.CurrentProfile.FirstOption.ImageUrl);
+					}
+
+					if (navigationController.CurrentProfile.SecondOption.ImageUrl != "empty.png")
+					{
+						imgRight.Image = LoadImageFromGallery(NSUrl.FromString(navigationController.CurrentProfile.SecondOption.ImageUrl)).Result;	
+					}
+					else
+					{
+						imgRight.Image = UIImage.FromFile(navigationController.CurrentProfile.SecondOption.ImageUrl);
+					}
+
+			}
 
 			View.AddSubviews(imgLeft, imgRight);
+		}
+
+		/// <summary>
+		/// Loads the image from gallery asynchronous.
+		/// </summary>
+		/// <returns>The image from gallery if successful, null if not found or when an error occured.</returns>
+		/// <param name="url">The path to the image to load.</param>
+		private Task<UIImage> LoadImageFromGallery(NSUrl url) {
+		
+			// Start a Task<UIImage> to load the image on a new thread.
+			return Task.Run<UIImage>(() =>
+			{
+				UIImage result = null;	
+
+				// DO NOT REMOVE!
+				// Used for signaling the thread to continue when the success or failure callback
+				// of the AssetForUrl method has been executed.
+				// This makes sure that the task only returns when the AssetForUrl method tried to load the image.
+				var waitEvent = new ManualResetEvent(false);
+
+				library.AssetForUrl(url, (asset) =>
+				{
+
+					result = new UIImage(asset.DefaultRepresentation.GetImage());
+					waitEvent.Set();
+				}, (failure) =>
+				{
+					waitEvent.Set();
+				});
+
+				// Wait until the waitEvent has been signaled.
+				waitEvent.WaitOne();
+				return result;
+			});
 		}
 
 		/// <summary>
@@ -197,6 +262,7 @@ namespace Zuma.Sparrow
 			
 		private Sound currentSound = new Sound();
 		private RotationHelper rotationHelper = new RotationHelper();
+		private ALAssetsLibrary library = new ALAssetsLibrary();
 		private Choice currentChoice;
 		private NSTimer currentTimer;
 		private UIButton btnChoice;
