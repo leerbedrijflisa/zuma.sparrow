@@ -24,6 +24,8 @@ namespace Zuma.Sparrow
 
 			btnPlaySndLeft.TouchUpInside += OnSndLeft;
 			btnPlaySndRight.TouchUpInside += OnSndRight;
+			btnRecSndLeft.TouchUpInside += OnRecSndLeft;
+			btnRecSndRight.TouchUpInside += OnRecSndRight;
 			btnChoiceProfile.TouchUpInside += OnChoiceProfile;
 			btnCreateProfile.TouchUpInside += OnCreateProfile;
 			rotationHelper.ScreenRotated += OnScreenRotated;
@@ -69,6 +71,29 @@ namespace Zuma.Sparrow
 			sound.Play(navigationController.CurrentProfile.SecondOption.AudioUrl);
 		}
 
+		private void OnRecSndLeft(object sender, EventArgs e)
+		{
+			if (isRecording)
+			{
+				btnRecSndLeft.SetTitle("stop", UIControlState.Normal);
+				rec.StartRecording(true);
+				isRecording = false;
+				Console.WriteLine(isRecording);
+			}
+			else
+			{
+				btnRecSndLeft.SetTitle("Record", UIControlState.Normal);
+				rec.StopRecording(true);
+				isRecording = false;
+				Console.WriteLine(isRecording);
+			}
+		}
+
+		private void OnRecSndRight(object sender, EventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
 		private void OnScreenRotated(object sender, RotationEventArgs e)
 		{
 			if (mainMenu == null)
@@ -103,6 +128,8 @@ namespace Zuma.Sparrow
 
 			btnImageLeft.Hidden = false;
 			btnImageRight.Hidden = false;
+			btnRecSndLeft.Hidden = false;
+			btnRecSndRight.Hidden = false;
 			btnPlaySndLeft.Hidden = true;
 			btnPlaySndRight.Hidden = true;
 			btnChoiceProfile.Hidden = true;
@@ -249,6 +276,8 @@ namespace Zuma.Sparrow
 
 			btnImageLeft.Hidden = true;
 			btnImageRight.Hidden = true;
+			btnRecSndLeft.Hidden = true;
+			btnRecSndRight.Hidden = true;
 			btnPlaySndLeft.Hidden = false;
 			btnPlaySndRight.Hidden = false;
 			btnChoiceProfile.Hidden = false;
@@ -271,12 +300,13 @@ namespace Zuma.Sparrow
 		private ChoiceProfileCatalog catalog = new ChoiceProfileCatalog();
 		private ProfileTableSource tableSource = new ProfileTableSource();
 		private ALAssetsLibrary library = new ALAssetsLibrary();
+		private RecordSound rec = new RecordSound();
 		private MainMenuViewController mainMenu;
 		private UIImagePickerController imagePickerLeft;
 		private UIImagePickerController imagePickerRight;
 		private UIImage originalImage;
 		private NSDictionary meta = new NSDictionary();
-		private bool pushed;
+		private bool pushed, isRecording;
 
 	}
 }

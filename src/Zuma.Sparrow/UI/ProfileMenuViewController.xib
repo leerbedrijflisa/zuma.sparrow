@@ -12,6 +12,8 @@
                 <outlet property="btnImageRight" destination="jFa-na-xBp" id="nFr-fQ-rN3"/>
                 <outlet property="btnPlaySndLeft" destination="QAa-C9-DBa" id="gxH-GA-uiJ"/>
                 <outlet property="btnPlaySndRight" destination="IIK-qv-cnh" id="FeK-um-jyw"/>
+                <outlet property="btnRecSndLeft" destination="Uro-5a-sdS" id="vQl-BQ-wWt"/>
+                <outlet property="btnRecSndRight" destination="Btu-CP-zQy" id="ktU-eh-4dr"/>
                 <outlet property="imvLeft" destination="KQW-mA-XwO" id="aKC-FB-Blx"/>
                 <outlet property="imvRight" destination="wNF-e5-2aY" id="SmQ-gc-TWx"/>
                 <outlet property="inputProfileName" destination="2T4-9f-kdg" id="fB2-m6-Smj"/>
@@ -43,14 +45,14 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QAa-C9-DBa">
-                            <rect key="frame" x="84" y="514" width="197" height="30"/>
+                            <rect key="frame" x="199" y="514" width="106" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Afspelen">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IIK-qv-cnh">
-                            <rect key="frame" x="425" y="514" width="153" height="30"/>
+                            <rect key="frame" x="516" y="514" width="106" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Afspelen">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -91,6 +93,20 @@
                             <attributedString key="attributedText"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uro-5a-sdS">
+                            <rect key="frame" x="68" y="514" width="81" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Record">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Btu-CP-zQy">
+                            <rect key="frame" x="368" y="514" width="85" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Record">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>

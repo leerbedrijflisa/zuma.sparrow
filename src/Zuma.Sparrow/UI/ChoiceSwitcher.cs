@@ -42,7 +42,7 @@ namespace Zuma.Sparrow
 				Image = CIImage.FromCGImage(original.CGImage)
 			};
 
-			controls.Brightness = 0.9f;
+			controls.Brightness = 0.8f;
 			var output = controls.OutputImage;
 			var context = CIContext.FromOptions (null);
 			var result = context.CreateCGImage (output, output.Extent);

@@ -129,8 +129,6 @@ namespace ZumaKeuzesContrast2
 			}
 
 			View.AddSubview (imvChoiceLeft);
-
-
 			View.AddSubview (imvChoiceRight);
 
 			SelectBtnDifficulty ();

@@ -31,6 +31,12 @@ namespace Zuma.Sparrow
 		MonoTouch.UIKit.UIButton btnPlaySndRight { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton btnRecSndLeft { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton btnRecSndRight { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIImageView imvLeft { get; set; }
 
 		[Outlet]
@@ -80,6 +86,11 @@ namespace Zuma.Sparrow
 				btnPlaySndRight = null;
 			}
 
+			if (btnRecSndLeft != null) {
+				btnRecSndLeft.Dispose ();
+				btnRecSndLeft = null;
+			}
+
 			if (imvLeft != null) {
 				imvLeft.Dispose ();
 				imvLeft = null;
@@ -88,6 +99,11 @@ namespace Zuma.Sparrow
 			if (imvRight != null) {
 				imvRight.Dispose ();
 				imvRight = null;
+			}
+
+			if (inputProfileName != null) {
+				inputProfileName.Dispose ();
+				inputProfileName = null;
 			}
 
 			if (lblProfileName != null) {
@@ -105,9 +121,9 @@ namespace Zuma.Sparrow
 				viewDetail = null;
 			}
 
-			if (inputProfileName != null) {
-				inputProfileName.Dispose ();
-				inputProfileName = null;
+			if (btnRecSndRight != null) {
+				btnRecSndRight.Dispose ();
+				btnRecSndRight = null;
 			}
 		}
 	}

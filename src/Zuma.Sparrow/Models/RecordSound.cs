@@ -5,9 +5,8 @@ using MonoTouch.AVFoundation;
 using System.Diagnostics;
 using System.IO;
 using MonoTouch.AudioToolbox;
-using Lisa.Zuma;
 
-namespace ZumaKeuzesContrast2
+namespace Zuma.Sparrow
 {
 	public class RecordSound
 	{
@@ -92,3 +91,4 @@ namespace ZumaKeuzesContrast2
 		string audioLeft, audioRight;
 	}
 }
+

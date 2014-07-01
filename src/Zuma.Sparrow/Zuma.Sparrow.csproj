@@ -130,6 +130,7 @@
     <Compile Include="Data\ChoiceProfileCatalog.cs" />
     <Compile Include="UI\RotationHelper.cs" />
     <Compile Include="Models\ProfileType.cs" />
+    <Compile Include="Models\RecordSound.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
