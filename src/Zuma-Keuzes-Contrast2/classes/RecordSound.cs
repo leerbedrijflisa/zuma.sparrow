@@ -19,7 +19,8 @@ namespace ZumaKeuzesContrast2
 		{
 			//Declare string for application temp path and tack on the file extension
 			string fileName = string.Format("Myfile{0}.aac", DateTime.Now.ToString("yyyyMMddHHmmss"));
-			string tempRecording = NSBundle.MainBundle.BundlePath + "/../tmp/" + fileName;
+			//string tempRecording = NSBundle.MainBundle.BundlePath + "/../tmp/" + fileName;
+			string tempRecording = System.IO.Path.GetTempPath () + fileName;
 
 			Console.WriteLine(tempRecording);
 			this.audioFilePath = NSUrl.FromFilename(tempRecording);

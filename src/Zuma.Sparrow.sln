@@ -41,6 +41,6 @@ Global
 		{A19D70BD-B3BB-433C-B8E2-771C76360472}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Zuma.Sparrow\Zuma.Sparrow.csproj
+		StartupItem = Zuma-Keuzes-Contrast2\Wanna.csproj
 	EndGlobalSection
 EndGlobal
