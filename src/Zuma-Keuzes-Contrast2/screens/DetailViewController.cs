@@ -142,6 +142,7 @@ namespace ZumaKeuzesContrast2
 			imagePicker.FinishedPickingMedia += Handle_FinnishedPickingMedia;
 			imagePicker.Canceled += Handle_Canceled;
 
+			imagePicker.View.Frame = new RectangleF(new PointF(0,0),new SizeF(750,700));// quick fix ios 8 imagePicker
 			View.AddSubview (imagePicker.View);
 
 			if (sender == btnSetLeftImage) 
