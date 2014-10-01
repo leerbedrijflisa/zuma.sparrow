@@ -21,6 +21,7 @@ namespace ZumaKeuzesContrast2
 
 			View.ExclusiveTouch = true;
 			View.MultipleTouchEnabled = false;
+			View.BackgroundColor = UIColor.White;
 
 			NavigationController.SetNavigationBarHidden(true, true);
 			UIApplication.SharedApplication.SetStatusBarHidden (true, true);
@@ -208,9 +209,15 @@ namespace ZumaKeuzesContrast2
 			if (_sender == btnChoiceLeft && FilterRotation == "landscape") {
 				UIView.Animate (_clickTimer /2, 0, UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.Autoreverse,
 					() => {
-						imvChoiceLeft.Center = 
-							new PointF (UIScreen.MainScreen.Bounds.Right - imvChoiceLeft.Frame.Width / 2, 
-							imvChoiceLeft.Center.Y);
+						float x = UIScreen.MainScreen.Bounds.Right - imvChoiceLeft.Frame.Width / 2;
+						if(UIScreen.MainScreen.Bounds.Right > UIScreen.MainScreen.Bounds.Bottom)
+						{
+							x = UIScreen.MainScreen.Bounds.Bottom - imvChoiceLeft.Frame.Width / 2;
+						}
+						imvChoiceLeft.Center = new PointF (x, imvChoiceLeft.Center.Y);
+//						imvChoiceLeft.Center = 
+//							new PointF (UIScreen.MainScreen.Bounds.Right - imvChoiceLeft.Frame.Width / 2, 
+//							imvChoiceLeft.Center.Y);
 						NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer-0.1), delegate {
 							TimerSetImage(_sender);
 						});
@@ -228,9 +235,12 @@ namespace ZumaKeuzesContrast2
 			} else if (_sender == btnChoiceRight && FilterRotation == "landscape") {
 				UIView.Animate (_clickTimer /2, 0, UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.Autoreverse,
 					() => {
-						imvChoiceRight.Center = 
-							new PointF (UIScreen.MainScreen.Bounds.Right - imvChoiceRight.Frame.Width / 2, 
-								imvChoiceLeft.Center.Y);
+						float x = UIScreen.MainScreen.Bounds.Right - imvChoiceLeft.Frame.Width / 2;
+						if(UIScreen.MainScreen.Bounds.Right > UIScreen.MainScreen.Bounds.Bottom)
+						{
+							x = UIScreen.MainScreen.Bounds.Bottom - imvChoiceLeft.Frame.Width / 2;
+						}
+						imvChoiceRight.Center = new PointF (x, imvChoiceLeft.Center.Y);
 						NSTimer.CreateScheduledTimer(TimeSpan.FromSeconds(_clickTimer-0.1), delegate {
 							TimerSetImage(_sender);
 						});
